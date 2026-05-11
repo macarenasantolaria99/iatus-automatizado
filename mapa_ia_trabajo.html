@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa — IA y Trabajo</title>
+<style>
+  :root {
+    --bg: #0f1419; --panel: #161b22; --panel-2: #1f2630; --line: #2a3340;
+    --text: #e6edf3; --text-dim: #8b95a3; --text-faint: #586069;
+    --accent: #79c0ff; --accent-2: #d2a8ff; --hl: #f2cc60;
+    --t-acad: #79c0ff; --t-publ: #d2a8ff; --t-oper: #ffa657; --t-cura: #7ee787;
+    --t-acti: #ff7b72; --t-func: #f2cc60; --t-inst: #8b95a3; --t-empr: #ff7b72;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #fbfaf7; --panel: #ffffff; --panel-2: #f5f2ec; --line: #e5e1d8;
+      --text: #1c1a17; --text-dim: #5c5852; --text-faint: #8b857c;
+      --accent: #0969da; --accent-2: #8250df; --hl: #9a6700;
+      --t-acad: #0969da; --t-publ: #8250df; --t-oper: #bc4c00; --t-cura: #1a7f37;
+      --t-acti: #cf222e; --t-func: #9a6700; --t-inst: #6e7781; --t-empr: #cf222e;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.5; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header { border-bottom: 1px solid var(--line); padding: 14px 22px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap; background: var(--panel); }
+  header h1 { font-size: 16px; font-weight: 600; margin: 0; }
+  header h1 small { color: var(--text-dim); font-weight: 400; margin-left: 6px; }
+  #search { flex: 1; min-width: 220px; max-width: 460px; background: var(--panel-2);
+    color: var(--text); border: 1px solid var(--line); border-radius: 6px;
+    padding: 7px 12px; font-size: 14px; outline: none; font-family: inherit; }
+  #search:focus { border-color: var(--accent); }
+  nav.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line);
+    background: var(--panel); padding: 0 22px; }
+  nav.tabs button { background: transparent; border: none; color: var(--text-dim);
+    padding: 11px 16px; cursor: pointer; font-size: 13px; font-family: inherit;
+    border-bottom: 2px solid transparent; }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button.active { color: var(--text); border-bottom-color: var(--accent); }
+  main { display: grid; grid-template-columns: 1fr 360px; height: calc(100vh - 110px); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; height: auto; }
+    #detail { border-left: none; border-top: 1px solid var(--line); } }
+  #stage { overflow: auto; position: relative; }
+  #detail { border-left: 1px solid var(--line); background: var(--panel);
+    overflow-y: auto; padding: 18px 22px; }
+  #grafoView { position: relative; height: 100%; min-height: 600px; overflow: hidden; }
+  #grafoCanvas { display: block; cursor: grab; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, rgba(121,192,255,0.04), transparent 70%); }
+  #grafoCanvas:active { cursor: grabbing; }
+  .legend { position: absolute; bottom: 14px; left: 14px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+    padding: 10px 12px; font-size: 11px; color: var(--text-dim);
+    display: grid; grid-template-columns: repeat(2, max-content); gap: 4px 14px; }
+  .legend .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle; }
+  .controls { position: absolute; top: 14px; right: 14px;
+    display: flex; flex-direction: column; gap: 4px; }
+  .controls button { background: var(--panel); border: 1px solid var(--line);
+    color: var(--text); border-radius: 4px; width: 32px; height: 32px;
+    cursor: pointer; font-size: 16px; font-family: inherit; }
+  .controls button:hover { background: var(--panel-2); }
+  #autoresView, #fuentesView { padding: 18px 22px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .filter-chip { background: var(--panel-2); border: 1px solid var(--line);
+    color: var(--text-dim); padding: 5px 10px; border-radius: 12px;
+    font-size: 12px; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+  .filter-chip:hover { color: var(--text); }
+  .filter-chip.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .author-list { display: flex; flex-direction: column; gap: 1px; }
+  .author-card { padding: 11px 14px; background: var(--panel); border: 1px solid var(--line);
+    border-bottom: none; cursor: pointer; transition: background 0.1s; }
+  .author-card:first-child { border-radius: 6px 6px 0 0; }
+  .author-card:last-child { border-bottom: 1px solid var(--line); border-radius: 0 0 6px 6px; }
+  .author-card:hover { background: var(--panel-2); }
+  .author-card .top { display: flex; align-items: center; gap: 10px; }
+  .author-card .name { font-weight: 600; color: var(--text); }
+  .author-card .tag { font-size: 10px; padding: 2px 7px; border-radius: 9px;
+    background: var(--panel-2); color: var(--text-dim); text-transform: lowercase;
+    letter-spacing: 0.3px; border: 1px solid var(--line); }
+  .author-card .meta { color: var(--text-dim); font-size: 12px; margin-top: 3px; }
+  #nodosView { padding: 18px 22px; display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .node-card { background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: all 0.15s;
+    display: flex; flex-direction: column; gap: 8px; }
+  .node-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .node-card .node-num { width: 28px; height: 28px; background: var(--accent);
+    color: var(--bg); border-radius: 50%; display: inline-flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 13px; margin-right: 8px; }
+  .node-card .node-title { font-weight: 600; font-size: 13px; line-height: 1.35; }
+  .node-card .node-q { color: var(--text-dim); font-size: 12px; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .node-card .node-count { color: var(--text-faint); font-size: 11px; margin-top: 4px; }
+  #novedadesView { padding: 18px 22px; max-width: 760px; }
+  .novedades-empty { background: var(--panel); border: 1px dashed var(--line);
+    border-radius: 8px; padding: 32px 24px; text-align: left; color: var(--text-dim); }
+  .novedades-empty h3 { color: var(--text); margin: 0 0 12px 0; font-size: 15px; }
+  .novedades-empty p { margin: 8px 0; font-size: 13px; line-height: 1.6; }
+  #detail .empty-state { color: var(--text-dim); font-size: 13px; padding: 60px 12px; text-align: center; }
+  #detail h2 { margin: 0 0 6px 0; font-size: 17px; font-weight: 600; }
+  #detail .sub { color: var(--text-dim); font-size: 12px; margin-bottom: 14px; }
+  #detail .row { margin-bottom: 12px; font-size: 13px; }
+  #detail .row .label { color: var(--text-faint); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px; }
+  #detail .row .val { color: var(--text); }
+  #detail .nodes-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+  #detail .node-pill { background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 3px 9px; font-size: 11px; cursor: pointer; color: var(--text); }
+  #detail .node-pill:hover { border-color: var(--accent); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Mapa <small>· IA y Trabajo</small></h1>
+  <input type="search" id="search" placeholder="Buscar por nombre, institución, foco, concepto…" autocomplete="off">
+</header>
+<nav class="tabs">
+  <button class="active" data-view="grafo">Grafo</button>
+  <button data-view="autores">Autores</button>
+  <button data-view="nodos">Nodos del debate</button>
+  <button data-view="fuentes">Fuentes</button>
+  <button data-view="novedades">Novedades</button>
+</nav>
+<main>
+  <section id="stage">
+    <div id="grafoView" style="display:block">
+      <canvas id="grafoCanvas"></canvas>
+      <div class="legend" id="legend"></div>
+      <div class="controls">
+        <button id="zoomIn">+</button>
+        <button id="zoomOut">&minus;</button>
+        <button id="zoomReset">&#x2299;</button>
+      </div>
+    </div>
+    <div id="autoresView" style="display:none">
+      <div class="filters" id="filtersBar"></div>
+      <div class="author-list" id="authorList"></div>
+    </div>
+    <div id="nodosView" style="display:none"></div>
+    <div id="fuentesView" style="display:none">
+      <div class="filters" id="fuentesFilters"></div>
+      <div class="author-list" id="fuentesList"></div>
+    </div>
+    <div id="novedadesView" style="display:none">
+      <!-- NOVEDADES_START -->
+      <div class="novedades-empty">
+        <h3>Novedades semanales</h3>
+        <p>Este espacio se llena cada lunes a la mañana con el digesto de la semana previa.</p>
+        <p>Si todavía no se corrió ninguna rutina, vas a ver esta nota. Cuando llegue el primer lunes, vas a encontrar acá entre 8 y 12 ítems con dos párrafos de síntesis cada uno, ordenados por relevancia y etiquetados por nodo del debate.</p>
+      </div>
+      <!-- NOVEDADES_END -->
+    </div>
+  </section>
+  <aside id="detail">
+    <div class="empty-state">Hacé clic en un autor del grafo o de la lista para ver sus detalles.</div>
+  </aside>
+</main>
+<script>
+const DATA = {"autores": [{"n": "Sam Manning", "p": "EE.UU.", "i": "GovAI / FAI", "t": "Académico", "f": "Impactos económicos y laborales de IA frontera", "pl": "X, papers", "s": "X (@sj_manning) / GovAI", "c": "Alta", "nd": [1, 2, 12], "no": "Ya en tu lista X"}, {"n": "Daron Acemoglu", "p": "EE.UU.", "i": "MIT", "t": "Académico", "f": "Sustitución, instituciones, política tecnológica", "pl": "Papers, X", "s": "Google Scholar / X (@DAcemogluMIT)", "c": "Alta", "nd": [1, 7, 9, 12], "no": "Coautor habitual de Simon Johnson; libro 'Power and Progress'"}, {"n": "Pascual Restrepo", "p": "EE.UU.", "i": "Boston University", "t": "Académico", "f": "Robots, automatización y empleo", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [1, 12], "no": "Coautor sistemático de Acemoglu"}, {"n": "David Autor", "p": "EE.UU.", "i": "MIT", "t": "Académico", "f": "Trabajo, polarización ocupacional, automatización", "pl": "Papers, X", "s": "X / NBER", "c": "Alta", "nd": [1, 2, 12], "no": "Voz central de la economía del trabajo y tech"}, {"n": "Erik Brynjolfsson", "p": "EE.UU.", "i": "Stanford Digital Economy Lab", "t": "Académico", "f": "Productividad e IA, GPTs como GPTs", "pl": "X, papers", "s": "X / Stanford DEL", "c": "Alta", "nd": [2, 12], "no": ""}, {"n": "Daniel Rock", "p": "EE.UU.", "i": "Wharton", "t": "Académico", "f": "Exposición ocupacional a IA, productividad", "pl": "Papers, X", "s": "Google Scholar", "c": "Alta", "nd": [2], "no": "Coautor de Brynjolfsson"}, {"n": "Anders Humlum", "p": "EE.UU.", "i": "Chicago Booth", "t": "Académico", "f": "Efectos laborales de IA con datos administrativos daneses", "pl": "Papers", "s": "Google Scholar / Chicago Booth", "c": "Alta", "nd": [1, 2], "no": ""}, {"n": "Shakked Noy", "p": "EE.UU.", "i": "MIT", "t": "Académico", "f": "Productividad de ChatGPT en escritura", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [2], "no": "Estudio experimental con Whitney Zhang"}, {"n": "Whitney Zhang", "p": "EE.UU.", "i": "MIT", "t": "Académico", "f": "Productividad de ChatGPT en escritura", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [2], "no": ""}, {"n": "Tania Babina", "p": "EE.UU.", "i": "Maryland", "t": "Académico", "f": "Adopción de IA por firmas, composición laboral", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [1, 2], "no": ""}, {"n": "Martin Beraja", "p": "EE.UU.", "i": "MIT", "t": "Académico", "f": "IA, vigilancia, autoritarismo, China", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [5, 7], "no": ""}, {"n": "Avi Goldfarb", "p": "Canadá", "i": "Toronto Rotman", "t": "Académico", "f": "Economía de IA", "pl": "X, papers, libros", "s": "X / Rotman", "c": "Alta", "nd": [1, 2], "no": "Coautor de 'Prediction Machines' y 'Power and Prediction'"}, {"n": "Ajay Agrawal", "p": "Canadá", "i": "Toronto Rotman / CDL", "t": "Académico-Operador", "f": "Economía de IA, comercialización", "pl": "Libros", "s": "Rotman", "c": "Alta", "nd": [1, 2], "no": ""}, {"n": "Joshua Gans", "p": "Canadá", "i": "Toronto Rotman", "t": "Académico", "f": "Economía de IA", "pl": "X, blog", "s": "X", "c": "Alta", "nd": [1, 2], "no": ""}, {"n": "Lawrence Katz", "p": "EE.UU.", "i": "Harvard", "t": "Académico", "f": "Educación, mercado laboral, tecnología", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [1, 12], "no": ""}, {"n": "Claudia Goldin", "p": "EE.UU.", "i": "Harvard", "t": "Académico", "f": "Historia económica del trabajo", "pl": "Papers, libros", "s": "Google Scholar", "c": "Alta", "nd": [1, 12], "no": "Premio Nobel 2023"}, {"n": "David Deming", "p": "EE.UU.", "i": "Harvard", "t": "Académico", "f": "Skills, tecnología y educación", "pl": "Substack, papers", "s": "Substack / Harvard", "c": "Alta", "nd": [12], "no": ""}, {"n": "Mary Gray", "p": "EE.UU.", "i": "Microsoft Research / Harvard", "t": "Académico", "f": "Trabajo invisible, ghost work", "pl": "Libro 'Ghost Work'", "s": "Microsoft Research", "c": "Alta", "nd": [3, 4, 11], "no": ""}, {"n": "Karen Levy", "p": "EE.UU.", "i": "Cornell", "t": "Académico", "f": "Vigilancia laboral algorítmica (camioneros)", "pl": "Libro 'Data Driven', papers", "s": "Cornell / X", "c": "Alta", "nd": [5], "no": ""}, {"n": "Veena Dubal", "p": "EE.UU.", "i": "UC Irvine", "t": "Académico", "f": "Derecho laboral del gig work, Prop 22", "pl": "X, papers", "s": "X / SSRN", "c": "Alta", "nd": [4, 5, 8], "no": ""}, {"n": "Brishen Rogers", "p": "EE.UU.", "i": "Georgetown Law", "t": "Académico", "f": "Derecho del trabajo y tecnología", "pl": "Papers", "s": "SSRN", "c": "Alta", "nd": [4, 8], "no": ""}, {"n": "Aiha Nguyen", "p": "EE.UU.", "i": "Data & Society", "t": "Académico", "f": "Labor Futures program", "pl": "Reportes, X", "s": "Data & Society", "c": "Alta", "nd": [4, 5], "no": ""}, {"n": "Ifeoma Ajunwa", "p": "EE.UU.", "i": "Cornell", "t": "Académico", "f": "Vigilancia y cuantificación laboral", "pl": "Libro 'The Quantified Worker'", "s": "Cornell", "c": "Alta", "nd": [5], "no": ""}, {"n": "Solon Barocas", "p": "EE.UU.", "i": "Microsoft / Cornell", "t": "Académico", "f": "Fairness en ML, trabajo", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [5, 7], "no": ""}, {"n": "Juliet Schor", "p": "EE.UU.", "i": "Boston College", "t": "Académico", "f": "Economía colaborativa, gig work", "pl": "Libro 'After the Gig'", "s": "BC / X", "c": "Alta", "nd": [4, 9], "no": ""}, {"n": "Trebor Scholz", "p": "EE.UU.", "i": "The New School", "t": "Académico", "f": "Platform cooperativism", "pl": "Libros, X", "s": "The New School", "c": "Alta", "nd": [4, 9], "no": ""}, {"n": "Frank Pasquale", "p": "EE.UU.", "i": "Cornell Tech", "t": "Académico", "f": "Black Box Society, New Laws of Robotics", "pl": "Libros", "s": "Cornell Tech", "c": "Alta", "nd": [5, 7, 10], "no": ""}, {"n": "Tim Wu", "p": "EE.UU.", "i": "Columbia (ex Casa Blanca)", "t": "Académico-Funcionario", "f": "Antitrust, política tech", "pl": "Libros, X", "s": "X / Columbia", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Lina Khan", "p": "EE.UU.", "i": "Columbia (ex FTC)", "t": "Académico-Funcionario", "f": "Antitrust aplicado a Big Tech", "pl": "X, papers", "s": "X", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Suresh Venkatasubramanian", "p": "EE.UU.", "i": "Brown University", "t": "Académico-Funcionario", "f": "Coautor del AI Bill of Rights de la Casa Blanca", "pl": "X, papers", "s": "X / Brown", "c": "Alta", "nd": [10], "no": ""}, {"n": "Alondra Nelson", "p": "EE.UU.", "i": "IAS Princeton (ex OSTP)", "t": "Académico-Funcionario", "f": "AI policy, AI Bill of Rights", "pl": "X, libros", "s": "X / IAS", "c": "Alta", "nd": [10], "no": ""}, {"n": "Helen Toner", "p": "EE.UU.", "i": "CSET Georgetown", "t": "Académico-Operador", "f": "Gobernanza de IA", "pl": "X, podcast", "s": "X / CSET", "c": "Alta", "nd": [6, 10], "no": "Ex-board OpenAI"}, {"n": "Jack Clark", "p": "EE.UU.", "i": "Anthropic", "t": "Curador-Operador", "f": "Newsletter Import AI", "pl": "Substack 'Import AI'", "s": "Substack", "c": "Alta", "nd": [6, 10], "no": "Una de las mejores fuentes semanales del campo"}, {"n": "Miles Brundage", "p": "EE.UU.", "i": "ex-OpenAI (independiente)", "t": "Curador-Operador", "f": "AI policy y gobernanza", "pl": "Substack", "s": "Substack / X", "c": "Alta", "nd": [6, 10], "no": "Newsletter post-OpenAI desde 2024"}, {"n": "Kate Crawford", "p": "EE.UU./Australia", "i": "USC / Microsoft Research", "t": "Académico-Pública", "f": "Atlas of AI, infraestructura material", "pl": "Libros, X", "s": "X / kate-crawford.com", "c": "Alta", "nd": [3, 7, 11], "no": ""}, {"n": "Meredith Whittaker", "p": "EE.UU.", "i": "Signal Foundation", "t": "Pública", "f": "Crítica IA, ex-AI Now", "pl": "X", "s": "X (@mer__edith)", "c": "Alta", "nd": [7], "no": ""}, {"n": "Timnit Gebru", "p": "EE.UU.", "i": "DAIR Institute", "t": "Académico-Pública", "f": "Crítica IA desde el Sur Global", "pl": "X, papers", "s": "X / DAIR", "c": "Alta", "nd": [3, 7, 11], "no": ""}, {"n": "Alex Hanna", "p": "EE.UU.", "i": "DAIR Institute", "t": "Académico", "f": "Crítica IA, sociología de los datos", "pl": "Substack 'Mystery AI Hype Theater'", "s": "DAIR / X", "c": "Alta", "nd": [3, 7], "no": ""}, {"n": "Adrienne Williams", "p": "EE.UU.", "i": "DAIR Institute", "t": "Activista", "f": "Trabajadores de Amazon, data labor", "pl": "X", "s": "DAIR / X", "c": "Alta", "nd": [3, 5], "no": ""}, {"n": "Emily Bender", "p": "EE.UU.", "i": "U Washington", "t": "Académico", "f": "Stochastic Parrots, lingüística crítica", "pl": "Substack, papers", "s": "Mastodon / Substack", "c": "Alta", "nd": [6, 7], "no": ""}, {"n": "Safiya Noble", "p": "EE.UU.", "i": "UCLA", "t": "Académico", "f": "Algorithms of Oppression", "pl": "Libro, X", "s": "UCLA / X", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Ruha Benjamin", "p": "EE.UU.", "i": "Princeton", "t": "Académico", "f": "Race After Technology", "pl": "Libros, X", "s": "X / Princeton", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Joy Buolamwini", "p": "EE.UU.", "i": "MIT / Algorithmic Justice League", "t": "Académico-Activista", "f": "Sesgo en reconocimiento facial", "pl": "Libro 'Unmasking AI', X", "s": "X / AJL", "c": "Alta", "nd": [7], "no": ""}, {"n": "Sayash Kapoor", "p": "EE.UU.", "i": "Princeton", "t": "Académico", "f": "AI Snake Oil, crítica del hype", "pl": "Substack 'AI Snake Oil'", "s": "Substack", "c": "Alta", "nd": [6], "no": ""}, {"n": "Arvind Narayanan", "p": "EE.UU.", "i": "Princeton", "t": "Académico", "f": "Crítica del hype IA", "pl": "Substack 'AI Snake Oil'", "s": "Substack / X", "c": "Alta", "nd": [6], "no": ""}, {"n": "Melanie Mitchell", "p": "EE.UU.", "i": "Santa Fe Institute", "t": "Académico", "f": "Capacidades reales de IA, complejidad", "pl": "Substack, papers", "s": "Substack / X", "c": "Alta", "nd": [6], "no": ""}, {"n": "Gary Marcus", "p": "EE.UU.", "i": "NYU emeritus", "t": "Académico-Pública", "f": "Crítica sostenida a las LLMs", "pl": "Substack 'Marcus on AI'", "s": "Substack / X (@GaryMarcus)", "c": "Alta", "nd": [6], "no": "Sumado a tu pedido"}, {"n": "Salomé Viljoen", "p": "EE.UU.", "i": "U Michigan Law", "t": "Académico", "f": "Data governance, datos relacionales", "pl": "Papers", "s": "SSRN / U Michigan", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Aaron Benanav", "p": "EE.UU.", "i": "Syracuse", "t": "Académico", "f": "Crítica de la tesis automatista", "pl": "Libro 'Automation and the Future of Work'", "s": "Syracuse / X", "c": "Alta", "nd": [1, 9], "no": ""}, {"n": "Niloufar Salehi", "p": "EE.UU.", "i": "UC Berkeley", "t": "Académico", "f": "HCI, trabajo y plataformas", "pl": "Papers", "s": "Berkeley / X", "c": "Alta", "nd": [4, 5], "no": ""}, {"n": "Sarah T. Roberts", "p": "EE.UU.", "i": "UCLA", "t": "Académico", "f": "Moderación de contenidos como trabajo", "pl": "Libro 'Behind the Screen'", "s": "UCLA / X", "c": "Alta", "nd": [3, 11], "no": ""}, {"n": "Julián Posada", "p": "EE.UU. / Colombia", "i": "Yale", "t": "Académico", "f": "Data labor en Venezuela y Sur Global", "pl": "X, papers", "s": "X / Yale", "c": "Alta", "nd": [3, 4, 11], "no": "Investigador colombiano sobre anotadores venezolanos"}, {"n": "Sam Altman", "p": "EE.UU.", "i": "OpenAI", "t": "Operador", "f": "Frontera IA, narrativa AGI", "pl": "Blog personal, X", "s": "Blog / X", "c": "Alta", "nd": [6, 9], "no": ""}, {"n": "Dario Amodei", "p": "EE.UU.", "i": "Anthropic", "t": "Operador", "f": "Frontera IA, ensayo 'Machines of Loving Grace'", "pl": "Blog Anthropic", "s": "Anthropic blog", "c": "Alta", "nd": [6, 9, 10], "no": ""}, {"n": "Mustafa Suleyman", "p": "EE.UU./UK", "i": "Microsoft AI", "t": "Operador", "f": "The Coming Wave", "pl": "Libro, X", "s": "X", "c": "Alta", "nd": [6, 7, 9], "no": "Ex-DeepMind, ex-Inflection"}, {"n": "Demis Hassabis", "p": "UK", "i": "DeepMind", "t": "Operador", "f": "Frontera IA, ciencia con IA", "pl": "X, charlas", "s": "X / DeepMind", "c": "Alta", "nd": [6], "no": ""}, {"n": "Mira Murati", "p": "EE.UU.", "i": "Thinking Machines Lab", "t": "Operador", "f": "Frontera IA", "pl": "X", "s": "X", "c": "Alta", "nd": [6], "no": "Ex-OpenAI CTO"}, {"n": "Tim O'Reilly", "p": "EE.UU.", "i": "O'Reilly Media", "t": "Operador-Pública", "f": "Tech-economía, futuro del trabajo", "pl": "Blog, libros", "s": "Blog O'Reilly", "c": "Alta", "nd": [1, 9], "no": ""}, {"n": "Aaron Levie", "p": "EE.UU.", "i": "Box", "t": "Operador", "f": "Comentario sobre IA y trabajo", "pl": "X", "s": "X (@levie)", "c": "Alta", "nd": [2, 13], "no": ""}, {"n": "Andrew Ng", "p": "EE.UU.", "i": "Stanford / DeepLearning.AI / AI Fund", "t": "Académico-Operador", "f": "IA aplicada y educación", "pl": "X, newsletter The Batch", "s": "X / The Batch", "c": "Alta", "nd": [6, 12], "no": ""}, {"n": "Fei-Fei Li", "p": "EE.UU.", "i": "Stanford HAI / World Labs", "t": "Académico-Operador", "f": "IA, visión, política IA", "pl": "X, libros", "s": "X / Stanford HAI", "c": "Alta", "nd": [6, 10], "no": ""}, {"n": "Yann LeCun", "p": "EE.UU./Francia", "i": "Meta AI / NYU", "t": "Académico-Operador", "f": "Frontera IA, voz contestataria", "pl": "X", "s": "X (@ylecun)", "c": "Alta", "nd": [6], "no": ""}, {"n": "Geoffrey Hinton", "p": "Canadá", "i": "U Toronto emeritus", "t": "Académico", "f": "Voz crítica desde dentro tras salir de Google", "pl": "Charlas, X", "s": "X", "c": "Alta", "nd": [6, 10], "no": ""}, {"n": "Marc Andreessen", "p": "EE.UU.", "i": "a16z", "t": "Operador", "f": "Tecno-optimismo, narrativa anti-regulación", "pl": "X", "s": "X (@pmarca)", "c": "Alta", "nd": [9], "no": "Ya en tu lista"}, {"n": "Reid Hoffman", "p": "EE.UU.", "i": "LinkedIn / Microsoft Board", "t": "Operador", "f": "IA, trabajo y optimismo aplicado", "pl": "Libro 'Impromptu', podcast", "s": "X / Masters of Scale", "c": "Alta", "nd": [2, 9], "no": "Ya en tu lista"}, {"n": "Vinod Khosla", "p": "EE.UU.", "i": "Khosla Ventures", "t": "Operador", "f": "Inversión IA, comentario sobre trabajo", "pl": "X, ensayos", "s": "X", "c": "Alta", "nd": [9], "no": ""}, {"n": "Tobi Lütke", "p": "Canadá", "i": "Shopify", "t": "Operador", "f": "Memo 'AI before hiring' (caso de estudio)", "pl": "X, memo interno filtrado", "s": "X", "c": "Alta", "nd": [1, 13], "no": ""}, {"n": "Sebastian Siemiatkowski", "p": "Suecia", "i": "Klarna", "t": "Operador", "f": "Caso 'IA reemplazó 700 puestos de atención al cliente'", "pl": "X, declaraciones", "s": "X / FT", "c": "Alta", "nd": [1, 13], "no": ""}, {"n": "Marc Benioff", "p": "EE.UU.", "i": "Salesforce", "t": "Operador", "f": "Agentforce, narrativa de transformación laboral", "pl": "X", "s": "X", "c": "Media", "nd": [13], "no": ""}, {"n": "Casey Newton", "p": "EE.UU.", "i": "Platformer", "t": "Curador", "f": "Tech journalism, trabajo en plataformas", "pl": "Substack 'Platformer'", "s": "Substack", "c": "Alta", "nd": [13], "no": ""}, {"n": "Charlie Warzel", "p": "EE.UU.", "i": "The Atlantic", "t": "Curador", "f": "Tech, cultura, trabajo digital", "pl": "X, The Atlantic", "s": "X", "c": "Alta", "nd": [13], "no": ""}, {"n": "Kevin Roose", "p": "EE.UU.", "i": "NYT", "t": "Curador", "f": "IA periodismo generalista pero serio", "pl": "X, NYT", "s": "X / NYT", "c": "Alta", "nd": [6, 13], "no": ""}, {"n": "Cade Metz", "p": "EE.UU.", "i": "NYT", "t": "Curador", "f": "IA y empresas frontera", "pl": "X, NYT", "s": "X / NYT", "c": "Alta", "nd": [6, 7, 13], "no": ""}, {"n": "Karen Hao", "p": "EE.UU.", "i": "The Atlantic / freelance", "t": "Curador", "f": "Empire of AI, OpenAI, Sama/Kenia", "pl": "Libro, X", "s": "X (@_KarenHao)", "c": "Alta", "nd": [3, 5, 7, 11], "no": "Sumada a tu pedido"}, {"n": "Noah Smith", "p": "EE.UU.", "i": "Noahpinion (Substack)", "t": "Curador", "f": "Economista, IA y empleo (postura optimista)", "pl": "Substack 'Noahpinion'", "s": "Substack", "c": "Alta", "nd": [1, 2], "no": ""}, {"n": "Brad DeLong", "p": "EE.UU.", "i": "UC Berkeley", "t": "Académico-Curador", "f": "Historia económica, perspectiva de largo plazo", "pl": "Substack 'Grasping Reality'", "s": "Substack", "c": "Alta", "nd": [1, 9], "no": ""}, {"n": "Nathan Benaich", "p": "UK/EE.UU.", "i": "Air Street Capital", "t": "Operador-Curador", "f": "State of AI Report anual", "pl": "X, reporte anual", "s": "stateof.ai", "c": "Alta", "nd": [6], "no": ""}, {"n": "Ethan Mollick", "p": "EE.UU.", "i": "Wharton", "t": "Académico-Curador", "f": "One Useful Thing, IA en educación y trabajo", "pl": "Substack, X, libro", "s": "Substack / X (@emollick)", "c": "Alta", "nd": [2, 6, 13], "no": "Ya en tu lista"}, {"n": "Dan Hendrycks", "p": "EE.UU.", "i": "Center for AI Safety", "t": "Académico", "f": "Seguridad IA, benchmarks", "pl": "X, papers", "s": "X (@hendrycks)", "c": "Alta", "nd": [6, 10], "no": "Ya en tu lista"}, {"n": "Jane Wang", "p": "EE.UU.", "i": "DeepMind", "t": "Académico", "f": "IA y neurociencia", "pl": "X", "s": "X (@janexwang)", "c": "Alta", "nd": [6], "no": "Ya en tu lista"}, {"n": "Matthew Berman", "p": "EE.UU.", "i": "Independiente", "t": "Curador", "f": "YouTube IA, divulgación tech", "pl": "YouTube, X", "s": "YouTube", "c": "Media", "nd": [6], "no": "Ya en tu lista"}, {"n": "Jonathan Haidt", "p": "EE.UU.", "i": "NYU Stern", "t": "Académico-Pública", "f": "Pantallas y adolescencia (adyacente a IA-trabajo)", "pl": "Substack 'After Babel'", "s": "Substack", "c": "Alta", "nd": [13], "no": "Ya en tu lista, foco más en pantallas que IA-trabajo"}, {"n": "Carl Benedikt Frey", "p": "UK", "i": "Oxford Martin School", "t": "Académico", "f": "Futuro del trabajo, The Technology Trap", "pl": "Libro, X", "s": "Oxford Martin / X", "c": "Alta", "nd": [1, 9], "no": ""}, {"n": "Daniel Susskind", "p": "UK", "i": "King's College London / Oxford", "t": "Académico", "f": "A World Without Work", "pl": "Libro, X", "s": "X / KCL", "c": "Alta", "nd": [1, 9, 12], "no": ""}, {"n": "Antonio Casilli", "p": "Francia", "i": "Télécom Paris", "t": "Académico", "f": "Trabajo invisible, plataformas", "pl": "Libro 'En attendant les robots'", "s": "X / Télécom", "c": "Alta", "nd": [3, 4, 11], "no": ""}, {"n": "Mark Graham", "p": "UK", "i": "Oxford Internet Institute", "t": "Académico", "f": "Fairwork, gig work global", "pl": "X, papers", "s": "X / Fairwork", "c": "Alta", "nd": [4, 11], "no": ""}, {"n": "Jamie Woodcock", "p": "UK", "i": "Essex", "t": "Académico", "f": "Plataformas, gig economy", "pl": "Libros, X", "s": "X / Essex", "c": "Alta", "nd": [4], "no": ""}, {"n": "Alex Wood", "p": "UK", "i": "Bristol", "t": "Académico", "f": "Gig economy, condiciones laborales", "pl": "Papers, X", "s": "X / Bristol", "c": "Alta", "nd": [4], "no": ""}, {"n": "Niels van Doorn", "p": "Holanda", "i": "U Amsterdam", "t": "Académico", "f": "Platform Labor project", "pl": "Papers", "s": "platformlabor.net", "c": "Alta", "nd": [4], "no": ""}, {"n": "Anna Salomons", "p": "Holanda", "i": "Utrecht", "t": "Académico", "f": "Automatización y polarización laboral", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [1], "no": ""}, {"n": "Maarten Goos", "p": "Holanda", "i": "Utrecht", "t": "Académico", "f": "Tesis de polarización del empleo", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [1], "no": ""}, {"n": "Antonio Aloisi", "p": "Italia/España", "i": "IE Law School", "t": "Académico", "f": "Derecho laboral plataformas, management algorítmico", "pl": "X, papers", "s": "X / SSRN", "c": "Alta", "nd": [4, 5], "no": ""}, {"n": "Valerio De Stefano", "p": "Canadá/Italia", "i": "York / KU Leuven", "t": "Académico", "f": "Derecho laboral plataformas", "pl": "X, papers", "s": "X / SSRN", "c": "Alta", "nd": [4, 5], "no": ""}, {"n": "Sandra Wachter", "p": "UK", "i": "Oxford Internet Institute", "t": "Académico", "f": "Algoritmos y derecho", "pl": "Papers, X", "s": "OII / X", "c": "Alta", "nd": [5, 10], "no": ""}, {"n": "Aaron Bastani", "p": "UK", "i": "Novara Media", "t": "Pública", "f": "FALC, post-trabajo, izquierda tech-utópica", "pl": "X, libros, podcast", "s": "X (@AaronBastani)", "c": "Alta", "nd": [9], "no": ""}, {"n": "James Butler", "p": "UK", "i": "Novara Media", "t": "Pública", "f": "Cultura, política tech desde la izquierda", "pl": "X, podcast Novara", "s": "X", "c": "Alta", "nd": [9], "no": ""}, {"n": "Nick Srnicek", "p": "UK", "i": "King's College London", "t": "Académico", "f": "Platform Capitalism, Inventing the Future", "pl": "Libros, X", "s": "X / KCL", "c": "Alta", "nd": [4, 7, 9], "no": ""}, {"n": "Helen Hester", "p": "UK", "i": "U East London", "t": "Académico", "f": "After Work, feminismo y reproducción", "pl": "Libro, X", "s": "X", "c": "Alta", "nd": [9, 14], "no": ""}, {"n": "James Muldoon", "p": "UK", "i": "Essex / Autonomy", "t": "Académico", "f": "Feeding the Machine, Platform Socialism", "pl": "Libros, X", "s": "X / Essex", "c": "Alta", "nd": [3, 4, 9], "no": ""}, {"n": "Callum Cant", "p": "UK", "i": "Essex", "t": "Académico", "f": "Riding for Deliveroo, plataformas", "pl": "Libro, X", "s": "X", "c": "Alta", "nd": [4], "no": ""}, {"n": "Will Stronge", "p": "UK", "i": "Autonomy", "t": "Académico-Activista", "f": "4-day week, política del tiempo de trabajo", "pl": "X, reportes", "s": "Autonomy.work / X", "c": "Alta", "nd": [9, 12], "no": ""}, {"n": "Kyle Lewis", "p": "UK", "i": "Autonomy", "t": "Académico", "f": "Tiempo de trabajo, post-trabajo", "pl": "Reportes", "s": "Autonomy.work", "c": "Alta", "nd": [9], "no": ""}, {"n": "Frederick Harry Pitts", "p": "UK", "i": "Bristol", "t": "Académico", "f": "Crítica del trabajo, marxismo y tech", "pl": "Libros", "s": "Bristol / X", "c": "Alta", "nd": [9], "no": ""}, {"n": "Wendy Liu", "p": "UK", "i": "Independiente", "t": "Pública", "f": "Abolish Silicon Valley", "pl": "Libro, X", "s": "X", "c": "Alta", "nd": [7, 9], "no": ""}, {"n": "James Bridle", "p": "UK", "i": "Independiente", "t": "Pública", "f": "New Dark Age, Ways of Being", "pl": "Libros, ensayos", "s": "jamesbridle.com", "c": "Alta", "nd": [9], "no": ""}, {"n": "Phil Jones", "p": "UK", "i": "Independiente", "t": "Académico-Pública", "f": "Work Without the Worker (Verso)", "pl": "Libro, ensayos", "s": "Verso / X", "c": "Alta", "nd": [3, 9], "no": ""}, {"n": "Christopher Pissarides", "p": "UK", "i": "LSE", "t": "Académico", "f": "Pissarides Review, Nobel laureate", "pl": "Reporte IFOW", "s": "LSE / IFOW", "c": "Alta", "nd": [1, 12], "no": ""}, {"n": "Mary Towers", "p": "UK", "i": "TUC", "t": "Sindicalista", "f": "IA y derecho laboral sindical (UK)", "pl": "TUC, X", "s": "TUC / X", "c": "Alta", "nd": [4, 5, 8], "no": ""}, {"n": "James Farrar", "p": "UK", "i": "Worker Info Exchange", "t": "Activista", "f": "Datos laborales, Aslam vs Uber UK Supreme Court", "pl": "X, WIE", "s": "X (@jamesfarrar)", "c": "Alta", "nd": [4, 5, 8], "no": ""}, {"n": "Yaseen Aslam", "p": "UK", "i": "App Drivers & Couriers Union", "t": "Activista-Sindicalista", "f": "Caso Aslam vs Uber, organización Uber drivers", "pl": "X", "s": "X / ADCU", "c": "Alta", "nd": [4, 8], "no": ""}, {"n": "Paola Tubaro", "p": "Francia/Italia", "i": "CNRS", "t": "Académico", "f": "Data labor global, trabajo invisible", "pl": "Papers, X", "s": "CNRS / X", "c": "Alta", "nd": [3, 11], "no": ""}, {"n": "Ekaterina Hertog", "p": "UK", "i": "Oxford Internet Institute", "t": "Académico", "f": "Domestic AI, género y trabajo de cuidado", "pl": "Papers, X", "s": "OII", "c": "Alta", "nd": [5, 14], "no": ""}, {"n": "Azeem Azhar", "p": "UK", "i": "Exponential View", "t": "Curador-Operador", "f": "Newsletter IA, libro sobre era exponencial", "pl": "Substack 'Exponential View'", "s": "Substack", "c": "Alta", "nd": [6, 9], "no": ""}, {"n": "Sarah O'Connor", "p": "UK", "i": "Financial Times", "t": "Curador", "f": "Columna semanal sobre trabajo", "pl": "FT", "s": "FT (Sarah O'Connor)", "c": "Alta", "nd": [1, 4, 12], "no": ""}, {"n": "Helen Margetts", "p": "UK", "i": "Oxford / Alan Turing Institute", "t": "Académico", "f": "Tech y gobierno público", "pl": "Papers, X", "s": "Turing / OII", "c": "Alta", "nd": [10], "no": ""}, {"n": "Carly Kind", "p": "UK", "i": "ex-Ada Lovelace, ahora AHRC", "t": "Funcionario", "f": "AI policy", "pl": "X", "s": "X", "c": "Alta", "nd": [10], "no": ""}, {"n": "Stephanie Hare", "p": "UK", "i": "Independiente", "t": "Pública", "f": "Technology Is Not Neutral", "pl": "Libro, FT, X", "s": "X", "c": "Media", "nd": [7, 10], "no": ""}, {"n": "Clara Mattei", "p": "Italia/EE.UU.", "i": "U Tulsa", "t": "Académico", "f": "The Capital Order, austeridad y disciplinamiento laboral", "pl": "Libro, X", "s": "X (@ClaraEMattei)", "c": "Alta", "nd": [7, 9], "no": "Sumada a tu pedido; marco aplicable a IA-trabajo aunque no es su foco directo"}, {"n": "Marietje Schaake", "p": "Holanda/EE.UU.", "i": "Stanford HAI / FT", "t": "Pública-Funcionario", "f": "The Tech Coup, gobernanza", "pl": "Libro, X, FT", "s": "X (@MarietjeSchaake)", "c": "Alta", "nd": [7, 10], "no": "Ya en tu lista"}, {"n": "Evgeny Morozov", "p": "Bielorrusia/EE.UU.", "i": "Independiente / Syllabus", "t": "Pública", "f": "Crítica tech, A Sense of Rebellion", "pl": "X, podcast, ensayos", "s": "X (@evgenymorozov)", "c": "Alta", "nd": [7, 9], "no": "Ya en tu lista"}, {"n": "Cecilia Rikap", "p": "Argentina/UK", "i": "UCL Institute for Innovation and Public Purpose", "t": "Académico", "f": "Monopolios intelectuales y economía política de IA", "pl": "X, libros, papers", "s": "X (@CeciliaRikap) / UCL IIPP", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Milagros Miceli", "p": "Argentina/Alemania", "i": "Weizenbaum Institut / DAIR", "t": "Académico", "f": "Data labor, anotadores, etnografía del Sur Global", "pl": "X, papers", "s": "X (@miceli_mi) / DAIR", "c": "Alta", "nd": [3, 11], "no": ""}, {"n": "Stijn Broecke", "p": "OECD", "i": "OECD AI and Future of Work", "t": "Funcionario", "f": "AI en mercados laborales OCDE", "pl": "Reportes, X", "s": "OECD.ai", "c": "Alta", "nd": [10, 12], "no": ""}, {"n": "Janine Berg", "p": "Argentina/EE.UU.", "i": "OIT Ginebra", "t": "Funcionario-Académico", "f": "Plataformas y trabajo digital, encuestas globales", "pl": "Reportes OIT, papers", "s": "ILO / X", "c": "Alta", "nd": [4, 8, 10], "no": ""}, {"n": "Uma Rani", "p": "India/Suiza", "i": "OIT Ginebra", "t": "Funcionario-Académico", "f": "Encuestas globales sobre trabajadores de plataformas", "pl": "Reportes OIT", "s": "ILO", "c": "Alta", "nd": [4, 11], "no": ""}, {"n": "Christy Hoffman", "p": "EE.UU.", "i": "UNI Global Union", "t": "Sindicalista", "f": "Convención global sobre IA y trabajo", "pl": "X, declaraciones", "s": "UNI Global", "c": "Alta", "nd": [8], "no": ""}, {"n": "Amanda Ballantyne", "p": "EE.UU.", "i": "AFL-CIO Technology Institute", "t": "Sindicalista", "f": "IA en sindicatos estadounidenses", "pl": "X, AFL-CIO", "s": "AFL-CIO Tech Institute", "c": "Alta", "nd": [8], "no": ""}, {"n": "Ramiro Albrieu", "p": "Argentina", "i": "CIPPEC", "t": "Académico", "f": "Futuro del trabajo en LatAm, IA y empleo", "pl": "X, reportes CIPPEC", "s": "X / CIPPEC", "c": "Alta", "nd": [1, 11, 12], "no": ""}, {"n": "Mariano Zukerfeld", "p": "Argentina", "i": "CONICET / FLACSO", "t": "Académico", "f": "Sociología de la tecnología, trabajo digital", "pl": "Papers, libros", "s": "CONICET / academia.edu", "c": "Alta", "nd": [4, 9, 11], "no": ""}, {"n": "Beatriz Busaniche", "p": "Argentina", "i": "Fundación Vía Libre", "t": "Activista", "f": "Derechos digitales, vigilancia, IA crítica", "pl": "X, blog Vía Libre", "s": "X (@beasanchez) / vialibre.org.ar", "c": "Alta", "nd": [5, 7, 10], "no": ""}, {"n": "Hernán Galperin", "p": "Argentina/EE.UU.", "i": "USC Annenberg", "t": "Académico", "f": "Plataformas y empleo en LatAm, brecha digital", "pl": "Papers, X", "s": "X / USC", "c": "Alta", "nd": [4, 11], "no": ""}, {"n": "Vanina Martínez", "p": "Argentina/España", "i": "ICREA / Barcelona Supercomputing Center", "t": "Académico", "f": "Ética de IA, presidió COMEST UNESCO", "pl": "Papers, charlas", "s": "BSC / X", "c": "Alta", "nd": [6, 10], "no": ""}, {"n": "Andrés López", "p": "Argentina", "i": "UBA / IIEP-CONICET", "t": "Académico", "f": "Economía de la innovación, cambio estructural", "pl": "Papers", "s": "UBA / IIEP", "c": "Alta", "nd": [1, 12], "no": "Verificá actividad en redes"}, {"n": "Verónica Robert", "p": "Argentina", "i": "UNSAM", "t": "Académico", "f": "Cambio tecnológico y empleo", "pl": "Papers", "s": "UNSAM / academia.edu", "c": "Alta", "nd": [1], "no": ""}, {"n": "Jeremías Lachman", "p": "Argentina", "i": "UBA / CIECTI", "t": "Académico", "f": "Adopción de IA en empresas argentinas", "pl": "Papers", "s": "Google Scholar", "c": "Alta", "nd": [2], "no": ""}, {"n": "Martín Becerra", "p": "Argentina", "i": "UNQ / CONICET", "t": "Académico", "f": "Comunicación, plataformas, concentración mediática", "pl": "Libros, X, Le Monde Diplo", "s": "X (@aracalacana)", "c": "Alta", "nd": [7], "no": ""}, {"n": "Natalia Zuazo", "p": "Argentina", "i": "Independiente", "t": "Curador-Pública", "f": "Política tech, libros 'Guerras de internet' y 'Los dueños de internet'", "pl": "Libros, X, Le Monde Diplo", "s": "X (@nataliazuazo)", "c": "Alta", "nd": [7, 9], "no": ""}, {"n": "Esteban Magnani", "p": "Argentina", "i": "Independiente", "t": "Curador", "f": "Periodismo IA y sociedad", "pl": "Página 12, libros", "s": "estebanmagnani.com.ar", "c": "Media", "nd": [13], "no": ""}, {"n": "Tomás Balmaceda", "p": "Argentina", "i": "UBA", "t": "Académico-Pública", "f": "Filosofía de la tecnología, divulgación", "pl": "Charlas, X, libros", "s": "X (@balmacedat)", "c": "Alta", "nd": [9, 13], "no": ""}, {"n": "Joana Varon", "p": "Brasil", "i": "Coding Rights", "t": "Activista", "f": "Datos, género y IA desde Brasil", "pl": "X, codingrights.org", "s": "X / Coding Rights", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Virgilio Almeida", "p": "Brasil", "i": "UFMG / Berkman Klein", "t": "Académico", "f": "Gobernanza de internet", "pl": "Papers, X", "s": "UFMG / Berkman", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Sergio Amadeu da Silveira", "p": "Brasil", "i": "UFABC", "t": "Académico-Pública", "f": "Capitalismo de plataformas, vigilancia, datos", "pl": "Libros, X", "s": "X (@samadeu)", "c": "Alta", "nd": [5, 7, 11], "no": ""}, {"n": "Ronaldo Lemos", "p": "Brasil", "i": "FGV / ITS Rio", "t": "Académico-Pública", "f": "Derecho y tecnología", "pl": "X, columnas Folha", "s": "X (@lemos_ronaldo)", "c": "Alta", "nd": [10], "no": ""}, {"n": "Tarcízio Silva", "p": "Brasil", "i": "Independiente / Mozilla", "t": "Académico", "f": "Racismo algorítmico, libro de referencia LatAm", "pl": "Libro, X", "s": "X (@tarciziosilva)", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Rafael Zanatta", "p": "Brasil", "i": "Data Privacy Brasil", "t": "Académico-Activista", "f": "Privacidad, IA, regulación", "pl": "X, papers", "s": "Data Privacy BR", "c": "Alta", "nd": [5, 7, 10], "no": ""}, {"n": "Rodrigo Ochigame", "p": "Brasil/Holanda", "i": "Universiteit Leiden", "t": "Académico", "f": "Crítica IA desde STS", "pl": "Papers, ensayos", "s": "Leiden", "c": "Alta", "nd": [6, 7], "no": ""}, {"n": "Ludmila Abilio", "p": "Brasil", "i": "Unicamp", "t": "Académico", "f": "Uberización del trabajo (concepto clave en LatAm)", "pl": "Libros, papers", "s": "Unicamp / academia.edu", "c": "Alta", "nd": [4, 9, 11], "no": ""}, {"n": "Rafael Grohmann", "p": "Brasil/Canadá", "i": "U Toronto", "t": "Académico", "f": "Digilabour, plataformas y organizing en Brasil", "pl": "X, digilabour.com.br", "s": "X (@rafagrohmann)", "c": "Alta", "nd": [4, 8, 11], "no": ""}, {"n": "Wagner Meira Jr.", "p": "Brasil", "i": "UFMG", "t": "Académico", "f": "Investigación en IA", "pl": "Papers", "s": "UFMG", "c": "Alta", "nd": [6], "no": ""}, {"n": "Nina da Hora", "p": "Brasil", "i": "Independiente", "t": "Pública-Activista", "f": "IA, juventud, feminismo negro y tech", "pl": "X, charlas", "s": "X (@ninadhora)", "c": "Alta", "nd": [11], "no": ""}, {"n": "Paola Ricaurte", "p": "México", "i": "Tec de Monterrey / Berkman Klein", "t": "Académico", "f": "IA decolonial, justicia algorítmica desde el Sur", "pl": "Papers, X", "s": "X (@paolaricaurte)", "c": "Alta", "nd": [7, 11], "no": ""}, {"n": "Luis Fernando García", "p": "México", "i": "R3D", "t": "Activista", "f": "Derechos digitales, vigilancia", "pl": "X, R3D", "s": "R3D.mx / X", "c": "Alta", "nd": [5, 10], "no": ""}, {"n": "Lourdes Barrera", "p": "México", "i": "Luchadoras", "t": "Activista", "f": "Género y tecnología", "pl": "X, Luchadoras", "s": "luchadoras.mx", "c": "Alta", "nd": [11], "no": ""}, {"n": "Gisela Pérez de Acha", "p": "México", "i": "Independiente / periodismo", "t": "Curador-Activista", "f": "Derechos digitales, periodismo de investigación", "pl": "X, columnas", "s": "X (@giselilla)", "c": "Alta", "nd": [5], "no": ""}, {"n": "Arturo Arriagada", "p": "Chile", "i": "U Adolfo Ibáñez", "t": "Académico", "f": "Sociología de plataformas y gig work", "pl": "Papers, X", "s": "X / UAI", "c": "Alta", "nd": [4, 11], "no": ""}, {"n": "Francisca Gutiérrez Crocco", "p": "Chile", "i": "U Adolfo Ibáñez", "t": "Académico", "f": "Sociología del trabajo, automatización", "pl": "Papers", "s": "UAI / academia.edu", "c": "Alta", "nd": [4, 11], "no": ""}, {"n": "J. Carlos Lara", "p": "Chile", "i": "Derechos Digitales", "t": "Activista", "f": "Derechos digitales, alcance regional", "pl": "X, derechosdigitales.org", "s": "X (@carlosalonsolp)", "c": "Alta", "nd": [10], "no": ""}, {"n": "María Paz Canales", "p": "Chile", "i": "Global Partners Digital (ex Derechos Digitales)", "t": "Activista-Pública", "f": "Gobernanza digital global", "pl": "X", "s": "X (@mpazcanales)", "c": "Alta", "nd": [10], "no": ""}, {"n": "Daniel Halpern", "p": "Chile", "i": "PUC Chile", "t": "Académico", "f": "Comunicación, plataformas", "pl": "Papers, columnas", "s": "PUC", "c": "Media", "nd": [4], "no": ""}, {"n": "Carolina Botero", "p": "Colombia", "i": "Fundación Karisma", "t": "Activista", "f": "Derechos digitales", "pl": "X, Karisma", "s": "X / karisma.org.co", "c": "Alta", "nd": [10], "no": ""}, {"n": "Pilar Sáenz", "p": "Colombia", "i": "Fundación Karisma", "t": "Activista", "f": "Vigilancia y derechos digitales", "pl": "X, Karisma", "s": "X (@redaccionbogota)", "c": "Alta", "nd": [5], "no": ""}, {"n": "Renata Ávila", "p": "Guatemala", "i": "Independiente / Open Future", "t": "Activista-Pública", "f": "Derechos digitales y gobernanza global", "pl": "X, charlas", "s": "X (@avilarenata)", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Fabrizio Scrollini", "p": "Uruguay", "i": "ILDA", "t": "Académico-Activista", "f": "Datos abiertos, IA en sector público", "pl": "X, ILDA", "s": "X / idatosabiertos.org", "c": "Alta", "nd": [10], "no": ""}, {"n": "Eden Medina", "p": "EE.UU./Chile", "i": "MIT", "t": "Académico", "f": "Cybersyn, historia de tecnología en LatAm", "pl": "Libro 'Cybernetic Revolutionaries'", "s": "MIT / academia.edu", "c": "Alta", "nd": [9, 11], "no": ""}, {"n": "Abeba Birhane", "p": "Etiopía/Irlanda", "i": "Trinity Dublin / Mozilla", "t": "Académico", "f": "Crítica IA, sesgos, ética desde el Sur", "pl": "Papers, X", "s": "X (@Abebab)", "c": "Alta", "nd": [6, 7, 11], "no": ""}, {"n": "Urvashi Aneja", "p": "India", "i": "Digital Futures Lab", "t": "Académico-Activista", "f": "IA en Sur Global, gobernanza", "pl": "Reportes, X", "s": "X (@urvashi_aneja)", "c": "Alta", "nd": [10, 11], "no": ""}, {"n": "Payal Arora", "p": "Holanda/India", "i": "Erasmus University Rotterdam", "t": "Académico", "f": "Tech en Sur Global, libro 'The Next Billion Users'", "pl": "Libros, X", "s": "Erasmus / X", "c": "Alta", "nd": [11], "no": ""}, {"n": "Rachel Adams", "p": "Sudáfrica", "i": "Research ICT Africa", "t": "Académico", "f": "IA y África, ética", "pl": "Papers, X", "s": "Research ICT Africa", "c": "Alta", "nd": [10, 11], "no": ""}, {"n": "Smriti Parsheera", "p": "India", "i": "Independiente / NIPFP ex", "t": "Académico", "f": "AI policy India", "pl": "Papers", "s": "Google Scholar", "c": "Media", "nd": [10, 11], "no": "Verificá actividad pública"}, {"n": "MIT CSAIL", "p": "EE.UU.", "i": "MIT", "t": "Institucional", "f": "Investigación en IA", "pl": "X, blog", "s": "X (@MIT_CSAIL)", "c": "Alta", "nd": [6], "no": "Ya en tu lista"}, {"n": "NVIDIA", "p": "EE.UU.", "i": "NVIDIA Corp.", "t": "Empresa", "f": "Hardware IA, anuncios", "pl": "X, blog", "s": "X (@nvidia)", "c": "Alta", "nd": [6], "no": "Ya en tu lista (corporativa)"}, {"n": "Palantir", "p": "EE.UU.", "i": "Palantir Technologies", "t": "Empresa", "f": "Software defensa/empresarial, narrativa", "pl": "X", "s": "X (@PalantirTech)", "c": "Media", "nd": [7], "no": "Ya en tu lista (corporativa)"}, {"n": "C3 AI", "p": "EE.UU.", "i": "C3.ai", "t": "Empresa", "f": "Enterprise AI", "pl": "X, blog", "s": "X (@C3_AI)", "c": "Media", "nd": [13], "no": "Ya en tu lista (corporativa)"}, {"n": "Juan Manuel Ottaviano", "p": "Argentina", "i": "Independiente / abogado laboralista", "t": "Académico-Activista", "f": "Derecho laboral, plataformas, transparencia algorítmica del trabajo", "pl": "X, LinkedIn, columnas", "s": "LinkedIn / columnas en Letra P, Cenital", "c": "Alta", "nd": [4, 5, 8], "no": "Co-curador del corpus de links que diste"}, {"n": "Agus Nieto", "p": "Argentina", "i": "Independiente / Observatorio", "t": "Académico-Curador", "f": "IA y conflictividad social, observatorio propio", "pl": "LinkedIn, X", "s": "LinkedIn (@agusnieto77)", "c": "Alta", "nd": [5, 8, 13], "no": "Conduce un observatorio temático"}, {"n": "Maxi Firtman", "p": "Argentina", "i": "Independiente / dev community", "t": "Curador-Pública", "f": "Resumen y crítica de impacto IA en programación", "pl": "X", "s": "X (@maxifirtman)", "c": "Alta", "nd": [2, 6, 13], "no": "Voz fuerte en comunidad dev argentina"}, {"n": "Alejandro Galliano", "p": "Argentina", "i": "Independiente", "t": "Pública-Curador", "f": "Substack 'Capitalistas sin capital', crítica económica de tech", "pl": "Substack", "s": "alejandrogalliano.substack.com", "c": "Alta", "nd": [7, 9], "no": ""}, {"n": "Esteban Actis", "p": "Argentina", "i": "UNR / Fundar", "t": "Académico", "f": "Geopolítica tech, relaciones internacionales de la IA", "pl": "X, columnas", "s": "X (@actis_esteban)", "c": "Alta", "nd": [7, 10], "no": ""}, {"n": "Natalia Pérez Roca", "p": "Argentina", "i": "Iatusentreparentesis (Substack)", "t": "Curador-Pública", "f": "Newsletter en español sobre IA y sociedad", "pl": "Substack", "s": "iatusentreparentesis.substack.com", "c": "Media", "nd": [13], "no": "Verificá autoría exacta del newsletter"}, {"n": "Roxana Kreimer", "p": "Argentina", "i": "Independiente", "t": "Pública", "f": "Filosofía, crítica racional de tendencias contemporáneas", "pl": "X, libros", "s": "X (@roxanakreimer)", "c": "Media", "nd": [9, 13], "no": "Voz crítica pero no especialista en IA-trabajo"}, {"n": "Ezequiel Gatto", "p": "Argentina", "i": "Anfibia / docente", "t": "Pública", "f": "Ensayos sobre tecnología, cultura y crítica de la modernidad", "pl": "Anfibia, libros", "s": "Revista Anfibia", "c": "Alta", "nd": [9], "no": ""}, {"n": "Mariana Mazzucato", "p": "Italia/UK", "i": "UCL Institute for Innovation and Public Purpose", "t": "Académico-Pública", "f": "Economía de la misión, política industrial y IA", "pl": "Substack, libros, X", "s": "Substack 'Mission Economy' / X (@MazzucatoM)", "c": "Alta", "nd": [7, 10, 12], "no": "UCL IIPP es el mismo centro donde está Rikap"}, {"n": "Marina Mendes Tavares", "p": "Brasil/EE.UU.", "i": "FMI / IMF", "t": "Académico-Funcionario", "f": "Exposición ocupacional a IA con énfasis en género", "pl": "Papers IMF, LinkedIn", "s": "LinkedIn / IMF working papers", "c": "Alta", "nd": [1, 11, 12], "no": "Investigadora del FMI"}, {"n": "Pawel Gmyrek", "p": "Polonia/Suiza", "i": "OIT / ILO", "t": "Académico-Funcionario", "f": "Trabajo digital, exposición a IA por ocupación y género", "pl": "Papers, LinkedIn", "s": "ILO / LinkedIn", "c": "Alta", "nd": [1, 10, 11], "no": ""}, {"n": "Sendhil Mullainathan", "p": "EE.UU.", "i": "Chicago Booth (ex Harvard)", "t": "Académico", "f": "Economía conductual aplicada a IA", "pl": "Papers, charlas, X", "s": "X (@m_sendhil) / Google Scholar", "c": "Alta", "nd": [2, 5], "no": ""}, {"n": "Cedric Durand", "p": "Francia/Suiza", "i": "Université de Genève", "t": "Académico", "f": "Tecnocapitalismo, crítica del capitalismo de plataformas", "pl": "Libros, X, papers", "s": "X (@cedric_durand)", "c": "Alta", "nd": [7, 9], "no": ""}, {"n": "Sami Mahroum", "p": "Líbano/Francia", "i": "INSEAD / consultor", "t": "Académico-Curador", "f": "Fragmentación / 'splintering' del trabajo por IA", "pl": "Project Syndicate, papers", "s": "Project Syndicate", "c": "Alta", "nd": [1, 4, 13], "no": ""}, {"n": "Robert Reich", "p": "EE.UU.", "i": "UC Berkeley / ex Secretario de Trabajo EE.UU.", "t": "Pública-Funcionario", "f": "Trabajo, desigualdad, IA y política", "pl": "X, Substack, libros", "s": "X (@RBReich) / Substack", "c": "Alta", "nd": [1, 8, 10], "no": "Ex-Secretario Clinton; voz pública sostenida"}, {"n": "Paul Krugman", "p": "EE.UU.", "i": "Substack (ex NYT)", "t": "Académico-Curador", "f": "Economía, tech y empleo desde una óptica keynesiana", "pl": "Substack", "s": "paulkrugman.substack.com", "c": "Alta", "nd": [1, 9, 12], "no": "Nobel de Economía"}, {"n": "Branko Milanovic", "p": "Serbia/EE.UU.", "i": "CUNY Graduate Center", "t": "Académico", "f": "Desigualdad global, capitalismo, IA y distribución", "pl": "Substack 'Global Inequality', libros", "s": "Substack (branko2f7) / X", "c": "Alta", "nd": [7, 9], "no": ""}, {"n": "Matt Sigelman", "p": "EE.UU.", "i": "Burning Glass Institute", "t": "Operador-Curador", "f": "Datos cuantitativos del mercado laboral y IA", "pl": "Reportes, LinkedIn", "s": "LinkedIn / burningglassinstitute.org", "c": "Alta", "nd": [1, 12], "no": ""}, {"n": "Krystal Kauffman", "p": "EE.UU.", "i": "DAIR Institute", "t": "Activista", "f": "Organización de data workers, lead organizer", "pl": "X", "s": "X (@Zebra_023)", "c": "Alta", "nd": [3, 8], "no": ""}, {"n": "Luiza Jarovsky", "p": "Brasil/Israel", "i": "Independiente / Implement AI Newsletter", "t": "Curador-Académico", "f": "Derecho de IA y privacidad, AI Governance", "pl": "X, Substack", "s": "X (@LuizaJarovsky)", "c": "Alta", "nd": [5, 10], "no": ""}, {"n": "Ed Newton-Rex", "p": "UK/EE.UU.", "i": "Fairly Trained / ex Stability AI", "t": "Operador-Activista", "f": "Ética del entrenamiento de IA con obras protegidas", "pl": "X", "s": "X (@ednewtonrex)", "c": "Alta", "nd": [3, 7, 13], "no": ""}, {"n": "Tim Cunningham", "p": "EE.UU.", "i": "Stanford (PhD student/blog)", "t": "Académico", "f": "Forecasts del crecimiento de IA y economía", "pl": "Blog personal", "s": "tecunningham.github.io", "c": "Alta", "nd": [1, 6], "no": ""}, {"n": "Pamela Mishkin", "p": "EE.UU.", "i": "OpenAI", "t": "Operador-Académico", "f": "Coautora del paper 'GPTs are GPTs' sobre exposición ocupacional", "pl": "LinkedIn, papers", "s": "LinkedIn", "c": "Alta", "nd": [1, 2], "no": "Trabaja en OpenAI policy"}, {"n": "Elmira van den Broek", "p": "Holanda/UK", "i": "Académica", "t": "Académico", "f": "Trabajo invisible y future of work", "pl": "LinkedIn, papers", "s": "LinkedIn", "c": "Media", "nd": [3, 4], "no": ""}, {"n": "Mohamed El-Erian", "p": "Egipto/EE.UU.", "i": "Queens' College Cambridge / Allianz", "t": "Pública-Operador", "f": "Análisis macroeconómico, comentario sobre IA y mercados", "pl": "X, FT", "s": "X (@elerianm)", "c": "Media", "nd": [7], "no": "Más financiero que laboral pero comenta IA-economía"}, {"n": "Peter Berezin", "p": "Canadá", "i": "BCA Research", "t": "Operador-Curador", "f": "Análisis macro, tesis crítica sobre burbuja IA", "pl": "X", "s": "X (@PeterBerezinBCA)", "c": "Media", "nd": [7], "no": ""}], "nodos": [{"id": 1, "n": "Sustitución vs. complementariedad: ¿la IA destruye empleo neto?", "q": "¿La IA crea suficientes tareas nuevas para compensar las que sustituye, como en revoluciones tecnológicas anteriores, o esta vez la respuesta es distinta?", "t": "Acemoglu/Restrepo (preocupación por sustitución) vs. Brynjolfsson/Mollick (optimismo en complementariedad). Autor en posición intermedia con análisis por tareas. Frey pesimista, Susskind a largo plazo predice escenario de post-trabajo.", "an": "Acemoglu, Autor, Restrepo, Brynjolfsson, Frey, Susskind, Goos, Salomons, Graetz, Benanav, Pissarides, Goldin, Katz, Sarah O'Connor", "as": "Albrieu (CIPPEC), Andrés López (UBA-IIEP), Verónica Robert (UNSAM)"}, {"id": 2, "n": "Productividad y desempeño de trabajadores con IA", "q": "¿Las ganancias medidas en estudios experimentales con LLMs se trasladan a productividad agregada? ¿Quiénes capturan esos aumentos?", "t": "Estudios de lab muestran efectos heterogéneos: la IA cierra la brecha junior-senior. Esto abre preguntas sobre mentoría y aprendizaje organizacional. Paradoja de Solow recargada: ganancias firma vs. agregado.", "an": "Brynjolfsson, Rock, Noy, Zhang, Manning, Mollick, Humlum, Babina, Goldfarb, Agrawal, Levie", "as": "Lachman (UBA-CIECTI), CIPPEC (estudios sectoriales)"}, {"id": 3, "n": "Trabajo invisible / fantasma / data labor", "q": "¿Qué trabajo humano hay detrás de cada modelo de IA, dónde se hace, en qué condiciones, y cómo se reconoce o invisibiliza?", "t": "Gray/Suri y Casilli teorizaron desde el Norte; Miceli, Posada, Tarcízio Silva extienden la mirada al Sur. Phil Jones discute si el modelo es 'trabajo' clásico o algo nuevo. Karen Hao puso el caso Sama-Kenia en agenda global.", "an": "Mary Gray, Casilli, Phil Jones, Aiha Nguyen, Adrienne Williams, Sarah Roberts, Karen Hao, Tubaro, Muldoon-Cant", "as": "Milagros Miceli (DAIR), Julián Posada (Yale, colombiano), Tarcízio Silva (Brasil), Joana Varon (Brasil), Paola Ricaurte (México), Birhane (Etiopía)"}, {"id": 4, "n": "Plataformas, gig economy y derecho laboral", "q": "¿Qué estatuto laboral le corresponde a quien trabaja gestionado por algoritmo, y cómo se traduce el management algorítmico a derecho del trabajo?", "t": "Modelo californiano (Prop 22, contractor) vs. modelo europeo (Directiva UE 2024 con presunción de empleo). Caso Aslam vs. Uber (UK Supreme Court 2021) marcó precedente. ¿Acción legal o acción colectiva?", "an": "Veena Dubal, Mark Graham (Fairwork), Wood, Woodcock, Schor, van Doorn, Aloisi, De Stefano, Berg (OIT), Casilli, Cant, Sarah O'Connor", "as": "Albrieu, Galperin, Zukerfeld (Argentina), Arriagada, Gutiérrez Crocco (Chile), Ludmila Abilio (Brasil), Rafael Grohmann (Brasil-Canadá), Rani (OIT)"}, {"id": 5, "n": "Vigilancia laboral y management algorítmico (bossware)", "q": "¿Cómo se está usando IA para gestionar y monitorear trabajadores formales, no solo gig? ¿Qué resistencias jurídicas y colectivas son posibles?", "t": "Cruce con derecho de privacidad y derecho laboral. Casos: monitoreo en call centers, productividad por keystrokes, scoring de empleados. Espacio donde sindicatos y juristas están más activos.", "an": "Karen Levy, Ifeoma Ajunwa, Aiha Nguyen, Aloisi, De Stefano, Brishen Rogers, Sandra Wachter, Hertog, Pasquale", "as": "Beatriz Busaniche (Vía Libre, Argentina), Sergio Amadeu (Brasil), Rafael Zanatta (Brasil), R3D (México), Karisma (Colombia)"}, {"id": 6, "n": "Avances en capacidades de modelos / frontera técnica", "q": "¿Qué pueden hacer realmente los modelos hoy? ¿Los benchmarks miden lo que importa para el trabajo?", "t": "Optimistas (laboratorios, Mollick) vs. escépticos del hype (Marcus, Mitchell, Bender, Kapoor-Narayanan, Birhane). Brecha entre demos y deployment real.", "an": "Sam Altman, Dario Amodei, Suleyman, Hassabis, Murati, LeCun, Hinton, Hendrycks, Mollick, Marcus, Mitchell, Bender, Kapoor, Narayanan, Andrew Ng, Fei-Fei Li, Benaich, Jane Wang", "as": "Vanina Martínez (ICREA, argentina), Wagner Meira Jr. (UFMG), Birhane, Ochigame (Brasil-Holanda)"}, {"id": 7, "n": "Concentración de poder, monopolios e infraestructura de IA", "q": "¿Quién es dueño de las capacidades, los datos y la infraestructura, y qué implica para trabajadores y democracia?", "t": "Antitrust (Khan, Wu) vs. economía política crítica (Rikap, Crawford, Srnicek, Pasquale, Mattei). Debate sobre modelos abiertos vs. cerrados como vector de democratización.", "an": "Cecilia Rikap, Crawford, Whittaker, Khan, Wu, Pasquale, Srnicek, Schaake, Morozov, Wendy Liu, Stephanie Hare, Clara Mattei, Cade Metz", "as": "Sergio Amadeu (Brasil), Tarcízio Silva (Brasil), Renata Ávila (Guatemala), Becerra (Argentina), Zuazo (Argentina), Joana Varon, Ricaurte"}, {"id": 8, "n": "Negociación colectiva, huelgas y acción colectiva", "q": "¿Qué cláusulas-tipo debería incluir un convenio colectivo en la era IA? ¿Cómo se organizan trabajadores fragmentados?", "t": "Casos faro: WGA-SAG 2023, IG Metall en Alemania, Aslam vs Uber. Tensión entre estrategia jurídica (litigio individual) y estrategia colectiva (sindicalización, huelga).", "an": "Mary Towers (TUC), Christy Hoffman (UNI), Amanda Ballantyne (AFL-CIO), James Farrar, Yaseen Aslam, Veena Dubal, WGA, SAG-AFTRA, IG Metall, Janine Berg", "as": "APP (Argentina), Aliança Entregadores (Brasil), Entregadores Antifascistas (Brasil), UNI Américas, Rafael Grohmann"}, {"id": 9, "n": "Teoría / filosofía / futuro del trabajo", "q": "¿IA acelera la automatización completa o estamos en estancamiento productivo encubierto? ¿Reducción de jornada, ingreso básico, democratización productiva?", "t": "FALC (Bastani) vs. tesis de estancamiento (Benanav). Hester y feminismo del cuidado vs. canon masculino del post-trabajo. Graeber sobre 'bullshit jobs' como crítica.", "an": "Bastani, Butler, Srnicek, Hester, Muldoon, Benanav, Susskind, Frey, Pasquale, Pitts, Wendy Liu, Bridle, Phil Jones, Schor, Scholz, Mattei, DeLong", "as": "Mariano Zukerfeld (Argentina), Tomás Balmaceda (Argentina), Eden Medina (Cybersyn como precedente), Ludmila Abilio (Brasil)"}, {"id": 10, "n": "Política pública y regulación", "q": "¿La regulación actual contempla 'el trabajo' como dimensión protegida o lo subsume bajo 'consumidor' o 'ciudadano'?", "t": "EU AI Act (incluye sistemas de empleo como alto riesgo) vs. enfoque sectorial estadounidense. Diferenciales Norte-Sur en capacidad regulatoria.", "an": "Schaake, Toner, Suresh Venkatasubramanian, Alondra Nelson, Pasquale, Wachter, Margetts, Carly Kind, Pissarides, Broecke (OECD), Berg (OIT), Salomé Viljoen, Jack Clark, Brundage", "as": "Vanina Martínez (UNESCO), Renata Ávila, Ricaurte, Lemos (Brasil), Lara y Canales (Chile), Botero (Colombia), Scrollini (Uruguay), Aneja (India), Adams (Sudáfrica), CEPAL, BID"}, {"id": 11, "n": "Sur Global y desigualdades geográficas del trabajo IA", "q": "¿Quién hace el trabajo barato que sostiene la IA? ¿Dónde se concentra el valor capturado? ¿Cómo se reproducen patrones coloniales?", "t": "Lectura decolonial (Ricaurte, Birhane) vs. economía política de la dependencia tecnológica (Rikap). Debate sobre 'AI sovereignty' regional.", "an": "Birhane, Crawford, Tubaro, Mary Gray, Gebru, Mark Graham (Fairwork mide global), Karen Hao, Sarah Roberts, Rani (OIT)", "as": "Cecilia Rikap, Milagros Miceli, Paola Ricaurte, Tarcízio Silva, Joana Varon, Julián Posada, Ramiro Albrieu, Hernán Galperin, Ludmila Abilio, Rafael Grohmann, Nina da Hora, Eden Medina, Urvashi Aneja, Payal Arora, Rachel Adams"}, {"id": 12, "n": "Habilidades, formación y transiciones laborales", "q": "Si la IA cambia qué tareas son escasas, ¿qué políticas educativas y de reconversión tienen sentido?", "t": "Apuesta por skills vs. apuesta por instituciones laborales fuertes (Acemoglu en versión normativa). Riesgo de individualización: 'reconvertirse' como responsabilidad personal.", "an": "Autor, Pissarides, Susskind, Acemoglu, Goldin, Katz, Deming, Broecke (OECD), Sarah O'Connor, Stronge", "as": "Albrieu (CIPPEC), Andrés López (UBA), BID Empleo, OIT América Latina"}, {"id": 13, "n": "Estudios sectoriales / profesiones específicas", "q": "¿Cómo enfrenta cada gremio su propia historia con IA? Programadores, abogados, médicos, educadores, periodistas, artistas, atención al cliente.", "t": "Cada profesión tiene patrón distinto: complementariedad clara (programación con Copilot), conflicto abierto (guionistas), incertidumbre (educación). Riesgo de generalizaciones que aplanan diferencias sectoriales.", "an": "Mollick (educación, white collar), Casey Newton, NewsGuild, WGA, Tobi Lütke, Aaron Levie, Cade Metz, Charlie Warzel, Karen Hao, Kevin Roose", "as": "Esteban Magnani (Argentina, periodismo), Tomás Balmaceda (filosofía/divulgación), Jonathan Haidt (educación, adyacente)"}, {"id": 14, "n": "Trabajo de cuidado y reproducción social bajo IA (provisional)", "q": "¿Cómo afecta la IA al trabajo reproductivo, doméstico y de cuidado, históricamente feminizado y desvalorizado?", "t": "Nodo provisional: ¿amerita existir como nodo aparte o quedar dentro del 9? Hester argumenta que la automatización del cuidado abre preguntas distintas. Hertog estudia 'domestic AI' empíricamente.", "an": "Helen Hester, Ekaterina Hertog, Mary Gray (intersección con trabajo invisible), Kathi Weeks, Silvia Federici (referencia histórica)", "as": "Lourdes Barrera (Luchadoras, México), Nina da Hora (Brasil), Ludmila Abilio (intersección con feminización del trabajo de plataforma)"}], "fuentes": [{"n": "arXiv (cs.CY, cs.AI, econ.GN)", "c": "Base académica", "sc": "Preprints", "p": "Global", "u": "arxiv.org", "l": "EN", "f": "Papers nuevos en ciencia computacional y economía", "pr": "Alta", "no": "Filtrar por categorías relevantes"}, {"n": "SSRN", "c": "Base académica", "sc": "Working papers", "p": "Global", "u": "papers.ssrn.com", "l": "EN", "f": "Working papers en ciencias sociales", "pr": "Alta", "no": ""}, {"n": "NBER Working Papers", "c": "Base académica", "sc": "Working papers", "p": "EE.UU.", "u": "nber.org/papers", "l": "EN", "f": "Economía estadounidense, AI y trabajo", "pr": "Alta", "no": "Sale gente como Acemoglu, Autor, Johnson"}, {"n": "IDEAS/RePEc", "c": "Base académica", "sc": "Repositorio", "p": "Global", "u": "ideas.repec.org", "l": "EN", "f": "Economía", "pr": "Media", "no": ""}, {"n": "CEPR VoxEU", "c": "Base académica", "sc": "Columnas académicas", "p": "Europa", "u": "cepr.org/voxeu", "l": "EN", "f": "Columnas de economistas sobre IA, productividad", "pr": "Alta", "no": ""}, {"n": "CEDLAS (UNLP)", "c": "Base académica", "sc": "Working papers", "p": "Argentina", "u": "cedlas.econo.unlp.edu.ar", "l": "ES", "f": "Estudios distributivos LatAm", "pr": "Alta", "no": ""}, {"n": "IIEP-UBA-CONICET", "c": "Base académica", "sc": "Working papers", "p": "Argentina", "u": "iiep.economicas.uba.ar", "l": "ES", "f": "Economía argentina, IA y trabajo", "pr": "Alta", "no": ""}, {"n": "Stanford Digital Economy Lab", "c": "Base académica", "sc": "Centro / publicaciones", "p": "EE.UU.", "u": "digitaleconomy.stanford.edu", "l": "EN", "f": "Productividad e IA, mercados laborales", "pr": "Alta", "no": ""}, {"n": "Oxford Internet Institute", "c": "Base académica", "sc": "Centro / publicaciones", "p": "UK", "u": "oii.ox.ac.uk", "l": "EN", "f": "IA, trabajo, gobernanza", "pr": "Alta", "no": ""}, {"n": "Oxford Martin School", "c": "Base académica", "sc": "Centro / publicaciones", "p": "UK", "u": "oxfordmartin.ox.ac.uk", "l": "EN", "f": "Futuro del trabajo (Frey)", "pr": "Alta", "no": ""}, {"n": "New York Times", "c": "Medio", "sc": "Anglo general", "p": "EE.UU.", "u": "nytimes.com", "l": "EN", "f": "IA, política, sociedad", "pr": "Alta", "no": "Cubre Cade Metz, Kevin Roose"}, {"n": "Wall Street Journal", "c": "Medio", "sc": "Anglo general/negocios", "p": "EE.UU.", "u": "wsj.com", "l": "EN", "f": "IA, mercados, despidos", "pr": "Alta", "no": ""}, {"n": "Financial Times", "c": "Medio", "sc": "Anglo general/negocios", "p": "UK", "u": "ft.com", "l": "EN", "f": "IA y trabajo (columna de Sarah O'Connor)", "pr": "Alta", "no": ""}, {"n": "The Economist", "c": "Medio", "sc": "Anglo general", "p": "UK", "u": "economist.com", "l": "EN", "f": "IA, economía global", "pr": "Alta", "no": ""}, {"n": "The Atlantic", "c": "Medio", "sc": "Anglo general", "p": "EE.UU.", "u": "theatlantic.com", "l": "EN", "f": "Cultura tech, columnas Karen Hao, Warzel", "pr": "Alta", "no": ""}, {"n": "The Guardian", "c": "Medio", "sc": "Anglo general", "p": "UK", "u": "theguardian.com", "l": "EN", "f": "Tech y sociedad", "pr": "Alta", "no": ""}, {"n": "BBC", "c": "Medio", "sc": "Anglo general", "p": "UK", "u": "bbc.com", "l": "EN", "f": "IA y trabajo", "pr": "Alta", "no": ""}, {"n": "Bloomberg / Bloomberg Línea", "c": "Medio", "sc": "Anglo negocios", "p": "EE.UU. / LatAm", "u": "bloomberg.com / bloomberglinea.com", "l": "EN/ES", "f": "Mercados y tech con cobertura LatAm", "pr": "Alta", "no": ""}, {"n": "Wired (.com y .es)", "c": "Medio", "sc": "Anglo tech", "p": "EE.UU. / España-LatAm", "u": "wired.com / es.wired.com", "l": "EN/ES", "f": "Tech con sección LatAm en español", "pr": "Alta", "no": ""}, {"n": "Harvard Business Review", "c": "Medio", "sc": "Anglo negocios/management", "p": "EE.UU.", "u": "hbr.org", "l": "EN", "f": "IA aplicada al trabajo, productividad", "pr": "Alta", "no": ""}, {"n": "Forbes", "c": "Medio", "sc": "Anglo negocios", "p": "EE.UU.", "u": "forbes.com", "l": "EN", "f": "Tech y empresa", "pr": "Media", "no": ""}, {"n": "Fortune", "c": "Medio", "sc": "Anglo negocios", "p": "EE.UU.", "u": "fortune.com", "l": "EN", "f": "Tech y empresa, IA bubble", "pr": "Media", "no": ""}, {"n": "Business Insider", "c": "Medio", "sc": "Anglo negocios", "p": "EE.UU.", "u": "businessinsider.com", "l": "EN", "f": "Tech, despidos", "pr": "Media", "no": ""}, {"n": "Axios", "c": "Medio", "sc": "Anglo tech/política", "p": "EE.UU.", "u": "axios.com", "l": "EN", "f": "Coverage rápida tech y política", "pr": "Alta", "no": ""}, {"n": "CNBC", "c": "Medio", "sc": "Anglo negocios", "p": "EE.UU.", "u": "cnbc.com", "l": "EN", "f": "Mercados tech", "pr": "Media", "no": ""}, {"n": "CNN", "c": "Medio", "sc": "Anglo general", "p": "EE.UU.", "u": "cnn.com", "l": "EN", "f": "IA y trabajo coverage masiva", "pr": "Media", "no": ""}, {"n": "Rest of World", "c": "Medio", "sc": "Anglo Sur Global", "p": "Global", "u": "restofworld.org", "l": "EN", "f": "Tech en Sur Global, vigilancia laboral, data workers", "pr": "Alta", "no": "FUNDAMENTAL para tu enfoque"}, {"n": "404 Media", "c": "Medio", "sc": "Anglo tech crítico", "p": "EE.UU.", "u": "404media.co", "l": "EN", "f": "Periodismo investigativo de tech", "pr": "Alta", "no": ""}, {"n": "The Verge", "c": "Medio", "sc": "Anglo tech", "p": "EE.UU.", "u": "theverge.com", "l": "EN", "f": "Tech, productos, IA", "pr": "Media", "no": ""}, {"n": "Futurism", "c": "Medio", "sc": "Anglo tech popular", "p": "EE.UU.", "u": "futurism.com", "l": "EN", "f": "Coverage IA, errores de empresas", "pr": "Media", "no": ""}, {"n": "Project Syndicate", "c": "Medio", "sc": "Op-eds globales", "p": "Global", "u": "project-syndicate.org", "l": "Multi", "f": "Columnas de Frey, Mazzucato, Acemoglu, Stiglitz", "pr": "Alta", "no": "Multidioma, alta concentración de voces top"}, {"n": "One Useful Thing (Mollick)", "c": "Substack/Newsletter", "sc": "AI aplicada", "p": "EE.UU.", "u": "oneusefulthing.org", "l": "EN", "f": "IA en educación y trabajo", "pr": "Alta", "no": "Ya está en mapa"}, {"n": "Marcus on AI (Gary Marcus)", "c": "Substack/Newsletter", "sc": "Crítica IA", "p": "EE.UU.", "u": "garymarcus.substack.com", "l": "EN", "f": "Crítica de LLMs", "pr": "Alta", "no": ""}, {"n": "AI Snake Oil (Kapoor/Narayanan)", "c": "Substack/Newsletter", "sc": "Crítica IA", "p": "EE.UU.", "u": "aisnakeoil.com", "l": "EN", "f": "Crítica del hype", "pr": "Alta", "no": ""}, {"n": "Noahpinion (Noah Smith)", "c": "Substack/Newsletter", "sc": "Economía", "p": "EE.UU.", "u": "noahpinion.blog", "l": "EN", "f": "Economía e IA, postura más optimista", "pr": "Alta", "no": ""}, {"n": "Grasping Reality (DeLong)", "c": "Substack/Newsletter", "sc": "Historia económica", "p": "EE.UU.", "u": "braddelong.substack.com", "l": "EN", "f": "Largo plazo y tech", "pr": "Alta", "no": ""}, {"n": "Import AI (Jack Clark)", "c": "Substack/Newsletter", "sc": "Estado del campo IA", "p": "EE.UU.", "u": "importai.substack.com", "l": "EN", "f": "Resumen semanal del campo", "pr": "Alta", "no": "Crítico semanal"}, {"n": "Exponential View (Azhar)", "c": "Substack/Newsletter", "sc": "IA y sociedad", "p": "UK", "u": "exponentialview.co", "l": "EN", "f": "Era exponencial", "pr": "Alta", "no": ""}, {"n": "The Algorithmic Bridge (A. Romero)", "c": "Substack/Newsletter", "sc": "IA y sociedad", "p": "España", "u": "thealgorithmicbridge.com", "l": "EN", "f": "Reflexión y crítica IA", "pr": "Alta", "no": "Recurrente en tu chat"}, {"n": "Hyperdimensional (Dean Ball)", "c": "Substack/Newsletter", "sc": "AI policy", "p": "EE.UU.", "u": "hyperdimensional.co", "l": "EN", "f": "Política de IA en EE.UU.", "pr": "Alta", "no": ""}, {"n": "Stratechery (Ben Thompson)", "c": "Substack/Newsletter", "sc": "Estrategia tech", "p": "EE.UU.", "u": "stratechery.com", "l": "EN", "f": "Estrategia de plataformas", "pr": "Media", "no": ""}, {"n": "Mariana Mazzucato", "c": "Substack/Newsletter", "sc": "Economía pública", "p": "UK", "u": "marianamazzucato.substack.com", "l": "EN", "f": "Política industrial e IA", "pr": "Alta", "no": ""}, {"n": "Paul Krugman", "c": "Substack/Newsletter", "sc": "Economía", "p": "EE.UU.", "u": "paulkrugman.substack.com", "l": "EN", "f": "Economía tradicional aplicada a IA", "pr": "Alta", "no": ""}, {"n": "Branko Milanovic (Global Inequality)", "c": "Substack/Newsletter", "sc": "Desigualdad", "p": "EE.UU./Serbia", "u": "branko2f7.substack.com", "l": "EN", "f": "Desigualdad y capitalismo", "pr": "Alta", "no": ""}, {"n": "Citrini Research", "c": "Substack/Newsletter", "sc": "Análisis financiero/IA", "p": "EE.UU.", "u": "citriniresearch.com", "l": "EN", "f": "Burbuja IA, mercados", "pr": "Media", "no": ""}, {"n": "Silicon Empires", "c": "Substack/Newsletter", "sc": "Crítica big tech", "p": "EE.UU./global", "u": "siliconempires.substack.com", "l": "EN", "f": "Financiación AI compute", "pr": "Media", "no": ""}, {"n": "Sam Kriss", "c": "Substack/Newsletter", "sc": "Cultura y tech", "p": "UK", "u": "samkriss.substack.com", "l": "EN", "f": "Ensayos sobre tecnología y cultura", "pr": "Media", "no": ""}, {"n": "AI Policy Perspectives", "c": "Substack/Newsletter", "sc": "AI policy", "p": "EE.UU./global", "u": "aipolicyperspectives.com", "l": "EN", "f": "Análisis de política de IA", "pr": "Alta", "no": ""}, {"n": "Capitalistas sin capital (Galliano)", "c": "Substack/Newsletter", "sc": "Crítica económica", "p": "Argentina", "u": "alejandrogalliano.substack.com", "l": "ES", "f": "Capitalismo y tech desde el Sur", "pr": "Alta", "no": "En tu chat"}, {"n": "Cosas rotas", "c": "Substack/Newsletter", "sc": "Cultura del trabajo", "p": "Argentina", "u": "cosasrotas.substack.com", "l": "ES", "f": "Ensayos contemporáneos sobre trabajo y vida", "pr": "Media", "no": ""}, {"n": "Bitácora de trabajo", "c": "Substack/Newsletter", "sc": "Trabajo en LatAm", "p": "Argentina", "u": "bitcoradetrabajo.substack.com", "l": "ES", "f": "Reflexión laboral", "pr": "Media", "no": ""}, {"n": "Iatusentreparentesis", "c": "Substack/Newsletter", "sc": "IA y sociedad en español", "p": "Argentina", "u": "iatusentreparentesis.substack.com", "l": "ES", "f": "Newsletter en español sobre IA", "pr": "Media", "no": ""}, {"n": "La Nación", "c": "Medio LatAm", "sc": "Argentina general", "p": "Argentina", "u": "lanacion.com.ar", "l": "ES", "f": "Sección IA y trabajo notable", "pr": "Alta", "no": ""}, {"n": "Clarín", "c": "Medio LatAm", "sc": "Argentina general", "p": "Argentina", "u": "clarin.com", "l": "ES", "f": "Cobertura tech masiva", "pr": "Media", "no": ""}, {"n": "Infobae", "c": "Medio LatAm", "sc": "Argentina/Pan-LatAm", "p": "Argentina/LatAm", "u": "infobae.com", "l": "ES", "f": "Tech y trabajo", "pr": "Alta", "no": "Republica mucho contenido"}, {"n": "Cenital", "c": "Medio LatAm", "sc": "Argentina análisis", "p": "Argentina", "u": "cenital.com", "l": "ES", "f": "Análisis de política y economía con mirada amplia", "pr": "Alta", "no": ""}, {"n": "Letra P", "c": "Medio LatAm", "sc": "Argentina política", "p": "Argentina", "u": "letrap.com.ar", "l": "ES", "f": "Política y economía", "pr": "Alta", "no": "Tu chat lo cita mucho"}, {"n": "Página 12", "c": "Medio LatAm", "sc": "Argentina centroizquierda", "p": "Argentina", "u": "pagina12.com.ar", "l": "ES", "f": "Crítica social, ocasionalmente tech", "pr": "Media", "no": ""}, {"n": "Perfil", "c": "Medio LatAm", "sc": "Argentina general", "p": "Argentina", "u": "perfil.com", "l": "ES", "f": "Política y cultura", "pr": "Media", "no": ""}, {"n": "Ámbito", "c": "Medio LatAm", "sc": "Argentina economía", "p": "Argentina", "u": "ambito.com", "l": "ES", "f": "Economía y mercados", "pr": "Media", "no": ""}, {"n": "El Destape", "c": "Medio LatAm", "sc": "Argentina político", "p": "Argentina", "u": "eldestapeweb.com", "l": "ES", "f": "Política y trabajo", "pr": "Media", "no": ""}, {"n": "Revista Anfibia", "c": "Medio LatAm", "sc": "Argentina ensayo", "p": "Argentina", "u": "anfibia.com", "l": "ES", "f": "Ensayos largos cultura y tech", "pr": "Alta", "no": ""}, {"n": "Revista Supernova", "c": "Medio LatAm", "sc": "Argentina cultura tech", "p": "Argentina", "u": "revistasupernova.com", "l": "ES", "f": "Cultura tech y trabajo", "pr": "Media", "no": ""}, {"n": "Panama Revista", "c": "Medio LatAm", "sc": "Argentina cultural", "p": "Argentina", "u": "panamarevista.com", "l": "ES", "f": "Crítica cultural", "pr": "Media", "no": ""}, {"n": "Le Monde Diplomatique Cono Sur", "c": "Medio LatAm", "sc": "Argentina/Cono Sur crítico", "p": "Argentina", "u": "eldiplo.org", "l": "ES", "f": "Análisis crítico mensual", "pr": "Alta", "no": ""}, {"n": "Ladob News", "c": "Medio LatAm", "sc": "Argentina alternativo", "p": "Argentina", "u": "ladobnews.com.ar", "l": "ES", "f": "Política y trabajo", "pr": "Media", "no": ""}, {"n": "Cenital", "c": "Medio LatAm", "sc": "Argentina general", "p": "Argentina", "u": "cenital.com", "l": "ES", "f": "Análisis", "pr": "Alta", "no": "Duplicado de seguridad"}, {"n": "Fundar (publicaciones)", "c": "Medio LatAm", "sc": "Argentina think tank", "p": "Argentina", "u": "fund.ar", "l": "ES", "f": "Política laboral, derechos S.XXI", "pr": "Alta", "no": ""}, {"n": "Eterna Cadencia (blog)", "c": "Medio LatAm", "sc": "Argentina literatura/ensayo", "p": "Argentina", "u": "eternacadencia.com.ar", "l": "ES", "f": "Ensayos largos sobre cultura, tecnología", "pr": "Media", "no": ""}, {"n": "Modernismo Latinoamericano", "c": "Medio LatAm", "sc": "Regional STS", "p": "LatAm", "u": "modernismolatinoamericano.org", "l": "ES", "f": "Historia y crítica de la modernidad tech LatAm", "pr": "Media", "no": "En tu chat para Cybersyn"}, {"n": "Folha de São Paulo", "c": "Medio LatAm", "sc": "Brasil general", "p": "Brasil", "u": "folha.uol.com.br", "l": "PT", "f": "Cobertura IA y empleo Brasil", "pr": "Alta", "no": ""}, {"n": "Estadão", "c": "Medio LatAm", "sc": "Brasil general", "p": "Brasil", "u": "estadao.com.br", "l": "PT", "f": "Tech y trabajo Brasil", "pr": "Media", "no": ""}, {"n": "Jacobin (LatAm)", "c": "Medio LatAm", "sc": "Regional crítico", "p": "Regional", "u": "jacobinlat.com / jacobin.com", "l": "ES/EN", "f": "Crítica de izquierda", "pr": "Alta", "no": ""}, {"n": "Nueva Sociedad", "c": "Medio LatAm", "sc": "Regional académico-político", "p": "Regional", "u": "nuso.org", "l": "ES", "f": "Política y economía LatAm", "pr": "Alta", "no": ""}, {"n": "Brave New Europe", "c": "Medio LatAm", "sc": "Regional crítico", "p": "Europa", "u": "braveneweurope.com", "l": "EN", "f": "Economía política crítica", "pr": "Media", "no": ""}, {"n": "ILO Digital Labour Observatory", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "Global", "u": "digitallabour.ilo.org", "l": "EN/ES", "f": "Plataformas y trabajo digital", "pr": "Alta", "no": "FUNDAMENTAL"}, {"n": "ILO publications", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "Global", "u": "ilo.org/publications", "l": "EN/ES", "f": "Trabajo decente y nuevas tecnologías", "pr": "Alta", "no": ""}, {"n": "OECD AI Policy Observatory", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "Global", "u": "oecd.ai", "l": "EN", "f": "Política IA países OCDE", "pr": "Alta", "no": ""}, {"n": "OECD Employment Outlook", "c": "Think tank/Multilateral", "sc": "Reporte anual", "p": "Global", "u": "oecd.org", "l": "EN/ES", "f": "Mercado laboral, IA", "pr": "Alta", "no": ""}, {"n": "CEPAL publicaciones", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "LatAm", "u": "cepal.org/es/publicaciones", "l": "ES", "f": "IA, empleo y desarrollo LatAm", "pr": "Alta", "no": ""}, {"n": "BID publicaciones", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "LatAm", "u": "publications.iadb.org", "l": "ES/EN", "f": "Empleo, tech y LatAm", "pr": "Alta", "no": ""}, {"n": "World Bank", "c": "Think tank/Multilateral", "sc": "Publicaciones", "p": "Global", "u": "worldbank.org/publications", "l": "EN/ES", "f": "Desarrollo, empleo y tech", "pr": "Media", "no": ""}, {"n": "IMF Working Papers", "c": "Think tank/Multilateral", "sc": "Working papers", "p": "Global", "u": "imf.org/en/Publications/WP", "l": "EN", "f": "Marina Mendes Tavares y otros", "pr": "Alta", "no": ""}, {"n": "CIPPEC", "c": "Think tank/Multilateral", "sc": "Argentina", "p": "Argentina", "u": "cippec.org", "l": "ES", "f": "Futuro del trabajo en Argentina", "pr": "Alta", "no": ""}, {"n": "CETyS - UdeSA", "c": "Think tank/Multilateral", "sc": "Argentina", "p": "Argentina", "u": "udesa.edu.ar/cetys", "l": "ES", "f": "Tech y sociedad", "pr": "Alta", "no": ""}, {"n": "Vía Libre", "c": "Think tank/Multilateral", "sc": "Argentina derechos digitales", "p": "Argentina", "u": "vialibre.org.ar", "l": "ES", "f": "Derechos digitales", "pr": "Alta", "no": ""}, {"n": "Informáticos.ar", "c": "Think tank/Multilateral", "sc": "Argentina sindical", "p": "Argentina", "u": "informaticos.ar", "l": "ES", "f": "Asociación trabajadores IT, casos de despidos y fraude", "pr": "Alta", "no": "Fuente clave de tu chat"}, {"n": "Coding Rights", "c": "Think tank/Multilateral", "sc": "Brasil derechos digitales", "p": "Brasil", "u": "codingrights.org", "l": "PT/EN", "f": "Joana Varon, datos y género", "pr": "Alta", "no": ""}, {"n": "ITS Rio", "c": "Think tank/Multilateral", "sc": "Brasil derecho/tech", "p": "Brasil", "u": "itsrio.org", "l": "PT/EN", "f": "Derecho tech", "pr": "Alta", "no": ""}, {"n": "Karisma", "c": "Think tank/Multilateral", "sc": "Colombia derechos digitales", "p": "Colombia", "u": "karisma.org.co", "l": "ES", "f": "Derechos digitales", "pr": "Alta", "no": ""}, {"n": "Derechos Digitales", "c": "Think tank/Multilateral", "sc": "Regional derechos digitales", "p": "Chile/Regional", "u": "derechosdigitales.org", "l": "ES", "f": "Derechos digitales en LatAm", "pr": "Alta", "no": ""}, {"n": "Fairwork", "c": "Think tank/Multilateral", "sc": "Plataformas global", "p": "UK/Global", "u": "fair.work", "l": "Multi", "f": "Ratings de plataformas globales", "pr": "Alta", "no": "Mark Graham"}, {"n": "Brookings Tech Tank", "c": "Think tank/Multilateral", "sc": "EE.UU.", "p": "EE.UU.", "u": "brookings.edu/topics/technology", "l": "EN", "f": "Política tech y trabajo", "pr": "Alta", "no": ""}, {"n": "Stanford HAI", "c": "Think tank/Multilateral", "sc": "EE.UU.", "p": "EE.UU.", "u": "hai.stanford.edu", "l": "EN", "f": "IA centrada en humanos", "pr": "Alta", "no": ""}, {"n": "Ada Lovelace Institute", "c": "Think tank/Multilateral", "sc": "UK", "p": "UK", "u": "adalovelaceinstitute.org", "l": "EN", "f": "IA y sociedad", "pr": "Alta", "no": ""}, {"n": "Data & Society", "c": "Think tank/Multilateral", "sc": "EE.UU.", "p": "EE.UU.", "u": "datasociety.net", "l": "EN", "f": "Labor Futures", "pr": "Alta", "no": ""}, {"n": "DAIR Institute", "c": "Think tank/Multilateral", "sc": "Global crítica", "p": "EE.UU./global", "u": "dair-institute.org", "l": "EN", "f": "IA distribuida y crítica", "pr": "Alta", "no": ""}, {"n": "AI Now Institute", "c": "Think tank/Multilateral", "sc": "EE.UU.", "p": "EE.UU.", "u": "ainowinstitute.org", "l": "EN", "f": "Crítica IA y poder", "pr": "Alta", "no": ""}, {"n": "Authoritarian Stack", "c": "Think tank/Multilateral", "sc": "Investigación independiente", "p": "Global", "u": "authoritarian-stack.info", "l": "EN", "f": "Mapeo de uso autoritario de tech", "pr": "Media", "no": "En tu chat"}, {"n": "Apollo Academy", "c": "Think tank/Multilateral", "sc": "Análisis financiero", "p": "EE.UU.", "u": "apolloacademy.com", "l": "EN", "f": "Tesis crítica burbuja IA", "pr": "Media", "no": "Fuente directa que marcaste"}, {"n": "Better Images of AI", "c": "Think tank/Multilateral", "sc": "Recursos visuales", "p": "Global", "u": "betterimagesofai.org", "l": "EN", "f": "Imágenes alternativas para hablar de IA", "pr": "Baja", "no": "Útil para tu propio trabajo"}, {"n": "@GaryMarcus", "c": "Cuenta social", "sc": "X académica", "p": "EE.UU.", "u": "x.com/GaryMarcus", "l": "EN", "f": "Crítica LLMs", "pr": "Alta", "no": ""}, {"n": "@emollick", "c": "Cuenta social", "sc": "X académica", "p": "EE.UU.", "u": "x.com/emollick", "l": "EN", "f": "IA aplicada al trabajo", "pr": "Alta", "no": ""}, {"n": "@carlbfrey", "c": "Cuenta social", "sc": "X académica", "p": "UK", "u": "x.com/carlbfrey", "l": "EN", "f": "Futuro del trabajo", "pr": "Alta", "no": ""}, {"n": "@sj_manning", "c": "Cuenta social", "sc": "X académica", "p": "EE.UU.", "u": "x.com/sj_manning", "l": "EN", "f": "IA frontera y trabajo", "pr": "Alta", "no": ""}, {"n": "@DAcemogluMIT", "c": "Cuenta social", "sc": "X académica", "p": "EE.UU.", "u": "x.com/DAcemogluMIT", "l": "EN", "f": "Economía del trabajo, instituciones", "pr": "Alta", "no": ""}, {"n": "@MITshapingwork", "c": "Cuenta social", "sc": "X institucional", "p": "EE.UU.", "u": "x.com/MITshapingwork", "l": "EN", "f": "Iniciativa Shaping the Future of Work", "pr": "Alta", "no": ""}, {"n": "@NBERpubs", "c": "Cuenta social", "sc": "X institucional", "p": "EE.UU.", "u": "x.com/nberpubs", "l": "EN", "f": "Working papers nuevos", "pr": "Alta", "no": ""}, {"n": "@ilo", "c": "Cuenta social", "sc": "X institucional", "p": "Global", "u": "x.com/ilo", "l": "Multi", "f": "OIT", "pr": "Alta", "no": ""}, {"n": "@AnthropicAI", "c": "Cuenta social", "sc": "X corporativa", "p": "EE.UU.", "u": "x.com/AnthropicAI", "l": "EN", "f": "Anthropic anuncios y papers", "pr": "Alta", "no": ""}, {"n": "@METR_Evals", "c": "Cuenta social", "sc": "X investigación", "p": "EE.UU.", "u": "x.com/METR_Evals", "l": "EN", "f": "Evaluaciones de capacidades de IA", "pr": "Alta", "no": ""}, {"n": "@PalisadeAI", "c": "Cuenta social", "sc": "X investigación", "p": "EE.UU.", "u": "x.com/PalisadeAI", "l": "EN", "f": "Seguridad IA", "pr": "Media", "no": ""}, {"n": "@ProSyn", "c": "Cuenta social", "sc": "X medio", "p": "Global", "u": "x.com/ProSyn", "l": "EN", "f": "Project Syndicate", "pr": "Alta", "no": ""}, {"n": "@CeciliaRikap", "c": "Cuenta social", "sc": "X académica", "p": "Argentina/UK", "u": "x.com/CeciliaRikap", "l": "EN/ES", "f": "Monopolios IA", "pr": "Alta", "no": ""}, {"n": "@miceli_mi", "c": "Cuenta social", "sc": "X académica", "p": "Argentina/Alemania", "u": "x.com/miceli_mi", "l": "EN/ES", "f": "Data labor", "pr": "Alta", "no": ""}, {"n": "@rafagrohmann", "c": "Cuenta social", "sc": "X académica", "p": "Brasil/Canadá", "u": "x.com/rafagrohmann", "l": "PT/EN", "f": "Plataformas y organizing Brasil", "pr": "Alta", "no": ""}, {"n": "@_aloisi", "c": "Cuenta social", "sc": "X académica", "p": "Italia/España", "u": "x.com/_aloisi", "l": "EN/IT", "f": "Derecho laboral de plataformas", "pr": "Alta", "no": ""}, {"n": "@cedric_durand", "c": "Cuenta social", "sc": "X académica", "p": "Francia/Suiza", "u": "x.com/cedric_durand", "l": "FR/EN", "f": "Crítica tech capitalism", "pr": "Alta", "no": ""}, {"n": "@aracalacana (Becerra)", "c": "Cuenta social", "sc": "X académica", "p": "Argentina", "u": "x.com/aracalacana", "l": "ES", "f": "Comunicación y plataformas", "pr": "Alta", "no": ""}, {"n": "@nataliazuazo", "c": "Cuenta social", "sc": "X investigación", "p": "Argentina", "u": "x.com/nataliazuazo", "l": "ES", "f": "Política tech Argentina", "pr": "Alta", "no": ""}, {"n": "@maxifirtman", "c": "Cuenta social", "sc": "X dev community", "p": "Argentina", "u": "x.com/maxifirtman", "l": "ES", "f": "Resumen IA y programación", "pr": "Alta", "no": ""}, {"n": "@actis_esteban", "c": "Cuenta social", "sc": "X académica", "p": "Argentina", "u": "x.com/actis_esteban", "l": "ES", "f": "Geopolítica IA", "pr": "Alta", "no": ""}, {"n": "@RBReich", "c": "Cuenta social", "sc": "X pública", "p": "EE.UU.", "u": "x.com/RBReich", "l": "EN", "f": "Trabajo y política", "pr": "Alta", "no": ""}, {"n": "@m_sendhil", "c": "Cuenta social", "sc": "X académica", "p": "EE.UU.", "u": "x.com/m_sendhil", "l": "EN", "f": "Econ conductual e IA", "pr": "Alta", "no": ""}, {"n": "@MazzucatoM", "c": "Cuenta social", "sc": "X académica", "p": "Italia/UK", "u": "x.com/MazzucatoM", "l": "EN", "f": "Política industrial e IA", "pr": "Alta", "no": ""}, {"n": "@samadeu (S. Amadeu)", "c": "Cuenta social", "sc": "X académica", "p": "Brasil", "u": "x.com/samadeu", "l": "PT", "f": "Capitalismo de plataformas Brasil", "pr": "Alta", "no": ""}, {"n": "@paolaricaurte", "c": "Cuenta social", "sc": "X académica", "p": "México", "u": "x.com/paolaricaurte", "l": "ES/EN", "f": "IA decolonial", "pr": "Alta", "no": ""}, {"n": "@beasanchez (Busaniche)", "c": "Cuenta social", "sc": "X activista", "p": "Argentina", "u": "x.com/beasanchez", "l": "ES", "f": "Derechos digitales Argentina", "pr": "Alta", "no": ""}, {"n": "@ednewtonrex", "c": "Cuenta social", "sc": "X activista", "p": "UK", "u": "x.com/ednewtonrex", "l": "EN", "f": "Ética IA y arte", "pr": "Media", "no": ""}, {"n": "@LuizaJarovsky", "c": "Cuenta social", "sc": "X curadora", "p": "Brasil/Israel", "u": "x.com/LuizaJarovsky", "l": "EN", "f": "Derecho IA y privacidad", "pr": "Media", "no": ""}, {"n": "@Zebra_023 (Kauffman)", "c": "Cuenta social", "sc": "X activista", "p": "EE.UU.", "u": "x.com/Zebra_023", "l": "EN", "f": "Organización data workers DAIR", "pr": "Alta", "no": ""}, {"n": "@elerianm", "c": "Cuenta social", "sc": "X financiera", "p": "EE.UU.", "u": "x.com/elerianm", "l": "EN", "f": "Macro y mercados", "pr": "Media", "no": ""}, {"n": "@PeterBerezinBCA", "c": "Cuenta social", "sc": "X financiera", "p": "Canadá", "u": "x.com/PeterBerezinBCA", "l": "EN", "f": "Análisis burbuja IA", "pr": "Media", "no": ""}, {"n": "@informaticos_", "c": "Cuenta social", "sc": "X sindical", "p": "Argentina", "u": "x.com/informaticos_", "l": "ES", "f": "Asociación Gremial Computación", "pr": "Alta", "no": ""}, {"n": "@YoPorLas40Horas", "c": "Cuenta social", "sc": "X política", "p": "Argentina", "u": "x.com/YoPorLas40Horas", "l": "ES", "f": "Reducción de jornada laboral", "pr": "Media", "no": ""}, {"n": "LinkedIn: Karen Hao", "c": "Cuenta social", "sc": "LinkedIn", "p": "EE.UU.", "u": "linkedin.com/in/karendhao", "l": "EN", "f": "Empire of AI, periodismo crítico", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Carl Frey", "c": "Cuenta social", "sc": "LinkedIn", "p": "UK", "u": "linkedin.com/in/carlbfrey", "l": "EN", "f": "Posteo activo de columnas", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Nick Srnicek", "c": "Cuenta social", "sc": "LinkedIn", "p": "UK", "u": "linkedin.com/in/nick-srnicek", "l": "EN", "f": "Anuncios de libros y papers", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Rafael Grohmann", "c": "Cuenta social", "sc": "LinkedIn", "p": "Brasil/Canadá", "u": "linkedin.com/in/rafael-grohmann", "l": "EN/PT", "f": "Plataformas y digital labour", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Mariana Mazzucato", "c": "Cuenta social", "sc": "LinkedIn", "p": "Italia/UK", "u": "linkedin.com/in/marianamazzucato", "l": "EN", "f": "Política industrial", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Stijn Broecke", "c": "Cuenta social", "sc": "LinkedIn", "p": "OECD", "u": "linkedin.com/in/stijn-broecke", "l": "EN", "f": "OECD AI and work", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Marina Mendes Tavares", "c": "Cuenta social", "sc": "LinkedIn", "p": "Brasil/EE.UU.", "u": "linkedin.com/in/marina-mendes-tavares-7722a1164", "l": "EN", "f": "IMF AI exposure", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Pawel Gmyrek", "c": "Cuenta social", "sc": "LinkedIn", "p": "Suiza", "u": "linkedin.com/in/pawelgmyrek", "l": "EN", "f": "OIT AI research", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Oxford Internet Institute", "c": "Cuenta social", "sc": "LinkedIn institucional", "p": "UK", "u": "linkedin.com/company/oxford-internet-institute", "l": "EN", "f": "Publicaciones del OII", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Matt Sigelman", "c": "Cuenta social", "sc": "LinkedIn", "p": "EE.UU.", "u": "linkedin.com/in/mattsigelman", "l": "EN", "f": "Burning Glass labor data", "pr": "Alta", "no": ""}, {"n": "LinkedIn: Pamela Mishkin", "c": "Cuenta social", "sc": "LinkedIn", "p": "EE.UU.", "u": "linkedin.com/in/pamela-mishkin-b4057b130", "l": "EN", "f": "OpenAI policy", "pr": "Media", "no": ""}, {"n": "LinkedIn: Juan Manuel Ottaviano", "c": "Cuenta social", "sc": "LinkedIn", "p": "Argentina", "u": "linkedin.com/in/juan-manuel-ottaviano", "l": "ES", "f": "Co-curador del corpus", "pr": "Alta", "no": ""}, {"n": "AFL-CIO Technology Institute", "c": "Sindicato/Org", "sc": "Sindical EE.UU.", "p": "EE.UU.", "u": "aflcio.org", "l": "EN", "f": "IA y trabajo sindical", "pr": "Alta", "no": ""}, {"n": "TUC publications", "c": "Sindicato/Org", "sc": "Sindical UK", "p": "UK", "u": "tuc.org.uk", "l": "EN", "f": "AI manifesto y derecho laboral", "pr": "Alta", "no": ""}, {"n": "UNI Global Union", "c": "Sindicato/Org", "sc": "Sindical global", "p": "Global", "u": "uniglobalunion.org", "l": "EN", "f": "Convención IA y trabajo", "pr": "Alta", "no": ""}, {"n": "CGT France (AI dossier)", "c": "Sindicato/Org", "sc": "Sindical Francia", "p": "Francia", "u": "cgt.fr/dossiers/intelligence-artificielle", "l": "FR", "f": "Posición sindical francesa", "pr": "Media", "no": ""}, {"n": "Worker Info Exchange", "c": "Sindicato/Org", "sc": "Activista", "p": "UK", "u": "workerinfoexchange.org", "l": "EN", "f": "Datos laborales y plataformas", "pr": "Alta", "no": "Farrar"}, {"n": "WGA (post-IA contract)", "c": "Sindicato/Org", "sc": "Sindical EE.UU.", "p": "EE.UU.", "u": "wga.org", "l": "EN", "f": "Cláusulas IA en contrato 2023", "pr": "Alta", "no": ""}, {"n": "Friedrich-Ebert-Stiftung", "c": "Sindicato/Org", "sc": "Fundación sindical", "p": "Alemania", "u": "fes.de", "l": "DE/EN/ES", "f": "Investigación IA y trabajo", "pr": "Alta", "no": ""}]};
+const NODES = DATA.nodos;
+const AUTHORS = DATA.autores;
+const FUENTES = DATA.fuentes || [];
+function getCss(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function typeColor(t) {
+  if (!t) return getCss('--t-inst');
+  const x = t.toLowerCase();
+  if (x.includes('académico')) return getCss('--t-acad');
+  if (x.includes('intelectual') || x.includes('pública')) return getCss('--t-publ');
+  if (x.includes('operador')) return getCss('--t-oper');
+  if (x.includes('curador') || x.includes('periodista')) return getCss('--t-cura');
+  if (x.includes('activista') || x.includes('sindicalista')) return getCss('--t-acti');
+  if (x.includes('funcionario')) return getCss('--t-func');
+  if (x.includes('empresa')) return getCss('--t-empr');
+  return getCss('--t-inst');
+}
+const state = { view: 'grafo', query: '', filterType: null, filterRegion: null,
+  filterNode: null, filterFuenteCat: null, filterFuentePrio: null, selected: null };
+document.querySelectorAll('nav.tabs button').forEach(btn =>
+  btn.addEventListener('click', () => switchView(btn.dataset.view)));
+function switchView(v) {
+  state.view = v;
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  ['grafo','autores','nodos','fuentes','novedades'].forEach(name => {
+    document.getElementById(name + 'View').style.display = (v === name) ? 'block' : 'none';
+  });
+  if (v === 'grafo') drawGrafo();
+  if (v === 'autores') renderAutores();
+  if (v === 'nodos') renderNodos();
+  if (v === 'fuentes') renderFuentes();
+}
+document.getElementById('search').addEventListener('input', e => {
+  state.query = e.target.value.toLowerCase().trim();
+  if (state.view === 'autores') renderAutores();
+  if (state.view === 'grafo') drawGrafo();
+  if (state.view === 'fuentes') renderFuentes();
+});
+function matchesQuery(a) {
+  if (!state.query) return true;
+  const q = state.query;
+  return (a.n||'').toLowerCase().includes(q) || (a.i||'').toLowerCase().includes(q) ||
+         (a.f||'').toLowerCase().includes(q) || (a.p||'').toLowerCase().includes(q) ||
+         (a.no||'').toLowerCase().includes(q) || (a.t||'').toLowerCase().includes(q);
+}
+const canvas = document.getElementById('grafoCanvas');
+const ctx = canvas.getContext('2d');
+let viewport = { x: 0, y: 0, k: 1 };
+let layoutCache = null;
+function computeNodePositions(w, h) {
+  const cx = w/2, cy = h/2;
+  const R = Math.min(w, h) * 0.34;
+  const positions = {};
+  NODES.forEach((n, i) => {
+    const angle = (i / NODES.length) * Math.PI * 2 - Math.PI/2;
+    positions[n.id] = { x: cx + Math.cos(angle) * R, y: cy + Math.sin(angle) * R, angle, n };
+  });
+  return { cx, cy, R, positions };
+}
+function computeAuthorPositions(np) {
+  const groups = new Map();
+  AUTHORS.forEach(a => {
+    if (!a.nd || a.nd.length === 0) return;
+    const key = [...a.nd].sort().join(',');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(a);
+  });
+  const result = [];
+  groups.forEach((authors, key) => {
+    const ids = key.split(',').map(Number);
+    let avgX = 0, avgY = 0, n = 0;
+    ids.forEach(id => {
+      if (np.positions[id]) { avgX += np.positions[id].x; avgY += np.positions[id].y; n++; }
+    });
+    if (n === 0) return;
+    avgX /= n; avgY /= n;
+    const pull = (ids.length - 1) * 0.15;
+    avgX = avgX + (np.cx - avgX) * pull;
+    avgY = avgY + (np.cy - avgY) * pull;
+    authors.forEach((a, i) => {
+      const r = 18 + Math.sqrt(authors.length) * 8;
+      const ang = (i / authors.length) * Math.PI * 2 + (key.length * 0.7);
+      result.push({ author: a, x: avgX + Math.cos(ang) * r, y: avgY + Math.sin(ang) * r, nodes: ids });
+    });
+  });
+  return result;
+}
+function buildLayout() {
+  const rect = canvas.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  canvas.width = w * devicePixelRatio;
+  canvas.height = h * devicePixelRatio;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  const np = computeNodePositions(w, h);
+  layoutCache = { w, h, nodePositions: np, authorPositions: computeAuthorPositions(np) };
+}
+function wrapText(txt, maxChars) {
+  const words = txt.split(' ');
+  const lines = []; let line = '';
+  words.forEach(w => {
+    if ((line + ' ' + w).trim().length > maxChars) { lines.push(line.trim()); line = w; }
+    else line = line + ' ' + w;
+  });
+  if (line.trim()) lines.push(line.trim());
+  return lines.slice(0, 2);
+}
+function drawGrafo() {
+  if (!layoutCache) buildLayout();
+  const { w, h, nodePositions, authorPositions } = layoutCache;
+  ctx.clearRect(0, 0, w, h);
+  ctx.save();
+  ctx.translate(viewport.x, viewport.y);
+  ctx.scale(viewport.k, viewport.k);
+  const textColor = getCss('--text'), accent = getCss('--accent');
+  ctx.lineWidth = 0.5;
+  authorPositions.forEach(ap => {
+    const aMatch = !state.query || matchesQuery(ap.author);
+    ctx.strokeStyle = aMatch ? 'rgba(139,149,163,0.18)' : 'rgba(139,149,163,0.05)';
+    ap.nodes.forEach(nid => {
+      const np = nodePositions.positions[nid];
+      if (!np) return;
+      ctx.beginPath();
+      ctx.moveTo(ap.x, ap.y); ctx.lineTo(np.x, np.y); ctx.stroke();
+    });
+  });
+  Object.values(nodePositions.positions).forEach(np => {
+    ctx.beginPath();
+    ctx.arc(np.x, np.y, 26, 0, Math.PI*2);
+    ctx.fillStyle = state.filterNode === np.n.id ? accent : 'rgba(121,192,255,0.18)';
+    ctx.strokeStyle = accent; ctx.lineWidth = 1.5;
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = state.filterNode === np.n.id ? getCss('--bg') : textColor;
+    ctx.font = '600 13px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(np.n.id, np.x, np.y);
+    const labelR = 44;
+    const lx = np.x + Math.cos(np.angle) * labelR;
+    const ly = np.y + Math.sin(np.angle) * labelR;
+    ctx.fillStyle = textColor;
+    ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif';
+    const shortName = np.n.n.length > 38 ? np.n.n.slice(0, 36) + '…' : np.n.n;
+    const lines = wrapText(shortName, 22);
+    ctx.textAlign = Math.cos(np.angle) > 0.2 ? 'left' : (Math.cos(np.angle) < -0.2 ? 'right' : 'center');
+    lines.forEach((l, i) => ctx.fillText(l, lx, ly + i * 13 - (lines.length-1)*6));
+  });
+  authorPositions.forEach(ap => {
+    const isMatch = matchesQuery(ap.author);
+    const isSelected = state.selected && state.selected.n === ap.author.n;
+    const r = isSelected ? 6 : 3.5;
+    ctx.beginPath();
+    ctx.arc(ap.x, ap.y, r, 0, Math.PI*2);
+    ctx.fillStyle = isMatch ? typeColor(ap.author.t) : 'rgba(139,149,163,0.18)';
+    ctx.fill();
+    if (isSelected) { ctx.strokeStyle = accent; ctx.lineWidth = 2; ctx.stroke(); }
+  });
+  ctx.restore();
+}
+canvas.addEventListener('click', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left - viewport.x) / viewport.k;
+  const my = (e.clientY - rect.top - viewport.y) / viewport.k;
+  if (!layoutCache) return;
+  let hit = null, minD = 12;
+  layoutCache.authorPositions.forEach(ap => {
+    const d = Math.hypot(ap.x - mx, ap.y - my);
+    if (d < minD) { minD = d; hit = ap.author; }
+  });
+  let nodeHit = null;
+  Object.values(layoutCache.nodePositions.positions).forEach(np => {
+    const d = Math.hypot(np.x - mx, np.y - my);
+    if (d < 28) nodeHit = np.n;
+  });
+  if (hit) { selectAuthor(hit); drawGrafo(); }
+  else if (nodeHit) { showNodeDetail(nodeHit); state.filterNode = nodeHit.id; drawGrafo(); }
+});
+const tooltipDiv = document.createElement('div');
+tooltipDiv.style.cssText = 'position:absolute; pointer-events:none; background:var(--panel); border:1px solid var(--line); border-radius:5px; padding:4px 8px; font-size:11px; color:var(--text); display:none; z-index:10;';
+document.getElementById('grafoView').appendChild(tooltipDiv);
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left - viewport.x) / viewport.k;
+  const my = (e.clientY - rect.top - viewport.y) / viewport.k;
+  if (!layoutCache) return;
+  let hit = null, minD = 12;
+  layoutCache.authorPositions.forEach(ap => {
+    const d = Math.hypot(ap.x - mx, ap.y - my);
+    if (d < minD) { minD = d; hit = ap.author; }
+  });
+  if (hit) {
+    tooltipDiv.style.display = 'block';
+    tooltipDiv.textContent = hit.n + ' · ' + (hit.i || '');
+    tooltipDiv.style.left = (e.clientX - rect.left + 12) + 'px';
+    tooltipDiv.style.top = (e.clientY - rect.top + 12) + 'px';
+  } else { tooltipDiv.style.display = 'none'; }
+});
+let dragging = false, lastX, lastY;
+canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; });
+window.addEventListener('mouseup', () => dragging = false);
+canvas.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  viewport.x += e.clientX - lastX; viewport.y += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY;
+  drawGrafo();
+});
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const factor = e.deltaY < 0 ? 1.12 : 1/1.12;
+  const newK = Math.max(0.4, Math.min(3, viewport.k * factor));
+  viewport.x = mx - (mx - viewport.x) * (newK / viewport.k);
+  viewport.y = my - (my - viewport.y) * (newK / viewport.k);
+  viewport.k = newK;
+  drawGrafo();
+}, { passive: false });
+document.getElementById('zoomIn').onclick = () => { viewport.k = Math.min(3, viewport.k*1.2); drawGrafo(); };
+document.getElementById('zoomOut').onclick = () => { viewport.k = Math.max(0.4, viewport.k/1.2); drawGrafo(); };
+document.getElementById('zoomReset').onclick = () => { viewport = {x:0,y:0,k:1}; state.filterNode = null; drawGrafo(); };
+const legendEl = document.getElementById('legend');
+[['Académico','--t-acad'],['Intelectual público','--t-publ'],['Operador / empresario','--t-oper'],
+ ['Curador / periodista','--t-cura'],['Activista / sindicalista','--t-acti'],['Funcionario','--t-func']
+].forEach(([label, varname]) => {
+  const item = document.createElement('div');
+  item.innerHTML = '<span class="swatch" style="background:' + getCss(varname) + '"></span>' + label;
+  legendEl.appendChild(item);
+});
+window.addEventListener('resize', () => { buildLayout(); drawGrafo(); });
+function renderAutores() {
+  const filters = document.getElementById('filtersBar');
+  filters.innerHTML = '';
+  const tipos = ['Académico','Intelectual público','Pública','Operador','Curador','Periodista','Activista','Sindicalista','Funcionario'];
+  const regiones = ['Argentina','Brasil','México','Chile','Colombia','Uruguay','Guatemala','EE.UU.','UK','Europa','Canadá','India','Sudáfrica','Etiopía','Holanda','Francia','Italia','Suecia','Alemania'];
+  const tipoLabel = document.createElement('span');
+  tipoLabel.style.cssText = 'color:var(--text-faint); font-size:11px; padding:6px 4px;';
+  tipoLabel.textContent = 'Tipo:'; filters.appendChild(tipoLabel);
+  tipos.forEach(t => {
+    const c = document.createElement('button');
+    c.className = 'filter-chip' + (state.filterType === t ? ' active' : '');
+    c.textContent = t;
+    c.onclick = () => { state.filterType = state.filterType === t ? null : t; renderAutores(); };
+    filters.appendChild(c);
+  });
+  const sep = document.createElement('span');
+  sep.style.cssText = 'color:var(--text-faint); font-size:11px; padding:6px 4px;';
+  sep.textContent = 'Región:'; filters.appendChild(sep);
+  regiones.forEach(r => {
+    const c = document.createElement('button');
+    c.className = 'filter-chip' + (state.filterRegion === r ? ' active' : '');
+    c.textContent = r;
+    c.onclick = () => { state.filterRegion = state.filterRegion === r ? null : r; renderAutores(); };
+    filters.appendChild(c);
+  });
+  const list = document.getElementById('authorList');
+  list.innerHTML = '';
+  const filtered = AUTHORS.filter(a => matchesQuery(a))
+    .filter(a => !state.filterType || (a.t||'').includes(state.filterType))
+    .filter(a => !state.filterRegion || (a.p||'').includes(state.filterRegion))
+    .sort((x,y) => x.n.localeCompare(y.n));
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-dim); padding:20px;">Sin resultados.</div>';
+    return;
+  }
+  filtered.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'author-card';
+    const col = typeColor(a.t);
+    card.innerHTML = '<div class="top"><span class="name">' + a.n + '</span>' +
+      '<span class="tag" style="background:' + col + '25; color:' + col + '; border-color:' + col + '40;">' + a.t + '</span>' +
+      '<span style="color:var(--text-faint); font-size:11px; margin-left:auto;">' + a.p + '</span></div>' +
+      '<div class="meta">' + (a.i ? a.i + ' · ' : '') + (a.f || '') + '</div>';
+    card.onclick = () => selectAuthor(a);
+    list.appendChild(card);
+  });
+}
+function renderNodos() {
+  const c = document.getElementById('nodosView');
+  c.innerHTML = '';
+  NODES.forEach(node => {
+    const authors = AUTHORS.filter(a => a.nd && a.nd.includes(node.id));
+    const card = document.createElement('div');
+    card.className = 'node-card';
+    card.innerHTML = '<div><span class="node-num">' + node.id + '</span><span class="node-title">' + node.n + '</span></div>' +
+      '<div class="node-q">' + node.q + '</div>' +
+      '<div class="node-count">' + authors.length + ' autoras / autores · clic para detalle</div>';
+    card.onclick = () => showNodeDetail(node);
+    c.appendChild(card);
+  });
+}
+function renderFuentes() {
+  const filters = document.getElementById('fuentesFilters');
+  filters.innerHTML = '';
+  const cats = ['Base académica','Medio','Substack/Newsletter','Medio LatAm','Think tank/Multilateral','Cuenta social','Sindicato/Org'];
+  const prios = ['Alta','Media','Baja'];
+  const catLabel = document.createElement('span');
+  catLabel.style.cssText = 'color:var(--text-faint); font-size:11px; padding:6px 4px;';
+  catLabel.textContent = 'Categoría:'; filters.appendChild(catLabel);
+  cats.forEach(cc => {
+    const chip = document.createElement('button');
+    chip.className = 'filter-chip' + (state.filterFuenteCat === cc ? ' active' : '');
+    chip.textContent = cc;
+    chip.onclick = () => { state.filterFuenteCat = state.filterFuenteCat === cc ? null : cc; renderFuentes(); };
+    filters.appendChild(chip);
+  });
+  const sep = document.createElement('span');
+  sep.style.cssText = 'color:var(--text-faint); font-size:11px; padding:6px 4px;';
+  sep.textContent = 'Prioridad:'; filters.appendChild(sep);
+  prios.forEach(p => {
+    const chip = document.createElement('button');
+    chip.className = 'filter-chip' + (state.filterFuentePrio === p ? ' active' : '');
+    chip.textContent = p;
+    chip.onclick = () => { state.filterFuentePrio = state.filterFuentePrio === p ? null : p; renderFuentes(); };
+    filters.appendChild(chip);
+  });
+  const list = document.getElementById('fuentesList');
+  list.innerHTML = '';
+  const q = state.query;
+  const filtered = FUENTES.filter(f => !q || (f.n||'').toLowerCase().includes(q) || (f.f||'').toLowerCase().includes(q) || (f.no||'').toLowerCase().includes(q) || (f.u||'').toLowerCase().includes(q))
+    .filter(f => !state.filterFuenteCat || (f.c||'').includes(state.filterFuenteCat))
+    .filter(f => !state.filterFuentePrio || (f.pr||'') === state.filterFuentePrio);
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-dim); padding:20px;">Sin resultados.</div>';
+    return;
+  }
+  filtered.forEach(f => {
+    const url = f.u ? (f.u.startsWith('http') ? f.u : 'https://' + f.u) : null;
+    const card = document.createElement('div');
+    card.className = 'author-card';
+    const prioColor = f.pr === 'Alta' ? getCss('--t-acti') : (f.pr === 'Media' ? getCss('--t-func') : getCss('--text-faint'));
+    card.innerHTML = '<div class="top"><span class="name">' + f.n + '</span>' +
+      '<span class="tag" style="background:' + prioColor + '25; color:' + prioColor + '; border-color:' + prioColor + '40;">' + (f.pr || '') + '</span>' +
+      '<span style="color:var(--text-faint); font-size:11px; margin-left:auto;">' + (f.l || '') + ' · ' + (f.p || '') + '</span></div>' +
+      '<div class="meta"><span style="color:var(--text-dim);">' + f.c + (f.sc ? ' · ' + f.sc : '') + '</span>' +
+      (f.f ? ' · ' + f.f : '') +
+      (url ? ' · <a href="' + url + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">abrir &#8599;</a>' : '') +
+      '</div>';
+    list.appendChild(card);
+  });
+}
+function selectAuthor(a) {
+  state.selected = a;
+  const d = document.getElementById('detail');
+  const col = typeColor(a.t);
+  const nodeRefs = (a.nd || []).map(nid => {
+    const node = NODES.find(n => n.id === nid);
+    if (!node) return '';
+    return '<span class="node-pill" data-nid="' + nid + '">' + nid + '. ' + node.n + '</span>';
+  }).join('');
+  d.innerHTML = '<h2>' + a.n + '</h2>' +
+    '<div class="sub"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + col + ';margin-right:6px;vertical-align:middle;"></span>' + a.t + ' · ' + a.p + '</div>' +
+    (a.i ? '<div class="row"><div class="label">Institución</div><div class="val">' + a.i + '</div></div>' : '') +
+    (a.f ? '<div class="row"><div class="label">Foco</div><div class="val">' + a.f + '</div></div>' : '') +
+    (a.pl ? '<div class="row"><div class="label">Plataformas</div><div class="val">' + a.pl + '</div></div>' : '') +
+    (a.s ? '<div class="row"><div class="label">Mejor fuente para rastrear</div><div class="val">' + a.s + '</div></div>' : '') +
+    (a.c ? '<div class="row"><div class="label">Confianza</div><div class="val">' + a.c + '</div></div>' : '') +
+    (a.no ? '<div class="row"><div class="label">Notas</div><div class="val">' + a.no + '</div></div>' : '') +
+    (nodeRefs ? '<div class="row"><div class="label">Nodos en los que opera</div><div class="nodes-list">' + nodeRefs + '</div></div>' : '');
+  d.querySelectorAll('.node-pill').forEach(pill => {
+    pill.onclick = () => {
+      const nid = parseInt(pill.dataset.nid);
+      const node = NODES.find(n => n.id === nid);
+      if (node) showNodeDetail(node);
+    };
+  });
+}
+function showNodeDetail(node) {
+  state.selected = null;
+  const authors = AUTHORS.filter(a => a.nd && a.nd.includes(node.id));
+  const byType = {};
+  authors.forEach(a => {
+    const k = a.t || 'Otro';
+    if (!byType[k]) byType[k] = [];
+    byType[k].push(a);
+  });
+  let groups = '';
+  Object.entries(byType).forEach(([t, list]) => {
+    const links = list.map(a => '<a href="#" data-aname="' + a.n.replace(/"/g, '&quot;') + '">' + a.n + '</a>').join(' &middot; ');
+    groups += '<div class="row"><div class="label">' + t + ' (' + list.length + ')</div><div class="val" style="line-height:1.7;">' + links + '</div></div>';
+  });
+  const d = document.getElementById('detail');
+  d.innerHTML = '<h2>' + node.id + '. ' + node.n + '</h2>' +
+    '<div class="sub">' + authors.length + ' actores en este nodo</div>' +
+    '<div class="row"><div class="label">Pregunta central</div><div class="val">' + node.q + '</div></div>' +
+    '<div class="row"><div class="label">Tensiones internas</div><div class="val">' + node.t + '</div></div>' + groups;
+  d.querySelectorAll('a[data-aname]').forEach(link => {
+    link.onclick = (e) => {
+      e.preventDefault();
+      const a = AUTHORS.find(x => x.n === link.dataset.aname);
+      if (a) { selectAuthor(a); if (state.view === 'grafo') drawGrafo(); }
+    };
+  });
+}
+window.addEventListener('load', () => { buildLayout(); drawGrafo(); });
+</script>
+</body>
+</html>
+                                                                                    
