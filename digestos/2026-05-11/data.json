@@ -1,0 +1,136 @@
+{
+  "fecha_digesto": "2026-05-11",
+  "rango": {
+    "desde": "2026-05-04",
+    "hasta": "2026-05-10"
+  },
+  "items": [
+    {
+      "ranking_relevancia": 1,
+      "titulo": "Trabajadores de Google DeepMind votan formar el primer sindicato en un laboratorio de IA de frontera",
+      "url": "https://fortune.com/2026/05/05/google-deepmind-unionize-vote-military-ai-contracts-internal-backlash-pentagon-deal-israeli-defense-forces/",
+      "fecha_publicacion": "2026-05-05",
+      "fuente": "Fortune",
+      "nodo_id": 8,
+      "nodos_secundarios": [7, 10],
+      "autores_del_mapa": ["Cecilia Rikap", "Karen Hao"],
+      "en_mapa": true,
+      "parrafo_1": "El 5 de mayo, alrededor de mil trabajadores del laboratorio londinense de Google DeepMind votaron con 98% de respaldo iniciar el reconocimiento de la Communication Workers Union (CWU) y Unite como sus representantes. La chispa fue un contrato clasificado con el Departamento de Defensa estadounidense que habilita a usar Gemini para cualquier propósito legal en redes militares, junto con trabajo previo para fuerzas israelíes. Los trabajadores piden restituir el compromiso vencido de no desarrollar IA para armamento ni vigilancia, una junta independiente de ética y el derecho individual a abstenerse por razones morales.",
+      "parrafo_2": "Inscripto principalmente en el Nodo 8, dialoga con el Nodo 7 (concentración corporativa) y el Nodo 10 (regulación pública). Cecilia Rikap encuentra acá un caso testigo para su libro próximo sobre poder corporativo en la nube y la IA: la organización obrera abriendo grietas en el lugar mismo donde se decide la frontera del cómputo. Queda abierto si esto inaugura un repertorio nuevo de disputa ética desde adentro del propio capital tech o si Google ralentiza el reconocimiento hasta agotarlo."
+    },
+    {
+      "ranking_relevancia": 2,
+      "titulo": "SAG-AFTRA cierra acuerdo tentativo con los estudios: réplicas digitales con paridad de pago",
+      "url": "https://variety.com/2026/film/news/sag-aftra-tentative-deal-studio-contract-1236687517/",
+      "fecha_publicacion": "2026-05-06",
+      "fuente": "Variety",
+      "nodo_id": 8,
+      "nodos_secundarios": [13],
+      "autores_del_mapa": [],
+      "en_mapa": true,
+      "parrafo_1": "El sindicato de intérpretes pactó un contrato a cuatro años con la Alliance of Motion Picture and Television Producers que cubre cine, televisión guionada, streaming y nuevos medios. La pieza central que SAG-AFTRA exigió y obtuvo, según comunicados preliminares: cualquier réplica digital o performance sintética debe pagarse en paridad con un intérprete vivo. El Directors Guild abre su mesa el 11 de mayo. El texto completo todavía no se publicó; la junta nacional revisa antes de la ratificación.",
+      "parrafo_2": "El acuerdo pertenece al Nodo 8 con eco en el Nodo 13 (estudios sectoriales). Traduce una abstracción —protección frente a la IA— en arquitectura de precios. Si el costo marginal del clon iguala al del actor, la decisión de automatizar deja de ser puramente financiera. Es una manera concreta de pensar el poder sindical como diseño de incentivos. Conviene volver cuando se publique el lenguaje exacto, sobre todo para ver cómo se define performance sintética."
+    },
+    {
+      "ranking_relevancia": 3,
+      "titulo": "Anthropic lanza diez agentes de Claude para servicios financieros: pitchbooks, memos de crédito, KYC",
+      "url": "https://www.anthropic.com/news/finance-agents",
+      "fecha_publicacion": "2026-05-05",
+      "fuente": "Anthropic / Fortune / Markets Media",
+      "nodo_id": 13,
+      "nodos_secundarios": [2, 1],
+      "autores_del_mapa": ["David Autor", "Erik Brynjolfsson"],
+      "en_mapa": true,
+      "parrafo_1": "Anthropic publicó una biblioteca de agentes preconstruidos diseñados para los flujos más laboriosos de servicios financieros: pitchbooks, análisis de earnings, memos de crédito, underwriting, KYC, cierre de mes, auditoría de estados, claims de seguros. Vienen integrados al ecosistema Microsoft 365 con contexto compartido entre Excel, PowerPoint, Word y Outlook, y conectan a FactSet, S&P Capital IQ, MSCI, PitchBook, Morningstar, LSEG y Daloopa. Una frase clave del anuncio: el agente de pitchbook conoce cómo los bancos de inversión estructuran las presentaciones a clientes; el agente de memo de crédito sabe qué necesita ver un comité de crédito.",
+      "parrafo_2": "Para el Nodo 13 es un hecho clave: por primera vez una empresa de IA de frontera lanza una suite vertical para finanzas con templates que incorporan tácitamente la división del trabajo del sector. Toca también el Nodo 2 (productividad) y el Nodo 1 (sustitución). David Autor y Erik Brynjolfsson seguramente lo procesarán en sus trabajos sobre exposure ocupacional. Pregunta abierta: cómo medir el efecto desplazamiento cuando lo que se automatiza es la división interna del trabajo profesional —el junior, el analyst, el VP— y no la ocupación entera."
+    },
+    {
+      "ranking_relevancia": 4,
+      "titulo": "Hera Hyeonseo Lee en ProMarket: el 401(k) financia la burbuja de IA y el desplazamiento del propio ahorrista",
+      "url": "https://www.promarket.org/2026/05/05/your-401k-is-propping-up-the-ai-bubble/",
+      "fecha_publicacion": "2026-05-05",
+      "fuente": "ProMarket (Stigler Center, U. de Chicago)",
+      "nodo_id": 7,
+      "nodos_secundarios": [1, 9],
+      "autores_del_mapa": ["Mariana Mazzucato"],
+      "en_mapa": false,
+      "parrafo_1": "Lee, doctoranda en sociología en Binghamton (SUNY), observa que las diez empresas más grandes del S&P 500 —Nvidia, Microsoft, Apple, Amazon, Alphabet, Meta, Broadcom entre ellas— concentran cerca del 40% del peso del índice. Cuando un trabajador estadounidense aporta a un fondo target-date que sigue al índice, alrededor de 40 centavos de cada dólar van a parar a empresas AI-adyacentes. Los flujos pasivos, observa Lee, no responden al precio: entran según el calendario de aportes, no según la valuación.",
+      "parrafo_2": "El argumento más filoso es político-financiero, y ahí está la novedad para el Nodo 7 con eco en el Nodo 1. Los trabajadores expuestos a desplazamiento por IA —tareas rutinarias cognitivas y administrativas— son los mismos que más dependen del retorno del 401(k) para suplir salarios estancados. El interés contradictorio del ahorrista-trabajador merece atención teórica: conecta una pieza —los flujos pasivos como sostén estructural del precio de la IA— que el mapa todavía no tenía articulada. Voz que aún no está en el mapa: vale considerar sumar."
+    },
+    {
+      "ranking_relevancia": 5,
+      "titulo": "Microsoft publica su Work Trend Index 2026: el Transformation Paradox",
+      "url": "https://news.microsoft.com/annual-work-trend-index-2026/",
+      "fecha_publicacion": "2026-05-05",
+      "fuente": "Microsoft / GeekWire",
+      "nodo_id": 2,
+      "nodos_secundarios": [12, 5],
+      "autores_del_mapa": ["Ethan Mollick"],
+      "en_mapa": true,
+      "parrafo_1": "Encuesta a 31.000 trabajadores en 31 países más datos de uso de la propia plataforma Microsoft 365. El hallazgo principal: 65% de los usuarios frecuentes de IA dicen temer quedar atrás si no aceleran la adopción, mientras 45% considera más seguro concentrarse en metas actuales antes que rediseñar el trabajo con IA. Los factores organizacionales —cultura, manager, prácticas de talento— explican, según Microsoft, más del doble del impacto en la adopción que los factores individuales (67% vs 32%).",
+      "parrafo_2": "Es un dato de fuente interesada, pero útil. Donde el discurso público suele atribuir la productividad a las personas y a las herramientas, Microsoft —que vende esas herramientas— termina admitiendo que el cuello de botella está en la organización. Para el Nodo 2 abre una pregunta empírica concreta: si el paradox es real o es la manera en que el vendor explica resultados que no se materializan en métricas de firma. Conviene leerlo en paralelo al Economic Index de Anthropic (marzo 2026) y a la encuesta de Hartley, Jolevski, Melo y Moore."
+    },
+    {
+      "ranking_relevancia": 6,
+      "titulo": "Semana de despidos explícitamente atribuidos a IA: PayPal, BioNTech, Cognizant en eco",
+      "url": "https://www.marketplace.org/story/2026/05/08/the-tech-industry-continued-shedding-jobs-in-april-citing-ai-optimization-as-cause",
+      "fecha_publicacion": "2026-05-08",
+      "fuente": "Marketplace.org (con anuncios escalonados de PayPal, BioNTech, Cognizant)",
+      "nodo_id": 1,
+      "nodos_secundarios": [7],
+      "autores_del_mapa": ["Daron Acemoglu", "David Autor"],
+      "en_mapa": true,
+      "parrafo_1": "PayPal anunció el 9 de mayo un plan de reestructuración por 1.500 millones de dólares con eliminación estimada de 4.760 puestos (20% de la plantilla) en dos a tres años, justificado como AI overhaul. BioNTech reportó hasta 1.860 cesantías el 7 de mayo. Marketplace.org reportó el 8 de mayo que el empleo en información —proxy del sector tech— acumula 11% de caída respecto del pico de 2022. Cognizant ya había anunciado el 29 de abril 4.000 puestos cortados bajo Project Leap, con potencial de escalar a 15.000.",
+      "parrafo_2": "Lo que vale separar con cuidado: la IA como causa real y la IA como racionalización post hoc —el AI washing que el propio Altman nombró. La señal empírica relevante no es el agregado mensual sino la pendiente: que cada vez más filings y comunicados nombren a la IA como motivo formal cambia la economía política del discurso, aun cuando la economía del trabajo todavía no haya cambiado tanto. Acemoglu y Autor seguramente lo procesarán en el próximo ciclo NBER."
+    },
+    {
+      "ranking_relevancia": 7,
+      "titulo": "CNN Business: AI isn't actually 'taking' your job. Here's what's happening instead",
+      "url": "https://www.cnn.com/2026/05/10/tech/ai-taking-jobs",
+      "fecha_publicacion": "2026-05-10",
+      "fuente": "CNN Business",
+      "nodo_id": 1,
+      "nodos_secundarios": [13, 12],
+      "autores_del_mapa": [],
+      "en_mapa": true,
+      "parrafo_1": "Síntesis del 10 de mayo que enhebra tres líneas de evidencia para sostener que el agregado todavía no muestra desplazamiento estadísticamente significativo por IA: la investigación de Anthropic (Massenkoff y McCrory, observed exposure, marzo 2026), el paper de Hartley, Jolevski, Melo y Moore con 35,9% de adopción a diciembre de 2025, y los datos del Yale Budget Lab. El efecto concentrado y verificable se ubica en jóvenes de 22 a 25 años en ocupaciones expuestas, con una caída relativa cercana al 16%.",
+      "parrafo_2": "La novedad no es el dato —los papers vienen circulando hace semanas— sino la operación periodística: ordenar las tres fuentes para discutir si el modelo agregado 'no pasa nada' es compatible con un efecto fuerte de cohorte joven. Si CNN ya consolidó esta lectura, otros medios anglo van a seguir esa línea. La pregunta de fondo: si la cohorte joven funciona mejor como unidad explicativa que la ocupación o el sector."
+    },
+    {
+      "ranking_relevancia": 8,
+      "titulo": "Infobae: la IA fue la principal causa de despidos en EE.UU. en abril (datos Challenger)",
+      "url": "https://www.infobae.com/estados-unidos/2026/05/09/la-inteligencia-artificial-provoco-mas-de-20000-despidos-en-abril-en-estados-unidos/",
+      "fecha_publicacion": "2026-05-09",
+      "fuente": "Infobae",
+      "nodo_id": 11,
+      "nodos_secundarios": [1, 13],
+      "autores_del_mapa": ["Milagros Miceli"],
+      "en_mapa": true,
+      "parrafo_1": "Infobae publica el 9 de mayo una nota sobre los datos de la consultora Challenger, Gray & Christmas: durante abril, en EE.UU., 21.490 puestos —el 26% del total mensual de despidos— se atribuyen explícitamente a adopción de IA, la primera vez que ese rubro figura como dominante en el informe. La nota referencia los anuncios de Cognizant (Project Leap), Pinterest y Block. Es cobertura de segundo orden —no hay reporteo propio—, pero el dato circula sin demasiada mediación al lector hispanohablante.",
+      "parrafo_2": "Para el Nodo 11 señala una asimetría conocida —la cobertura latinoamericana sobre IA y trabajo se ceba mayoritariamente en la agenda estadounidense— pero también la velocidad con la que el dato cuantitativo se difunde a falta de evidencia local equivalente. La pregunta interesante, para el mapa, es qué pasa con la prensa de la región cuando se produce evidencia propia y discutible. El equipo de Milagros Miceli con datos para Argentina y Brasil estaría en buena posición para ofrecer esa contraevidencia."
+    }
+  ],
+  "voces_nuevas_propuestas": [
+    {
+      "nombre": "Hera Hyeonseo Lee",
+      "afiliacion": "Binghamton University (SUNY), sociología",
+      "razon": "Ensayo en ProMarket que conecta concentración bursátil, flujos pasivos del 401(k) y disciplina laboral. Línea original."
+    },
+    {
+      "nombre": "Maxim Massenkoff y Peter McCrory",
+      "afiliacion": "Anthropic Economic Research",
+      "razon": "Co-autores del paper observed exposure (marzo 2026) que ya es citado regularmente como referencia metodológica."
+    },
+    {
+      "nombre": "Enrique Ide",
+      "afiliacion": "arXiv econ.GN, abril 2026",
+      "razon": "Modelo formal sobre cómo la automatización entry-level corta la transmisión tácita experto-novato; resuena con la evidencia sobre cohorte joven."
+    }
+  ],
+  "nodos_sin_novedades": [3, 4, 5, 6, 9, 10, 12, 14],
+  "notas_de_calidad": {
+    "limitacion_acceso": "No pude leer mapa_ia_y_trabajo.xlsx ni mapa_ia_trabajo.html desde esta sesión: ambos archivos están en una carpeta de outputs de otra sesión local (path local_164f0439-...) que no está montada en el sandbox. Trabajé con los 14 nodos y la lista de autores explícitamente nombrados en el SKILL.md.",
+    "limitacion_html": "Por la misma razón, no pude actualizar el bloque NOVEDADES_START/END del HTML del mapa. Al final del archivo .md de relevancia y en este JSON queda el bloque HTML listo para pegar a mano."
+  },
+  "bloque_html_listo_para_pegar": "<p style=\"color:var(--text-faint); font-size:12px; margin-bottom:14px;\">Digesto del 4 al 10 de mayo de 2026 — 8 ítems</p>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 8 · Fortune · 2026-05-05 · ID#1</div>\n  <div class=\"alert-title\">Trabajadores de Google DeepMind votan formar el primer sindicato en un laboratorio de IA de frontera</div>\n  <div class=\"alert-summary\">El 5 de mayo, alrededor de mil trabajadores del laboratorio londinense de Google DeepMind votaron con 98% de respaldo iniciar el reconocimiento de la Communication Workers Union (CWU) y Unite. La chispa fue un contrato clasificado con el Departamento de Defensa estadounidense que habilita a usar Gemini para cualquier propósito legal en redes militares, junto con trabajo previo para fuerzas israelíes. Los trabajadores piden restituir el compromiso vencido de no desarrollar IA para armamento, una junta independiente de ética y el derecho a abstenerse por razones morales.<br><br>Inscripto en el Nodo 8 con eco en el Nodo 7 (concentración) y el Nodo 10 (regulación). Cecilia Rikap encuentra acá un caso testigo para su libro próximo sobre poder corporativo en la nube y la IA: la organización obrera abriendo grietas en el lugar mismo donde se decide la frontera del cómputo.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://fortune.com/2026/05/05/google-deepmind-unionize-vote-military-ai-contracts-internal-backlash-pentagon-deal-israeli-defense-forces/\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 8 · Variety · 2026-05-06 · ID#2</div>\n  <div class=\"alert-title\">SAG-AFTRA cierra acuerdo tentativo con los estudios: réplicas digitales con paridad de pago</div>\n  <div class=\"alert-summary\">El sindicato de intérpretes pactó un contrato a cuatro años con la AMPTP que cubre cine, televisión guionada, streaming y nuevos medios. La pieza central: cualquier réplica digital o performance sintética debe pagarse en paridad con un intérprete vivo. El Directors Guild abre su mesa el 11 de mayo. Texto completo pendiente de ratificación.<br><br>Pertenece al Nodo 8 con eco en el Nodo 13. Traduce una abstracción —protección frente a la IA— en arquitectura de precios: si el costo marginal del clon iguala al del actor, la decisión de automatizar deja de ser puramente financiera.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://variety.com/2026/film/news/sag-aftra-tentative-deal-studio-contract-1236687517/\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 13 · Anthropic / Fortune · 2026-05-05 · ID#3</div>\n  <div class=\"alert-title\">Anthropic lanza diez agentes de Claude para servicios financieros</div>\n  <div class=\"alert-summary\">Biblioteca de agentes preconstruidos para flujos laboriosos de servicios financieros: pitchbooks, análisis de earnings, memos de crédito, underwriting, KYC, cierre de mes, auditoría, claims. Integración Microsoft 365 con contexto compartido. Conectividad a FactSet, S&P Capital IQ, MSCI, PitchBook, Morningstar, LSEG, Daloopa.<br><br>Por primera vez una empresa de IA de frontera lanza una suite vertical para finanzas con templates que incorporan tácitamente la división interna del trabajo profesional. Pregunta abierta: cómo medir el efecto desplazamiento cuando lo que se automatiza es la estructura interna y no la ocupación entera.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://www.anthropic.com/news/finance-agents\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 7 · ProMarket · 2026-05-05 · ID#4</div>\n  <div class=\"alert-title\">Hera Hyeonseo Lee: el 401(k) financia la burbuja de IA y al propio ahorrista expuesto al desplazamiento</div>\n  <div class=\"alert-summary\">Las diez empresas más grandes del S&P 500 concentran 40% del peso del índice; casi todas AI-adyacentes. Cuando un trabajador aporta a un fondo target-date, ~40 centavos de cada dólar van a parar a esas siete empresas. Los flujos pasivos no responden al precio: entran según el calendario de aportes.<br><br>Los trabajadores expuestos al desplazamiento por IA son los mismos que más dependen del retorno del 401(k). El interés contradictorio del ahorrista-trabajador merece atención teórica. Voz nueva que vale sumar al mapa.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://www.promarket.org/2026/05/05/your-401k-is-propping-up-the-ai-bubble/\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 2 · Microsoft / GeekWire · 2026-05-05 · ID#5</div>\n  <div class=\"alert-title\">Microsoft publica su Work Trend Index 2026: el Transformation Paradox</div>\n  <div class=\"alert-summary\">Encuesta a 31.000 trabajadores en 31 países más datos de uso de Microsoft 365. 65% de los usuarios frecuentes de IA temen quedar atrás; 45% considera más seguro mantener metas actuales antes que rediseñar el trabajo. Los factores organizacionales explican 67% del impacto en la adopción versus 32% de los factores individuales.<br><br>Donde el discurso público suele atribuir la productividad a las personas y a las herramientas, Microsoft —que vende esas herramientas— termina admitiendo que el cuello de botella está en la organización. Conviene leerlo en paralelo al Economic Index de Anthropic.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://news.microsoft.com/annual-work-trend-index-2026/\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 1 · Marketplace.org · 2026-05-08 · ID#6</div>\n  <div class=\"alert-title\">Semana de despidos explícitamente atribuidos a IA: PayPal, BioNTech, Cognizant en eco</div>\n  <div class=\"alert-summary\">PayPal anunció el 9 de mayo un plan de reestructuración por USD 1.500M con eliminación estimada de 4.760 puestos (20% de la plantilla) en dos a tres años, justificado como AI overhaul. BioNTech reportó hasta 1.860 cesantías el 7 de mayo. El empleo en información acumula 11% de caída respecto del pico de 2022.<br><br>Lo que vale separar con cuidado: la IA como causa real y la IA como racionalización post hoc. La señal empírica relevante no es el agregado sino la pendiente: que cada vez más filings nombren a la IA como motivo formal cambia la economía política del discurso.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://www.marketplace.org/story/2026/05/08/the-tech-industry-continued-shedding-jobs-in-april-citing-ai-optimization-as-cause\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 1 · CNN Business · 2026-05-10 · ID#7</div>\n  <div class=\"alert-title\">CNN Business: AI isn't actually 'taking' your job. Here's what's happening instead</div>\n  <div class=\"alert-summary\">Síntesis que enhebra Anthropic (observed exposure), Hartley et al. (35,9% adopción a diciembre 2025) y Yale Budget Lab. El efecto concentrado y verificable se ubica en jóvenes de 22 a 25 años en ocupaciones expuestas, con una caída relativa cercana al 16%.<br><br>La novedad no es el dato sino la operación periodística: ordenar las tres fuentes para discutir si el modelo agregado 'no pasa nada' es compatible con un efecto fuerte de cohorte joven. Si CNN ya consolidó esta lectura, otros medios anglo van a seguir esa línea.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://www.cnn.com/2026/05/10/tech/ai-taking-jobs\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>\n<div class=\"alert-item\">\n  <div class=\"alert-meta\">Nodo 11 · Infobae · 2026-05-09 · ID#8</div>\n  <div class=\"alert-title\">Infobae: la IA fue la principal causa de despidos en EE.UU. en abril (datos Challenger)</div>\n  <div class=\"alert-summary\">Datos de Challenger, Gray & Christmas: 21.490 puestos —26% del total mensual de despidos en EE.UU.— atribuidos explícitamente a IA, la primera vez que el rubro figura como dominante. La nota referencia Cognizant (Project Leap), Pinterest y Block. Es cobertura de segundo orden, sin reporteo propio.<br><br>Para el Nodo 11 señala una asimetría conocida y también la velocidad con la que el dato cuantitativo se difunde a falta de evidencia local equivalente. La pregunta interesante: qué pasa con la prensa de la región cuando se produce evidencia propia. Los datos del equipo de Milagros Miceli para Argentina y Brasil estarían en buena posición para ofrecer esa contraevidencia.</div>\n  <div style=\"margin-top:8px;font-size:11px;\"><a href=\"https://www.infobae.com/estados-unidos/2026/05/09/la-inteligencia-artificial-provoco-mas-de-20000-despidos-en-abril-en-estados-unidos/\" target=\"_blank\" rel=\"noopener\">abrir fuente ↗</a></div>\n</div>"
+}
