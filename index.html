@@ -97,11 +97,31 @@
   .node-card .node-q { color: var(--text-dim); font-size: 12px; line-height: 1.4;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .node-card .node-count { color: var(--text-faint); font-size: 11px; margin-top: 4px; }
-  #novedadesView { padding: 18px 22px; max-width: 760px; }
-  .novedades-empty { background: var(--panel); border: 1px dashed var(--line);
-    border-radius: 8px; padding: 32px 24px; text-align: left; color: var(--text-dim); }
-  .novedades-empty h3 { color: var(--text); margin: 0 0 12px 0; font-size: 15px; }
-  .novedades-empty p { margin: 8px 0; font-size: 13px; line-height: 1.6; }
+  #novedadesView { padding: 18px 22px; max-width: 780px; }
+  .nov-subtabs { display:flex; gap:0; margin-bottom:20px; border-bottom:1px solid var(--line); }
+  .nov-subtab { background:none; border:none; border-bottom:2px solid transparent;
+    color:var(--text-dim); padding:8px 18px; cursor:pointer; font-size:13px;
+    font-family:inherit; margin-bottom:-1px; }
+  .nov-subtab:hover { color:var(--text); }
+  .nov-subtab.active { color:var(--text); border-bottom-color:var(--accent); font-weight:500; }
+  .nov-section-header { font-size:11px; text-transform:uppercase; letter-spacing:0.7px;
+    color:var(--text-faint); font-weight:600; padding:6px 0 8px;
+    border-bottom:1px solid var(--line); margin:28px 0 14px; }
+  .nov-section-header:first-child { margin-top:0; }
+  .nov-nodo-row { display:flex; align-items:center; gap:8px; margin:26px 0 12px;
+    padding-bottom:8px; border-bottom:1px solid var(--line); }
+  .nov-nodo-row:first-child { margin-top:0; }
+  .nov-nodo-num { width:26px; height:26px; background:var(--accent); color:var(--bg);
+    border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:11px; flex-shrink:0; }
+  .nov-nodo-name { font-weight:600; font-size:13px; line-height:1.3; }
+  .nov-empty { color:var(--text-faint); font-size:12px; font-style:italic; padding:4px 0 10px; }
+  .alert-item { background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:14px 16px; margin-bottom:10px; }
+  .alert-item:last-child { margin-bottom:0; }
+  .alert-meta { color:var(--text-faint); font-size:11px; margin-bottom:5px; }
+  .alert-title { font-weight:600; font-size:13px; color:var(--text); margin-bottom:8px; line-height:1.35; }
+  .alert-summary { font-size:12px; color:var(--text-dim); line-height:1.6; }
   #detail .empty-state { color: var(--text-dim); font-size: 13px; padding: 60px 12px; text-align: center; }
   #detail h2 { margin: 0 0 6px 0; font-size: 17px; font-weight: 600; }
   #detail .sub { color: var(--text-dim); font-size: 12px; margin-bottom: 14px; }
@@ -152,55 +172,12 @@
     </div>
     <div id="novedadesView" style="display:none">
       <!-- NOVEDADES_START -->
-      <p style="color:var(--text-faint); font-size:12px; margin-bottom:14px;">Digesto del 18 al 24 de mayo de 2026 — 8 ítems</p>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 1 · NPR / Al Jazeera / The Next Web · 2026-05-20 · ID#1</div>
-        <div class="alert-title">Meta corta 8.000 empleos y reorienta 7.000 puestos hacia IA</div>
-        <div class="alert-summary">El 20 de mayo, Meta comenzó a notificar a aproximadamente 8.000 empleados su desvinculación en la primera ola de una reestructuración global que la empresa describe como necesaria para financiar su expansión en inteligencia artificial. Los despidos representan el 10% de la plantilla; la compañía también cancelará 6.000 contrataciones planeadas y reorientará 7.000 puestos adicionales hacia "pods" centrados en IA. En el memo interno, Zuckerberg escribió: "el éxito no está garantizado" en el competitivo campo de la IA.<br><br>El caso Meta condensa la tensión definitoria del Nodo 1: los recortes no responden a pérdidas, sino a ganancias récord que se reinvierten en infraestructura. Que el 17% de los ~300.000 despidos corporativos de 2026 ya se atribuyan explícitamente a IA es una señal de sustitución estructural en marcha. Conecta con Nodo 7 (concentración) porque Meta gasta entre 115.000 y 135.000 millones en infraestructura de IA este año.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://www.npr.org/2026/05/20/nx-s1-5826917/meta-layoffs-ai-jobs" target="_blank" rel="noopener">abrir fuente ↗</a></div>
+      <div class="nov-subtabs">
+        <button class="nov-subtab active" onclick="novSwitch('semana',this)">Por semana</button>
+        <button class="nov-subtab" onclick="novSwitch('nodo',this)">Por nodo</button>
       </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 10 · Governor of California / CalMatters · 2026-05-21 · ID#2</div>
-        <div class="alert-title">Newsom firma la primera orden ejecutiva estatal de preparación laboral ante IA</div>
-        <div class="alert-summary">El gobernador Newsom firmó el 21 de mayo una orden ejecutiva que instruye a agencias de California a estudiar cómo mitigar la disrupción laboral de la IA. Ordena crear en 90 días un dashboard de seguimiento de contratación y nóminas ligadas a IA; en 180 días un análisis comprehensivo de políticas de seguridad social. Entre las opciones a estudiar: estándares de indemnización, seguro de empleo, modelos de propiedad para trabajadores y capital básico universal.<br><br>El timing es elocuente —firmada un día después de los despidos de Meta—, pero el instrumento es diagnóstico, no regulatorio. La California Labor Federation declaró: "no basta estudiar, hay que actuar ya." Dada la escala de California como actor normativo global, este EO podría tener reverberaciones más allá del estado. Nodo 10 (política pública), secundario Nodos 1 y 12.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://www.gov.ca.gov/2026/05/21/governor-newsom-signs-first-of-its-kind-executive-order-to-prepare-workers-and-businesses-for-potential-ai-disruption/" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 1 · arXiv · 2026-05-22 · ID#3</div>
-        <div class="alert-title">Nuevo arXiv: "Generative AI and the Reorganization of Labor Demand" (2605.23159)</div>
-        <div class="alert-summary">Fangyan Wang, Zaiyan Wei y Yang Wang usan un dataset de avisos de empleo en EEUU para medir cómo las empresas reorganizan la demanda laboral ante la IA generativa. El 52% del decline en exposición se explica por reasignación de contratación y el 39,5% por rediseño del contenido de puestos existentes. Los puestos senior ajustan antes y principalmente por reasignación; los junior, por una combinación más amplia.<br><br>Este paper va más allá de la pregunta estándar de destrucción de empleo para preguntar cómo se reorganiza la demanda antes de que haya destrucción visible. La distinción reasignación/rediseño es más precisa que el concepto bruto de "exposición". Dialoga con David Autor y con el análisis de la NY Fed de la misma semana. Nodo 1 (sustitución), secundario Nodo 2. Voces nuevas: los tres autores no están en el mapa.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://arxiv.org/abs/2605.23159" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 2 · METR · 2026-05-11 · ID#4</div>
-        <div class="alert-title">METR: los trabajadores técnicos perciben 2x de valor — pero la evidencia observada no corrobora</div>
-        <div class="alert-summary">Encuesta a 349 trabajadores técnicos. Mediana percibida de incremento de valor del trabajo: 1,3x en marzo de 2025, 2x en marzo de 2026, proyección 2,5x para marzo de 2027. La propia METR advierte que estudios controlados previos muestran una caída del 19% en productividad real de desarrolladores expertos al usar IA.<br><br>Paradoja metodológica central al Nodo 2: percepción de ganancias crece, evidencia observada no confirma. El hiato no es ruido metodológico: es objeto de investigación en sí mismo. Sesgo de deseabilidad social, confusión velocidad/valor y dificultad de medir trabajo del conocimiento son problemas estructurales no resueltos. Voz nueva: equipo de investigación de METR, no está en el mapa.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://metr.org/blog/2026-05-11-ai-usage-survey/" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 10 · Law and the Workplace / National Law Review · 2026-05-09 · ID#5</div>
-        <div class="alert-title">Colorado congela su ley de IA y lanza reemplazo legislativo (SB 26-189)</div>
-        <div class="alert-summary">Un tribunal federal suspendió el Colorado AI Act (SB 24-205) días antes de su vigencia (30 de junio). El parlamento aprobó con rapidez inusual el SB 26-189, que reemplaza "sistema de IA de alto riesgo" por "tecnología de toma de decisiones automatizadas" (ADMT) con vigencia desde enero de 2027 y menores obligaciones que la ley original.<br><br>El suavizamiento regulatorio ocurre en la intersección entre presión de la industria y el EO 14365 de Trump que pugna por preemption federal. La guerra de competencias regulatorias entre estados y gobierno federal sobre IA en el trabajo definirá los derechos laborales de millones. La comparación con la EU Platform Work Directive (diciembre 2026) e Illinois dará el cuadro comparativo.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://www.lawandtheworkplace.com/2026/05/major-developments-put-colorados-ai-law-on-ice-ahead-of-implementation/" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 8 · Deadline / Variety · 2026-05-09 · ID#6</div>
-        <div class="alert-title">El personal del WGA West ratifica el primer contrato con cláusula explícita de protección frente a IA</div>
-        <div class="alert-summary">El 9 de mayo, el personal del Writers Guild of America West ratificó su primer convenio colectivo con 89% de votos a favor, poniendo fin a 82 días de huelga. El acuerdo incluye protección de puestos contra reemplazo por IA, incrementos salariales del 4% retroactivos a enero de 2026 y elevación del piso salarial de $43.000 a $57.000.<br><br>En el Nodo 8 (negociación colectiva), la cláusula anti-reemplazo por IA se consolida como estándar en el sector cultural-mediático. La huelga fue del staff del gremio contra el propio gremio como empleador —lo que colapsa la distinción institución sindical/trabajadores representados—, añadiendo una capa analítica poco explorada. SAG-AFTRA negocia actualmente la "tilly tax" sobre personajes de IA como próximo frente.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://deadline.com/2026/05/wga-west-staff-union-strike-ends-members-ratify-first-deal-1236889747/" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 1 · Liberty Street Economics / NY Fed · 2026-05-14 · ID#7</div>
-        <div class="alert-title">NY Fed: los avisos de empleo no muestran efectos diferenciales de la IA en la demanda laboral</div>
-        <div class="alert-summary">Audoly, Guerin y Topa (NY Fed) cruzaron medidas de exposición ocupacional con datos de avisos de empleo (Lightcast) desde el lanzamiento de ChatGPT. Resultado: no hay decline diferencial en ocupaciones expuestas a IA; la desaceleración responde principalmente a tasas de interés y sobrecontratación post-pandemia.<br><br>Leído junto al arXiv 2605.23159 de esta semana, el cuadro coherente es: reorganización silenciosa intra-firma (reasignación, rediseño de contenido) antes de que haya destrucción neta visible en posteos. La firma institucional de la Fed le da peso político a esta lectura cautelosa del Nodo 1. Voces nuevas: Audoly, Guerin, Topa no están en el mapa.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://libertystreeteconomics.newyorkfed.org/2026/05/do-job-postings-show-early-labor-market-effects-of-ai/" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
-      <div class="alert-item">
-        <div class="alert-meta">Nodo 1 · NBER / Brookings-Hamilton Project · 2026-02-23 · ID#8</div>
-        <div class="alert-title">Acemoglu, Autor y Johnson: "Building Pro-Worker Artificial Intelligence" (referencia activa de la semana)</div>
-        <div class="alert-summary">Acemoglu, Autor y Johnson (NBER WP 34854, febrero 2026) definen la IA pro-trabajador como aquella que hace más valiosas las habilidades humanas. Distinguen cinco categorías de cambio tecnológico —labor-augmenting, capital-augmenting, automating, expertise-leveling y new task-creating— e identifican fallas de mercado que sesgan la inversión hacia automatización. Proponen nueve reformas de política pública.<br><br>Paper de febrero incluido porque es la referencia conceptual que organiza los debates de esta semana: Meta, Newsom y Colorado son casos empíricos de los mecanismos que Acemoglu et al. describen. Que tres economistas de alto impacto publiquen juntos con diagnóstico normativo explícito señala un giro del campo hacia prescripción. La categoría "expertise-leveling" merece atención particular: no equivale a augmentation y tiene consecuencias distributivas distintas. Autores del mapa: Acemoglu, Autor.</div>
-        <div style="margin-top:8px;font-size:11px;"><a href="https://www.nber.org/papers/w34854" target="_blank" rel="noopener">abrir fuente ↗</a></div>
-      </div>
+      <div id="novSemana"></div>
+      <div id="novNodo" style="display:none"></div>
       <!-- NOVEDADES_END -->
     </div>
   </section>
@@ -240,6 +217,7 @@ function switchView(v) {
   if (v === 'autores') renderAutores();
   if (v === 'nodos') renderNodos();
   if (v === 'fuentes') renderFuentes();
+  if (v === 'novedades') renderNovedades();
 }
 document.getElementById('search').addEventListener('input', e => {
   state.query = e.target.value.toLowerCase().trim();
@@ -603,7 +581,177 @@ function showNodeDetail(node) {
   });
 }
 window.addEventListener('load', () => { buildLayout(); drawGrafo(); });
+
+// ── DIGESTOS ─────────────────────────────────────────────────────────────────
+const DIGESTOS = [
+  { fecha:"2026-05-11", label:"4–9 mayo 2026", items:[
+    { r:1, titulo:"Trabajadores de Google DeepMind votan formar el primer sindicato en un laboratorio de IA de frontera",
+      url:"https://fortune.com/2026/05/05/google-deepmind-unionize-vote-military-ai-contracts-internal-backlash-pentagon-deal-israeli-defense-forces/",
+      fecha:"2026-05-05", fuente:"Fortune", nodo:8, ns:[7,10],
+      autores:["Cecilia Rikap","Karen Hao"], en_mapa:true,
+      p1:"El 5 de mayo, alrededor de mil trabajadores del laboratorio londinense de Google DeepMind votaron con 98% de respaldo iniciar el reconocimiento de la Communication Workers Union (CWU) y Unite. La chispa fue un contrato con el Departamento de Defensa estadounidense que habilita a usar Gemini para cualquier propósito legal en redes militares, junto con trabajo previo para fuerzas israelíes. Los trabajadores piden restituir el compromiso vencido de no desarrollar IA para armamento, una junta independiente de ética y el derecho a abstenerse por razones morales.",
+      p2:"Inscripto en el Nodo 8 con eco en el Nodo 7 (concentración corporativa) y el Nodo 10 (regulación pública). Cecilia Rikap encuentra acá un caso testigo: la organización obrera abriendo grietas en el lugar mismo donde se decide la frontera del cómputo. Queda abierto si esto inaugura un repertorio nuevo de disputa ética desde adentro del capital tech o si Google ralentiza el reconocimiento hasta agotarlo." },
+    { r:2, titulo:"SAG-AFTRA cierra acuerdo tentativo con los estudios: réplicas digitales con paridad de pago",
+      url:"https://variety.com/2026/film/news/sag-aftra-tentative-deal-studio-contract-1236687517/",
+      fecha:"2026-05-06", fuente:"Variety", nodo:8, ns:[13],
+      autores:[], en_mapa:true,
+      p1:"El sindicato de intérpretes pactó un contrato a cuatro años con la AMPTP que cubre cine, televisión guionada, streaming y nuevos medios. La pieza central: cualquier réplica digital o performance sintética debe pagarse en paridad con un intérprete vivo. El Directors Guild abre su mesa el 11 de mayo.",
+      p2:"El acuerdo pertenece al Nodo 8 con eco en el Nodo 13 (estudios sectoriales). Traduce una abstracción —protección frente a la IA— en arquitectura de precios. Si el costo marginal del clon iguala al del actor, la decisión de automatizar deja de ser puramente financiera." },
+    { r:3, titulo:"Anthropic lanza diez agentes de Claude para servicios financieros",
+      url:"https://www.anthropic.com/news/finance-agents",
+      fecha:"2026-05-05", fuente:"Anthropic / Fortune", nodo:13, ns:[2,1],
+      autores:["David Autor","Erik Brynjolfsson"], en_mapa:true,
+      p1:"Biblioteca de agentes preconstruidos para flujos laboriosos de servicios financieros: pitchbooks, análisis de earnings, memos de crédito, underwriting, KYC, cierre de mes, auditoría, claims. Integración Microsoft 365 con contexto compartido. Conectividad a FactSet, S&P Capital IQ, MSCI, PitchBook, Morningstar, LSEG, Daloopa.",
+      p2:"Para el Nodo 13 es un hecho clave: por primera vez una empresa de IA de frontera lanza una suite vertical para finanzas con templates que incorporan tácitamente la división interna del trabajo profesional. Pregunta abierta: cómo medir el efecto desplazamiento cuando lo que se automatiza es la estructura interna y no la ocupación entera." },
+    { r:4, titulo:"El 401(k) financia la burbuja de IA y al propio ahorrista expuesto al desplazamiento",
+      url:"https://www.promarket.org/2026/05/05/your-401k-is-propping-up-the-ai-bubble/",
+      fecha:"2026-05-05", fuente:"ProMarket (Stigler Center)", nodo:7, ns:[1,9],
+      autores:[], en_mapa:false,
+      p1:"Las diez empresas más grandes del S&P 500 concentran ~40% del peso del índice; casi todas AI-adyacentes. Cuando un trabajador aporta a un fondo target-date, ~40 centavos de cada dólar van a parar a esas empresas. Los flujos pasivos no responden al precio: entran según el calendario de aportes.",
+      p2:"Los trabajadores expuestos al desplazamiento por IA son los mismos que más dependen del retorno del 401(k). El interés contradictorio del ahorrista-trabajador merece atención teórica. Voz nueva que vale sumar al mapa." },
+    { r:5, titulo:"Microsoft Work Trend Index 2026: el Transformation Paradox",
+      url:"https://news.microsoft.com/annual-work-trend-index-2026/",
+      fecha:"2026-05-05", fuente:"Microsoft / GeekWire", nodo:2, ns:[12,5],
+      autores:["Ethan Mollick"], en_mapa:true,
+      p1:"Encuesta a 31.000 trabajadores en 31 países más datos de uso de Microsoft 365. El 65% de los usuarios frecuentes de IA temen quedar atrás; el 45% considera más seguro concentrarse en metas actuales antes que rediseñar el trabajo. Los factores organizacionales explican 67% del impacto en la adopción vs. 32% de los factores individuales.",
+      p2:"Donde el discurso público suele atribuir la productividad a las personas y las herramientas, Microsoft —que vende esas herramientas— termina admitiendo que el cuello de botella está en la organización. Conviene leerlo en paralelo al Economic Index de Anthropic." },
+    { r:6, titulo:"Semana de despidos explícitamente atribuidos a IA: PayPal, BioNTech, Cognizant",
+      url:"https://www.marketplace.org/story/2026/05/08/the-tech-industry-continued-shedding-jobs-in-april-citing-ai-optimization-as-cause",
+      fecha:"2026-05-08", fuente:"Marketplace.org", nodo:1, ns:[7],
+      autores:["Daron Acemoglu","David Autor"], en_mapa:true,
+      p1:"PayPal anunció un plan de reestructuración por USD 1.500M con eliminación estimada de 4.760 puestos (20% de la plantilla) justificado como AI overhaul. BioNTech reportó hasta 1.860 cesantías el 7 de mayo. El empleo en información acumula 11% de caída respecto del pico de 2022.",
+      p2:"Lo que vale separar: la IA como causa real y la IA como racionalización post hoc. La señal empírica relevante no es el agregado sino la pendiente: que cada vez más filings nombren a la IA como motivo formal cambia la economía política del discurso." },
+    { r:7, titulo:"CNN Business: AI isn’t actually taking your job. Here’s what’s happening instead",
+      url:"https://www.cnn.com/2026/05/10/tech/ai-taking-jobs",
+      fecha:"2026-05-10", fuente:"CNN Business", nodo:1, ns:[13,12],
+      autores:[], en_mapa:true,
+      p1:"Síntesis que enhebra Anthropic (observed exposure), Hartley et al. (35,9% adopción a diciembre 2025) y Yale Budget Lab. El efecto concentrado y verificable se ubica en jóvenes de 22 a 25 años en ocupaciones expuestas, con una caída relativa cercana al 16%.",
+      p2:"La novedad no es el dato sino la operación periodística: ordenar las tres fuentes para discutir si el modelo agregado no-pasa-nada es compatible con un efecto fuerte de cohorte joven. Si CNN ya consolidó esta lectura, otros medios anglo van a seguir esa línea." },
+    { r:8, titulo:"Infobae: la IA fue la principal causa de despidos en EE.UU. en abril (datos Challenger)",
+      url:"https://www.infobae.com/estados-unidos/2026/05/09/la-inteligencia-artificial-provoco-mas-de-20000-despidos-en-abril-en-estados-unidos/",
+      fecha:"2026-05-09", fuente:"Infobae", nodo:11, ns:[1,13],
+      autores:["Milagros Miceli"], en_mapa:true,
+      p1:"Datos de Challenger, Gray & Christmas: 21.490 puestos —26% del total mensual de despidos en EE.UU.— atribuidos explícitamente a IA, la primera vez que el rubro figura como dominante. Referencia Cognizant (Project Leap), Pinterest y Block.",
+      p2:"Para el Nodo 11 señala una asimetría conocida: la cobertura latinoamericana sobre IA y trabajo se ceba mayoritariamente en la agenda estadounidense, a falta de evidencia local equivalente. El equipo de Milagros Miceli estaría en buena posición para ofrecer esa contraevidencia." }
+  ]},
+  { fecha:"2026-05-25", label:"18–24 mayo 2026", items:[
+    { r:1, titulo:"Meta corta 8.000 empleos y reorienta 7.000 puestos hacia IA",
+      url:"https://www.npr.org/2026/05/20/nx-s1-5826917/meta-layoffs-ai-jobs",
+      fecha:"2026-05-20", fuente:"NPR / Al Jazeera / The Next Web", nodo:1, ns:[7],
+      autores:[], en_mapa:false,
+      p1:"El 20 de mayo, Meta comenzó a notificar a aproximadamente 8.000 empleados su desvinculación en la primera ola de una reestructuración global que la empresa describe como necesaria para financiar su expansión en inteligencia artificial. Los despidos representan el 10% de la plantilla; la compañía también cancelará 6.000 contrataciones planeadas y reorientará 7.000 puestos hacia ‘pods’ centrados en IA. Zuckerberg escribió en el memo: ‘el éxito no está garantizado’.",
+      p2:"El caso Meta condensa la tensión definitoria del Nodo 1: los recortes no responden a pérdidas, sino a ganancias récord que se reinvierten en infraestructura. Que el 17% de los ~300.000 despidos corporativos de 2026 ya se atribuyan explícitamente a IA es una señal de sustitución estructural en marcha. Conecta con Nodo 7: Meta gasta entre 115.000 y 135.000 millones en infraestructura de IA este año." },
+    { r:2, titulo:"Newsom firma la primera orden ejecutiva estatal de preparación laboral ante IA",
+      url:"https://www.gov.ca.gov/2026/05/21/governor-newsom-signs-first-of-its-kind-executive-order-to-prepare-workers-and-businesses-for-potential-ai-disruption/",
+      fecha:"2026-05-21", fuente:"Governor of California / CalMatters", nodo:10, ns:[1,12],
+      autores:[], en_mapa:false,
+      p1:"Newsom firmó el 21 de mayo una orden ejecutiva que instruye a agencias de California a estudiar cómo mitigar la disrupción laboral de la IA. Ordena crear en 90 días un dashboard de seguimiento de contratación y nóminas ligadas a IA; en 180 días un análisis de políticas de seguridad social. Opciones a estudiar: estándares de indemnización, seguro de empleo, capital básico universal.",
+      p2:"El timing es elocuente —firmada un día después de los despidos de Meta—, pero el instrumento es diagnóstico, no regulatorio. La California Labor Federation declaró: ‘no basta estudiar, hay que actuar ya’. Dada la escala de California como actor normativo global, este EO podría tener reverberaciones más allá del estado." },
+    { r:3, titulo:"arXiv 2605.23159: Generative AI and the Reorganization of Labor Demand",
+      url:"https://arxiv.org/abs/2605.23159",
+      fecha:"2026-05-22", fuente:"arXiv", nodo:1, ns:[2],
+      autores:[], en_mapa:false,
+      p1:"Fangyan Wang, Zaiyan Wei y Yang Wang usan un dataset de avisos de empleo en EEUU para medir cómo las empresas reorganizan la demanda laboral ante la IA generativa. El 52% del decline en exposición se explica por reasignación de contratación y el 39,5% por rediseño del contenido de puestos existentes. Los puestos senior ajustan antes y principalmente por reasignación; los junior, por una combinación más amplia.",
+      p2:"Este paper va más allá de la pregunta estándar de destrucción de empleo para preguntar cómo se reorganiza la demanda antes de que haya destrucción visible. La distinción reasignación/rediseño es más precisa que el concepto bruto de exposición. Dialoga con David Autor y con el análisis de la NY Fed de la misma semana. Voces nuevas: Wang, Wei, Wang no están en el mapa." },
+    { r:4, titulo:"METR: los trabajadores técnicos perciben 2x de valor — pero la evidencia observada no corrobora",
+      url:"https://metr.org/blog/2026-05-11-ai-usage-survey/",
+      fecha:"2026-05-11", fuente:"METR", nodo:2, ns:[13],
+      autores:[], en_mapa:false,
+      p1:"Encuesta a 349 trabajadores técnicos. Mediana percibida de incremento de valor del trabajo: 1,3x en marzo de 2025, 2x en marzo de 2026, proyección 2,5x para marzo de 2027. La propia METR advierte que estudios controlados previos muestran una caída del 19% en productividad real de desarrolladores expertos al usar IA.",
+      p2:"Paradoja metodológica central al Nodo 2: percepción de ganancias crece, evidencia observada no confirma. El hiato no es ruido: es objeto de investigación en sí mismo. Sesgo de deseabilidad social, confusión velocidad/valor y dificultad de medir trabajo del conocimiento son problemas estructurales no resueltos." },
+    { r:5, titulo:"Colorado paraliza su ley de IA y lanza reemplazo legislativo (SB 26-189)",
+      url:"https://www.lawandtheworkplace.com/2026/05/major-developments-put-colorados-ai-law-on-ice-ahead-of-implementation/",
+      fecha:"2026-05-09", fuente:"Law and the Workplace / National Law Review", nodo:10, ns:[],
+      autores:[], en_mapa:false,
+      p1:"Un tribunal federal suspendió el Colorado Artificial Intelligence Act (SB 24-205) días antes de su vigencia (30 de junio). El parlamento aprobó con rapidez inusual el SB 26-189, que reemplaza ‘sistema de IA de alto riesgo’ por ‘tecnología de toma de decisiones automatizadas’ (ADMT) con vigencia desde enero de 2027 y menores obligaciones que la ley original.",
+      p2:"El suavizamiento regulatorio ocurre en la intersección entre presión de la industria y el EO 14365 de Trump que pugna por preemption federal. La guerra de competencias regulatorias entre estados y gobierno federal sobre IA en el trabajo definirá los derechos laborales de millones." },
+    { r:6, titulo:"El personal del WGA West ratifica el primer contrato con cláusula explícita de protección frente a IA",
+      url:"https://deadline.com/2026/05/wga-west-staff-union-strike-ends-members-ratify-first-deal-1236889747/",
+      fecha:"2026-05-09", fuente:"Deadline / Variety", nodo:8, ns:[13],
+      autores:[], en_mapa:false,
+      p1:"El 9 de mayo, el personal del Writers Guild of America West ratificó su primer convenio colectivo con 89% de votos a favor, poniendo fin a 82 días de huelga. El acuerdo incluye protección de puestos contra reemplazo por IA, incrementos salariales del 4% retroactivos a enero de 2026 y elevación del piso salarial de $43.000 a $57.000.",
+      p2:"En el Nodo 8, la cláusula anti-reemplazo por IA se consolida como estándar en el sector cultural-mediático. La huelga fue del staff del gremio contra el propio gremio como empleador —lo que colapsa la distinción institución sindical/trabajadores representados—, añadiendo una capa analítica poco explorada." },
+    { r:7, titulo:"NY Fed: los avisos de empleo no muestran efectos diferenciales de la IA en la demanda laboral",
+      url:"https://libertystreeteconomics.newyorkfed.org/2026/05/do-job-postings-show-early-labor-market-effects-of-ai/",
+      fecha:"2026-05-14", fuente:"Liberty Street Economics / NY Fed", nodo:1, ns:[2],
+      autores:[], en_mapa:false,
+      p1:"Audoly, Guerin y Topa (NY Fed) cruzaron medidas de exposición ocupacional con datos de avisos de empleo (Lightcast) desde el lanzamiento de ChatGPT. Resultado: no hay decline diferencial en ocupaciones expuestas a IA; la desaceleración responde principalmente a tasas de interés y sobrecontratación post-pandemia.",
+      p2:"Leído junto al arXiv 2605.23159, el cuadro coherente es: reorganización silenciosa intra-firma antes de que haya destrucción neta visible. La firma institucional de la Fed le da peso político a esta lectura cautelosa del Nodo 1. Voces nuevas: Audoly, Guerin, Topa no están en el mapa." },
+    { r:8, titulo:"Acemoglu, Autor y Johnson: Building Pro-Worker Artificial Intelligence (NBER WP 34854)",
+      url:"https://www.nber.org/papers/w34854",
+      fecha:"2026-02-23", fuente:"NBER / Brookings-Hamilton Project", nodo:1, ns:[10,2],
+      autores:["Daron Acemoglu","David Autor"], en_mapa:true,
+      p1:"Acemoglu, Autor y Johnson definen la IA pro-trabajador como aquella que hace más valiosas las habilidades humanas. Distinguen cinco categorías de cambio tecnológico —labor-augmenting, capital-augmenting, automating, expertise-leveling y new task-creating— e identifican fallas de mercado que sesgan la inversión hacia automatización. Proponen nueve reformas de política pública.",
+      p2:"Paper de febrero incluido porque es la referencia conceptual que organiza los debates de esta semana. Meta, Newsom y Colorado son casos empíricos de los mecanismos que Acemoglu et al. describen. La categoría expertise-leveling merece atención particular: no equivale a augmentation y tiene consecuencias distributivas distintas." }
+  ]}
+];
+
+// ── NOVEDADES RENDER ──────────────────────────────────────────────────────────
+let _novView = 'semana';
+
+function novSwitch(v, btn) {
+  _novView = v;
+  document.querySelectorAll('.nov-subtab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('novSemana').style.display = v === 'semana' ? '' : 'none';
+  document.getElementById('novNodo').style.display   = v === 'nodo'   ? '' : 'none';
+}
+
+function escH(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function alertHTML(it, extraMeta) {
+  const meta = extraMeta || ('Nodo '+it.nodo+' · '+escH(it.fuente)+' · '+it.fecha);
+  return '<div class="alert-item">'
+    +'<div class="alert-meta">'+meta+'</div>'
+    +'<div class="alert-title">'+escH(it.titulo)+'</div>'
+    +'<div class="alert-summary">'+escH(it.p1)+'<br><br>'+escH(it.p2)+'</div>'
+    +'<div style="margin-top:8px;font-size:11px;"><a href="'+it.url+'" target="_blank" rel="noopener">abrir fuente ↗</a></div>'
+    +'</div>';
+}
+
+function renderNovedades() {
+  // ── Por semana ──
+  const semana = document.getElementById('novSemana');
+  if (semana) {
+    let h = '';
+    const sorted = [...DIGESTOS].sort((a,b) => b.fecha.localeCompare(a.fecha));
+    sorted.forEach(d => {
+      h += '<div class="nov-section-header">Semana del '+escH(d.label)+' — '+d.items.length+' ítems</div>';
+      d.items.forEach(it => {
+        h += alertHTML(it);
+      });
+    });
+    semana.innerHTML = h;
+  }
+
+  // ── Por nodo ──
+  const nodoEl = document.getElementById('novNodo');
+  if (nodoEl) {
+    const allItems = [];
+    DIGESTOS.forEach(d => d.items.forEach(it => allItems.push(Object.assign({}, it, {_sem: d.label}))));
+    let h = '';
+    NODES.forEach(node => {
+      const nodeItems = allItems.filter(it => it.nodo === node.id || (it.ns||[]).includes(node.id));
+      nodeItems.sort((a,b) => a.r - b.r);
+      const shortName = node.n.split(':')[0].split(' vs.')[0].trim().substring(0,60);
+      h += '<div class="nov-nodo-row">'
+        +'<span class="nov-nodo-num">'+node.id+'</span>'
+        +'<span class="nov-nodo-name">'+escH(shortName)+'</span>'
+        +'</div>';
+      if (nodeItems.length === 0) {
+        h += '<div class="nov-empty">Sin novedades registradas en los digestos actuales.</div>';
+      } else {
+        nodeItems.forEach(it => {
+          h += alertHTML(it, 'Semana '+escH(it._sem)+' · '+escH(it.fuente)+' · '+it.fecha);
+        });
+      }
+    });
+    nodoEl.innerHTML = h;
+  }
+}
+
 </script>
 </body>
 </html>
-                                                                                    
