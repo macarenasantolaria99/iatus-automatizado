@@ -1,0 +1,140 @@
+{
+  "fecha_digesto": "2026-06-01",
+  "rango": {
+    "desde": "2026-05-25",
+    "hasta": "2026-05-31"
+  },
+  "nota": "El archivo mapa_ia_y_trabajo.xlsx no estaba montado. Nodos y autores se utilizaron a partir del task file. El index.html tampoco estaba accesible; la carpeta del repo debe montarse para la próxima ejecución.",
+  "items": [
+    {
+      "r": 1,
+      "titulo": "Trabajadores de Samsung aceptan bonos promedio de USD 340.000 vinculados al boom de IA en chips",
+      "url": "https://www.bloomberg.com/news/articles/2026-05-27/samsung-union-votes-in-favor-of-deal-averting-chip-plant-strike",
+      "fecha": "2026-05-27",
+      "fuente": "Bloomberg",
+      "nodo": 8,
+      "ns": [7],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "El 27 de mayo, 48.000 trabajadores sindicalizados de Samsung Electronics votaron a favor de un acuerdo salarial que les garantiza un bono promedio equivalente a USD 340.000, vinculado directamente al boom en la demanda de chips de memoria de alta velocidad para centros de datos de IA. El 74% del sindicato apoyó la propuesta, que incluye 10,5% en bonos en acciones más 1,5% en efectivo durante diez años. El acuerdo llegó pocas horas antes de que comenzara una huelga de 18 días que habría sido la mayor interrupción en la historia de la industria semiconductora.",
+      "p2": "Lo que hace a este caso analíticamente interesante no es solo su escala —el Q1 2026 de Samsung mostró ganancias operativas de 57,2 billones de won, un salto del 800% interanual impulsado casi íntegramente por semiconductores— sino la estructura del reclamo. Los trabajadores modelaron sus demandas sobre el precedente de SK Hynix, que había acordado distribuir el 10% del beneficio operativo anual. Se trata de uno de los primeros casos donde la ganancia de la infraestructura de IA se convierte en objeto de disputa colectiva directa (Nodo 8). Vale seguir la demanda de injunction del sindicato minoritario que consideró el acuerdo discriminatorio."
+    },
+    {
+      "r": 2,
+      "titulo": "California: Newsom firma la primera orden ejecutiva del país para preparar trabajadores frente a la IA",
+      "url": "https://www.gov.ca.gov/2026/05/21/governor-newsom-signs-first-of-its-kind-executive-order-to-prepare-workers-and-businesses-for-potential-ai-disruption/",
+      "fecha": "2026-05-21",
+      "fuente": "Gobierno de California",
+      "nodo": 10,
+      "ns": [1, 12],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "El 21 de mayo, el gobernador Gavin Newsom firmó la Orden Ejecutiva N-6-26, que moviliza múltiples agencias estatales, universidades y líderes de la industria para evaluar el impacto laboral de la IA y producir recomendaciones de política pública en 180 días. Entre los mandatos centrales: revisión y actualización del California WARN Act para capturar despidos vinculados a IA, un dashboard de impacto sectorial en tiempo real, y directiva para explorar modelos de propiedad cooperativa en sectores afectados.",
+      "p2": "Esta orden no genera obligaciones inmediatas para empleadores privados, pero inaugura un ciclo de política pública que podría desembocar en legislación vinculante antes de 2027. Es el primer intento estatal en EEUU de sistematizar datos sobre el impacto laboral de la IA a escala institucional —lo que antes dependía de estudios académicos dispersos—, y su énfasis en el WARN Act sugiere que la administración ya anticipa la magnitud de los despidos vinculados a automatización. Se inscribe en el Nodo 10, relevante también para Nodos 1 y 12."
+    },
+    {
+      "r": 3,
+      "titulo": "Los CEO culpan a la IA por los despidos, pero un profesor del MIT dice que es el mismo patrón de hace 20 años",
+      "url": "https://fortune.com/2026/05/31/tech-companies-ai-washing-layoffs-wix-block-snap-atlassian-disposable-workers/",
+      "fecha": "2026-05-31",
+      "fuente": "Fortune",
+      "nodo": 1,
+      "ns": [7],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Paul Osterman, profesor emérito de gestión de recursos humanos en MIT Sloan y autor de Disposable Workers, analiza en Fortune el fenómeno del 'AI washing' en despidos: empresas que usan la IA como justificación narrativa para reducciones de plantilla que habrían ocurrido de todas formas. 'AI is a perfect excuse to justify big layoffs —it makes it seem as if it's not our decision, our fault— it's the technology', declaró Osterman. En mayo, Meta notificó 8.000 despidos (10% del plantel) e Intuit eliminó 3.000 posiciones (17% de su plantilla global), ambos el mismo día.",
+      "p2": "El artículo toma un argumento que circulaba principalmente en ámbitos académicos —la diferenciación entre desplazamiento real por IA y reestructuración organizacional reencuadrada bajo retórica tecnológica— y lo ancla en nombres de empresas y cifras concretas. Sam Altman reconoció que hay 'algo de AI washing'. Conecta con el trabajo de Acemoglu y Daron sobre narrativas tecnológicas y poder corporativo (Nodo 1). Osterman es una voz a sumar al mapa."
+    },
+    {
+      "r": 4,
+      "titulo": "MIT Technology Review: Un chequeo de realidad sobre la histeria de los empleos y la IA",
+      "url": "https://www.technologyreview.com/2026/05/26/1137855/a-reality-check-on-the-ai-jobs-hysteria/",
+      "fecha": "2026-05-26",
+      "fuente": "MIT Technology Review",
+      "nodo": 1,
+      "ns": [2, 13],
+      "autores": ["Autor"],
+      "en_mapa": true,
+      "p1": "Un análisis de MIT Tech Review sistematiza la evidencia disponible y ofrece una lectura matizada del estado actual del mercado laboral frente a la IA. El hallazgo central proviene de un estudio de Stanford: el empleo de desarrolladores de software entre 22 y 25 años cayó casi un 20% desde 2022, aunque el mercado laboral agregado no muestra señales de disrupción masiva todavía. Solo una de cada cinco empresas utiliza IA en alguna función de negocios.",
+      "p2": "El artículo resiste la doble tentación del pánico y el negacionismo. La distinción entre efectos en empleos de entrada en sectores de alta exposición y ausencia de caída agregada es analíticamente útil para el Nodo 1. Conecta con el Nodo 13 (estudios sectoriales en programación) y con el trabajo de Autor sobre reemplazos en la base de la distribución salarial. Los economistas de Stanford del estudio mencionado merecen seguimiento como voces nuevas."
+    },
+    {
+      "r": 5,
+      "titulo": "Generative AI and the Reorganization of Labor Demand (Wang, Wei & Wang, arXiv 2605.23159)",
+      "url": "https://arxiv.org/abs/2605.23159",
+      "fecha": "2026-05-22",
+      "fuente": "arXiv / econ.GN",
+      "nodo": 2,
+      "ns": [1],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Fangyan Wang, Zaiyan Wei y Yang Wang analizan un dataset nacional de ofertas de trabajo en EEUU para descomponer cómo las empresas ajustan su demanda laboral ante la difusión de la IA generativa. Identifican dos márgenes de ajuste: reasignación de demanda entre puestos (52% del total) y rediseño de tareas dentro de puestos existentes (39,5%). El hallazgo más fino: los puestos senior se ajustan antes y principalmente mediante reasignación, mientras que los junior se ajustan mediante una combinación más amplia.",
+      "p2": "Este paper desplaza el debate desde '¿qué ocupaciones están expuestas?' hacia '¿cómo reorganizan las firmas su arquitectura de trabajo?'. La distinción entre ajuste en puestos junior y senior tiene implicaciones directas para el Nodo 1 y para las hipótesis de Autor sobre desplazamiento en la base de la escala de habilidades. Su medición dinámica de exposición es una contribución metodológica relevante para el Nodo 2 (productividad y reorganización del trabajo)."
+    },
+    {
+      "r": 6,
+      "titulo": "Bossware: las nueve plataformas de monitoreo laboral evaluadas comparten datos de trabajadores con Meta, Google y Microsoft",
+      "url": "https://news.northeastern.edu/2026/05/21/employee-monitoring-software/",
+      "fecha": "2026-05-21",
+      "fuente": "Northeastern University / Khoury College",
+      "nodo": 5,
+      "ns": [3],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Una investigación del Khoury College of Computer Science de Northeastern University probó nueve plataformas de monitoreo de empleados y encontró que todas compartían datos identificatorios de trabajadores —nombre, apellido, email, empresa— con terceros. Los investigadores registraron 121 instancias únicas de datos laborales transmitidos a Facebook, Google, Microsoft y AppLovin; la actividad de los empleados se enviaba a más de 145 dominios, en varios casos contradiciendo las propias políticas de privacidad de las plataformas.",
+      "p2": "El estudio llena un vacío empírico importante: el debate sobre vigilancia laboral algorítmica dependía principalmente de testimonios. Esta investigación aporta evidencia técnica directa, lo que la convierte en insumo político de primer orden para el Nodo 5 (vigilancia laboral). Las implicaciones para el Nodo 3 (data labor) tampoco son menores: los datos generados por la actividad laboral de millones de personas se convierten en activos comercializables sin su conocimiento."
+    },
+    {
+      "r": 7,
+      "titulo": "Los despidos en tecnología alcanzan 142.000 en 2026 mientras empresas rentables financian infraestructura de IA por USD 700.000 millones",
+      "url": "https://www.techtimes.com/articles/317392/20260529/tech-layoffs-reach-142000-2026-profitable-companies-cut-jobs-fund-700b-ai-infrastructure.htm",
+      "fecha": "2026-05-29",
+      "fuente": "TechTimes",
+      "nodo": 1,
+      "ns": [7],
+      "autores": ["Mazzucato", "Rikap"],
+      "en_mapa": true,
+      "p1": "Al 29 de mayo, más de 142.000 trabajadores tecnológicos en EEUU habían perdido sus empleos en 2026 —un incremento del 33% respecto al mismo período de 2025—, en el contexto de un compromiso de inversión conjunta de Amazon, Microsoft, Alphabet y Meta en infraestructura de IA por USD 700.000 millones para el año. Comunicaciones internas de Meta describieron sus despidos de mayo como un mecanismo para compensar el costo de las inversiones en IA.",
+      "p2": "La paradoja de despidos masivos con resultados financieros récord conecta el Nodo 1 (sustitución) con el Nodo 7 (concentración). Plantea preguntas para las que el trabajo de Mazzucato sobre distribución de ganancias de productividad y el de Rikap sobre capitalismo de vigilancia e innovación excluyente tienen relevancia directa. Si la infraestructura de IA fue facilitada por fondos públicos, ¿qué mecanismos garantizan que las ganancias se distribuyan?"
+    },
+    {
+      "r": 8,
+      "titulo": "Human-Provenance Verification should be Treated as Labor Infrastructure in AI-Saturated Markets (arXiv 2605.03210)",
+      "url": "https://arxiv.org/abs/2605.03210",
+      "fecha": "2026-05-01",
+      "fuente": "arXiv / cs.CY",
+      "nodo": 3,
+      "ns": [12, 10],
+      "autores": ["Ricaurte", "Miceli"],
+      "en_mapa": false,
+      "p1": "Erin McGurk y David Khachaturov proponen que los mercados saturados de IA generarán 'primas de procedencia humana' —un valor diferencial por el trabajo verificablemente hecho por personas— y que los sistemas de verificación de procedencia humana deberían tratarse como infraestructura laboral y no como simple tecnología de autenticación. El argumento central: la IA comprime el valor del trabajo de nivel medio estandarizado, generando una estructura de valor en forma de barra —producción sintética masiva en un polo, trabajo humano escaso de alto estatus en el otro.",
+      "p2": "La propuesta de tratar la verificación de procedencia como infraestructura laboral tiene implicaciones regulatorias concretas y conecta tres nodos: Nodo 3 (data labor), Nodo 12 (qué trabajo humano retiene valor), y Nodo 10 (política pública). El riesgo del marco es que la 'prima de procedencia' puede convertirse en un bien de lujo sin resolver la precarización del trabajo de nivel medio. Vale leerlo junto al trabajo de Ricaurte y Miceli sobre asimetrías geopolíticas en la valoración del trabajo humano versus el sintético."
+    },
+    {
+      "r": 9,
+      "titulo": "Generative AI impacts on intra-urban inequality and skill premium in Beijing (arXiv 2605.25505)",
+      "url": "https://arxiv.org/abs/2605.25505",
+      "fecha": "2026-05-01",
+      "fuente": "arXiv",
+      "nodo": 11,
+      "ns": [1],
+      "autores": ["Ricaurte"],
+      "en_mapa": false,
+      "p1": "Este paper estudia el impacto de la IA generativa sobre la desigualdad intraurbana y la prima salarial por habilidades en Beijing. Los resultados indican que los vecindarios con alta exposición laboral a la IA generativa experimentaron estancamiento salarial, impulsado por procesos de task de-skilling e intensificación del labor-market crowding. El trabajo ofrece evidencia a nivel de granularidad geográfica fina, lo que lo distingue de los estudios de exposición a nivel ocupacional o sectorial.",
+      "p2": "Aporta evidencia de un mercado laboral urbano no-anglosajón que rara vez aparece en los estudios cuantitativos del campo. La combinación de des-calificación con hacinamiento laboral es conceptualmente relevante para el Nodo 11 y para el trabajo de Ricaurte sobre cómo los efectos de la IA se distribuyen de manera geopolíticamente asimétrica. Pregunta abierta: ¿son estos resultados específicos de Beijing por razones institucionales (propiedad estatal, sistema de hukou) o generalizables a otros contextos urbanos de alta densidad?"
+    },
+    {
+      "r": 10,
+      "titulo": "Mollick: Choosing to Stay Human",
+      "url": "https://www.oneusefulthing.org/p/choosing-to-stay-human",
+      "fecha": "2026-05-26",
+      "fuente": "One Useful Thing (Ethan Mollick)",
+      "nodo": 9,
+      "ns": [12],
+      "autores": ["Mollick"],
+      "en_mapa": true,
+      "p1": "En su post del 26 de mayo, Mollick observa que el entorno informacional ya está saturado de contenido generado por IA: posts en redes sociales, comentarios, papers académicos, columnas de opinión del New York Times, cuentos premiados. La crítica central es que la escritura de IA mal promovida 'produces very little meaning per word, taking you in intellectual circles instead'. Mollick plantea la 'elección de permanecer humano' como una decisión activa en un entorno donde el camino de menor resistencia es delegar.",
+      "p2": "Relevante para el Nodo 9 (futuro del trabajo intelectual y la agencia humana en la producción de conocimiento) y el Nodo 12 (qué capacidades humanas retienen valor diferencial). Tiene afinidad con el argumento del paper de McGurk-Khachaturov sobre procedencia humana, aunque Mollick lo plantea desde la práctica antes que desde la teoría. Como voz del mapa, Mollick conecta evidencia académica con audiencias profesionales y sirve como termómetro del debate mainstream sobre IA y trabajo."
+    }
+  ]
+}
