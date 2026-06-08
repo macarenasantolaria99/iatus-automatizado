@@ -1,0 +1,141 @@
+{
+  "fecha_digesto": "2026-06-08",
+  "rango": {
+    "desde": "2026-06-01",
+    "hasta": "2026-06-07"
+  },
+  "items": [
+    {
+      "r": 1,
+      "titulo": "La OIT negocia el primer tratado vinculante para trabajadores de plataformas",
+      "url": "https://www.ilo.org/international-labour-conference/114th-session-international-labour-conference",
+      "url_secundaria": "https://www.hrw.org/news/2026/06/03/ai-already-runs-the-gig-economy",
+      "fecha": "2026-06-01",
+      "fuente": "OIT / Human Rights Watch",
+      "nodo": 4,
+      "ns": [8, 10],
+      "autores": [],
+      "en_mapa": true,
+      "p1": "Del 1 al 11 de junio, en Ginebra, los delegados de 187 países miembros de la OIT celebran la 114.ª Conferencia Internacional del Trabajo con el objetivo de aprobar el primer estándar internacional vinculante para el trabajo en plataformas. El eje que concentra la mayor tensión negociadora es si las protecciones laborales básicas —salario mínimo, seguridad social, vacaciones— deben aplicarse a todos los trabajadores de plataforma o depender de su clasificación contractual. EE.UU., China, Argentina e India favorecen un esquema más flexible; la UE, Brasil y México empujan por estándares más fuertes. El 3 de junio, HRW publicó 'AI Already Runs the Gig Economy', documentando cómo los algoritmos ya gobiernan el trabajo de plataforma sin vías efectivas de apelación.",
+      "p2": "Esta confluencia —negociación intergubernamental y denuncia empírica sobre algoritmización del trabajo— es el evento político-laboral más importante de la semana en el Nodo 4 (plataformas y trabajo algorítmico), con implicancias directas para el Nodo 8 (negociación colectiva) y el Nodo 10 (política pública). La OIT estima que el trabajo en plataformas involucra a unos 435 millones de personas según el Banco Mundial. El argumento de HRW —que si los trabajadores no pueden cuestionar los sistemas que gobiernan su trabajo, el software se convierte en un mecanismo de control sin responsabilidad— es el argumento que Karen Levy y Alex Rosenblat han documentado etnográficamente durante años."
+    },
+    {
+      "r": 2,
+      "titulo": "The AI Layoff Trap: por qué el mercado racional produce despidos colectivamente subóptimos",
+      "url": "https://arxiv.org/abs/2603.20617",
+      "fecha": "2026-06-03",
+      "fuente": "arXiv / Falk & Tsoukalas (UPenn / BU)",
+      "nodo": 1,
+      "ns": [10, 7],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Brett Hemenway Falk (UPenn) y Gerry Tsoukalas (Boston University) publicaron el 3 de junio la versión revisada de 'The AI Layoff Trap', un modelo de equilibrio competitivo con tareas que formaliza un problema estructural de la automatización. El argumento central es que cada firma captura el ahorro de costos íntegro cuando automatiza, pero soporta solo una fracción de la pérdida de demanda agregada que provoca al desplazar trabajadores-consumidores. Esa externalidad de demanda convierte la carrera hacia la automatización en un equilibrio de Nash subóptimo colectivamente. Ni los impuestos al capital, ni el ingreso universal de base, ni el Coasean bargaining pueden resolver el problema; únicamente un impuesto pigouviano lo corregiría.",
+      "p2": "El paper aporta formalización económica a algo que varios investigadores del Nodo 1 han intuido cualitativamente: que la lógica microeconómica de la firma racional puede producir resultados macroeconómicamente destructivos. Se inscribe en la tensión entre el Nodo 1 (sustitución laboral) y el Nodo 10 (política pública), y su conclusión sobre el impuesto pigouviano tiene implicancias concretas para el debate. Falk y Tsoukalas no están en el mapa; su trabajo merece atención especialmente porque conecta economía computacional con teoría del trabajo."
+    },
+    {
+      "r": 3,
+      "titulo": "Future of Work with AI Agents (Stanford/MIT): un nuevo dataset para medir qué quieren delegar los trabajadores",
+      "url": "https://arxiv.org/abs/2506.06576",
+      "fecha": "2026-06-03",
+      "fuente": "arXiv / Shao, Brynjolfsson, Yang et al.",
+      "nodo": 1,
+      "ns": [2, 6],
+      "autores": ["Brynjolfsson"],
+      "en_mapa": true,
+      "p1": "Yijia Shao, Erik Brynjolfsson, Diyi Yang y colegas presentaron en arXiv 'Future of Work with AI Agents: Auditing Automation and Augmentation Potential across the U.S. Workforce' (ID 2506.06576). La novedad metodológica es WORKBank, una base de datos que cruza preferencias de 1.500 trabajadores con evaluaciones de expertos en IA sobre 844 tareas en 104 ocupaciones. El paper introduce la Human Agency Scale (HAS) para cuantificar el nivel de control humano deseado en cada tarea, basándose en la base O*NET del Departamento de Trabajo de EE.UU.",
+      "p2": "El interés metodológico es significativo porque desplaza la pregunta desde '¿qué puede hacer la IA?' hacia '¿qué quieren delegar los propios trabajadores?'. Esta distinción es central en el debate sustitución/augmentación (Nodo 1) y conecta con el Nodo 2 (productividad) y el Nodo 6 (capacidades). Brynjolfsson está en el mapa con alta prioridad; que la voz de los trabajadores esté en el diseño del instrumento —no solo en los datos— es metodológicamente relevante desde una perspectiva crítica."
+    },
+    {
+      "r": 4,
+      "titulo": "142.000 despidos tech en 2026: empresas rentables cortan empleo para financiar 700.000 millones en infraestructura de IA",
+      "url": "https://www.techtimes.com/articles/317392/20260529/tech-layoffs-reach-142000-2026-profitable-companies-cut-jobs-fund-700b-ai-infrastructure.htm",
+      "fecha": "2026-05-29",
+      "fuente": "TechTimes",
+      "nodo": 1,
+      "ns": [7, 10],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Al cierre de mayo de 2026, el sector tecnológico acumuló más de 142.000 despidos en el año, con Oracle (30.000 puestos), Meta (8.000, el 10% de su fuerza laboral) e Intuit (3.000, el 17% de su planta global) como los casos más voluminosos. Lo que distingue esta ola es la simultaneidad con récords financieros: los cuatro hyperscalers anunciaron un gasto de capital combinado de 700.000 millones de dólares para 2026, casi el doble de 2025. Un memo interno de Meta describió los recortes como condición para 'compensar las inversiones sustanciales que estamos realizando'.",
+      "p2": "La fórmula —despidos en año de ganancias récord para financiar infraestructura de IA— enmarca el Nodo 1 dentro del Nodo 7 (concentración): no son empresas en dificultades sino gigantes que redistribuyen recursos hacia activos computacionales, con los salarios como el único ítem suficientemente flexible a corto plazo. La cifra del 33% de aumento respecto a 2025 da escala al fenómeno. Mazzucato y Rikap, presentes en el mapa, encontrarán aquí un caso paradigmático de captura privada de la infraestructura del conocimiento."
+    },
+    {
+      "r": 5,
+      "titulo": "Altman y Amodei moderan sus predicciones catastrofistas sobre empleos en vísperas de sus IPOs",
+      "url": "https://fortune.com/2026/05/26/sam-altman-dario-amodei-walking-back-ai-jobs-apocalypse-prophecies-ipo/",
+      "fecha": "2026-05-26",
+      "fuente": "Fortune",
+      "nodo": 9,
+      "ns": [7, 1],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "Fortune reportó el 26 de mayo que tanto Sam Altman (OpenAI) como Dario Amodei (Anthropic) moderaron sus predicciones sobre destrucción masiva de empleo. Altman declaró estar 'bastante equivocado' sobre el impacto económico. Amodei, quien anticipó eliminación del 50% de empleos de cuello blanco, reformuló diciendo que automatizar el 90% de un trabajo simplemente expande el 10% restante. El artículo contextualiza los virajes con las valuaciones —OpenAI en ~852.000M de dólares, Anthropic en ~380.000M— y reportes de preparación para IPO a fines de 2026.",
+      "p2": "La sincronía entre el suavizamiento discursivo y los preparativos bursátiles es el hecho analíticamente relevante, y conecta con el Nodo 7 (concentración corporativa): las empresas más influyentes en la construcción del relato sobre IA y trabajo son también las con mayor incentivo financiero para controlarlo. El Yale Budget Lab no encuentra cambios significativos en composición ocupacional de los grupos más expuestos desde 2022, pero eso no invalida señalar que el discurso apocalíptico previo tuvo efectos reales sobre políticas y negociaciones laborales."
+    },
+    {
+      "r": 6,
+      "titulo": "METR: los trabajadores técnicos reportan duplicar su productividad, pero los propios investigadores del laboratorio son los más escépticos",
+      "url": "https://metr.org/blog/2026-05-11-ai-usage-survey/",
+      "fecha": "2026-05-11",
+      "fuente": "METR",
+      "nodo": 2,
+      "ns": [6, 13],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "El 11 de mayo, METR publicó una encuesta entre 349 trabajadores técnicos sobre el impacto de las herramientas de IA. La mediana autoreportada es de 1,4x a 2x en 'valor del trabajo', con proyección de 2,5x para marzo de 2027. Sin embargo, el propio equipo incorporó una advertencia fundamental: sus propios investigadores —quienes más familiarizados están con estudios sobre brechas entre percepción y realidad— dan los valores de cambio más bajos de todos los subgrupos. La investigación cualitativa sobre productos públicos 'sugiere plausiblemente que las estimaciones más altas están sobreestimadas'.",
+      "p2": "Uno de los pocos estudios recientes que no solo reporta cifras sino que las problematiza desde adentro. La paradoja —cuanto más familiarizado con la medición real, menor la percepción de ganancia— conecta con el 'productivity paradox' histórico de Brynjolfsson (Nodo 2), con una nueva capa: el sesgo no viene solo de los gerentes sino de los propios trabajadores sobre su propio desempeño. METR no está en el mapa de fuentes pero produce análisis metodológicamente rigurosos."
+    },
+    {
+      "r": 7,
+      "titulo": "Colorado diluyó su ley de IA laboral días antes de que entrara en vigor",
+      "url": "https://www.lawandtheworkplace.com/2026/05/major-developments-put-colorados-ai-law-on-ice-ahead-of-implementation/",
+      "fecha": "2026-05-14",
+      "fuente": "Law and the Workplace",
+      "nodo": 10,
+      "ns": [1, 5],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "El 14 de mayo, el gobernador de Colorado firmó el SB 26-189, una enmienda profunda a la Colorado Artificial Intelligence Act (CAIA). La ley original —que exigía evaluaciones de impacto, notificación previa antes de usar IA en decisiones laborales, y derecho de apelación— no entrará en vigor el 30 de junio como estaba previsto. La versión enmendada reemplaza ese marco por obligaciones de notificación post-decisión adversa (dentro de 30 días) y empuja la entrada en vigor al 1 de enero de 2027.",
+      "p2": "El caso ilustra la distancia entre momentum legislativo e implementación efectiva y las fuerzas —presiones de la industria, temor a la preemption federal bajo Trump— que achican esa brecha. Que el propio gobernador que firmó la ley original haya impulsado la enmienda dilutoria es un dato político relevante. Con el EU AI Act de enforcement en agosto de 2026, el contraste transatlántico se vuelve más pronunciado."
+    },
+    {
+      "r": 8,
+      "titulo": "Anthropic mide la 'exposición observada': 14% menos de contrataciones jóvenes en roles de alta exposición a IA",
+      "url": "https://www.anthropic.com/research/labor-market-impacts",
+      "fecha": "2026-03-05",
+      "fuente": "Anthropic Research",
+      "nodo": 1,
+      "ns": [13, 2],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "La investigación 'Labor Market Impacts of AI: A New Measure and Early Evidence' —publicada en marzo pero con circulación activa esta semana— introduce la métrica de 'exposición observada' versus capacidad técnica teórica. El gap entre ambas métricas es significativo en casi todos los sectores. El hallazgo más concreto es que desde el lanzamiento de ChatGPT, la contratación de trabajadores jóvenes (22-25 años) en roles de alta exposición cayó aproximadamente un 14%, sin un aumento correlativo en desempleo general. Los programadores aparecen como la ocupación más expuesta, con el 75% de sus tareas cubiertas por uso real de LLMs.",
+      "p2": "La distinción entre 'exposición teórica' y 'observada' separa el debate sobre capacidades del de adopción real, y sugiere que el impacto inicial no es desempleo masivo sino desinversión en formación de nuevas generaciones de trabajadores. Este efecto sobre el punto de entrada al mercado laboral es potencialmente más estructural que los despidos episódicos. Peter McCrory (head of economics de Anthropic) es una voz que no está en el mapa pero produce análisis de calidad sostenida."
+    },
+    {
+      "r": 9,
+      "titulo": "Plataformas digitales de cuidado y precarización: el trabajo reproductivo bajo lógica algorítmica",
+      "url": "https://www.networkideas.org/2026/06/03/migrant-women-care-workers-in-the-global-economy/",
+      "url_secundaria": "https://www.uoc.edu/en/news/2026/digital-care-platforms-precarity-cristina-barrial",
+      "fecha": "2026-06-03",
+      "fuente": "IDEAs / UOC (Cristina Barrial)",
+      "nodo": 14,
+      "ns": [4, 11],
+      "autores": [],
+      "en_mapa": false,
+      "p1": "El 3 de junio, la red IDEAs publicó un análisis sobre trabajadoras migrantes de cuidado en la economía global, en el marco de su serie de webinars sobre economía política feminista desde el Sur Global. El mismo día, la UOC publicó investigación de Cristina Barrial sobre plataformas digitales de cuidado en Madrid y Milán. Barrial concluye que las plataformas digitalizan el acceso al trabajo doméstico pero reproducen las jerarquías de género, clase, casta y origen nacional ya existentes. El boom de estas plataformas no resuelve la crisis de cuidados sino que la reorganiza según lógica comercial.",
+      "p2": "Estas contribuciones se inscriben en el Nodo 14 (trabajo de cuidado) y conectan con el Nodo 4 (plataformas) y el Nodo 11 (Sur Global). La perspectiva feminista sobre el trabajo reproductivo algoritmizado es un ángulo frecuentemente marginalizado en el campo. IDEAs y Barrial son voces que no están en el mapa actual; la calidad y consistencia de su producción las hace candidatas a incorporar."
+    },
+    {
+      "r": 10,
+      "titulo": "Acemoglu, Autor y Johnson formalizan los fallos de mercado detrás del sesgo pro-automatización",
+      "url": "https://economics.mit.edu/sites/default/files/2026-03/Building%20Pro-Worker%20Artificial%20Intelligence.pdf",
+      "fecha": "2026-02-01",
+      "fuente": "MIT Economics",
+      "nodo": 9,
+      "ns": [10, 1],
+      "autores": ["Acemoglu", "Autor"],
+      "en_mapa": true,
+      "p1": "Daron Acemoglu, David Autor y Simon Johnson publicaron en febrero 'Building Pro-Worker Artificial Intelligence', un paper de política que identifica los fallos de mercado que llevan al subinvestimiento en IA pro-trabajador: incentivos empresariales desalineados, dependencia de trayectoria e ideología pro-automatización dominante. Los autores distinguen cinco categorías de cambio tecnológico (labor-augmenting, capital-augmenting, automating, expertise-leveling, new task-creating) y proponen nueve direcciones de política pública que van desde inversión en salud y educación hasta reforma fiscal, antimonopolio y protección de la expertise de los trabajadores como propiedad intelectual.",
+      "p2": "No es estrictamente de la semana pero sigue generando debate activo y fue citado en varias piezas de la semana sobre política de IA. Ofrece el marco teórico más articulado actualmente disponible para pensar la política de IA desde el trabajo (Nodos 9 y 10). Acemoglu y Autor están en el mapa con alta prioridad; Simon Johnson merece actualización dado su protagonismo aquí y en 'Power and Progress'. La distinción conceptual entre 'expertise-leveling' y 'labor-augmenting' es útil para análisis sectoriales."
+    }
+  ]
+}
