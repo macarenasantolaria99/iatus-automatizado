@@ -1,0 +1,11 @@
+# Normalizar line endings: el repo usa LF en todos los archivos de texto
+* text=auto eol=lf
+
+# Archivos binarios — sin conversión
+*.xlsx binary
+*.docx binary
+*.pptx binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.gif  binary

@@ -1,0 +1,98 @@
+{
+  "fecha_digesto": "2026-06-15",
+  "rango": {
+    "desde": "2026-06-08",
+    "hasta": "2026-06-14"
+  },
+  "nota": "Solo el ítem 1 (ILO Convention 193, 12 jun) cae estrictamente en la ventana 8–14 de junio. Los ítems 2–4 son de la primera semana de junio (1–7); los ítems 5–8 son de mayo-junio y no estaban en digestos anteriores. Se optó por calidad sobre rigidez temporal.",
+  "items": [
+    {
+      "titulo": "La OIT adopta el Convenio 193 sobre Trabajo Decente en la Economía de Plataformas — primer tratado vinculante para trabajadores gig",
+      "url": "https://www.hrw.org/news/2026/06/12/ilo-adopts-landmark-treaty-on-gig-work",
+      "fecha_publicacion": "2026-06-12",
+      "fuente": "OIT / Human Rights Watch",
+      "nodo_id": 4,
+      "nodos_secundarios": [10, 8],
+      "autores_del_mapa": ["Janine Berg", "Uma Rani", "Antonio Aloisi", "Mark Graham"],
+      "en_mapa": true,
+      "ranking_relevancia": 1
+    },
+    {
+      "titulo": "Anthropic publica su Marco de Política Económica: tres niveles de respuesta pública al impacto laboral de la IA, incluida taxación de sus propios tokens",
+      "url": "https://www-cdn.anthropic.com/files/4zrzovbb/website/9ea607a5dd67c168093829b701f3a0a6d21156d5.pdf",
+      "fecha_publicacion": "2026-06-01",
+      "fuente": "Anthropic",
+      "nodo_id": 10,
+      "nodos_secundarios": [1, 9],
+      "autores_del_mapa": ["Daron Acemoglu", "Erik Brynjolfsson", "Anders Humlum"],
+      "en_mapa": true,
+      "ranking_relevancia": 2
+    },
+    {
+      "titulo": "GitLab recorta 14% de su plantilla y sale de 22 países para adaptarse a la 'era agéntica': primer caso paradigmático de reorganización total por agentes de IA",
+      "url": "https://thenextweb.com/news/gitlab-layoffs-agentic-era-devops-ai",
+      "fecha_publicacion": "2026-06-02",
+      "fuente": "The Next Web",
+      "nodo_id": 13,
+      "nodos_secundarios": [1, 6],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 3
+    },
+    {
+      "titulo": "'La IA ya gestiona la economía gig': HRW documenta gestión algorítmica sin transparencia ni recurso efectivo en 9 países",
+      "url": "https://www.hrw.org/news/2026/06/03/ai-already-runs-the-gig-economy",
+      "fecha_publicacion": "2026-06-03",
+      "fuente": "Human Rights Watch",
+      "nodo_id": 4,
+      "nodos_secundarios": [3, 11],
+      "autores_del_mapa": ["Mark Graham", "Antonio Aloisi", "Uma Rani"],
+      "en_mapa": true,
+      "ranking_relevancia": 4
+    },
+    {
+      "titulo": "El WGA cierra un contrato de cuatro años que prohíbe usar guiones para entrenar IA sin licencia explícita: los datos de entrenamiento entran a la negociación colectiva",
+      "url": "https://www.indiewire.com/news/breaking-news/wga-members-ratify-new-4-year-deal-film-tv-studios-1235190688/",
+      "fecha_publicacion": "2026-04-01",
+      "fuente": "IndieWire / Hollywood Reporter",
+      "nodo_id": 8,
+      "nodos_secundarios": [13, 3],
+      "autores_del_mapa": [],
+      "en_mapa": true,
+      "ranking_relevancia": 5
+    },
+    {
+      "titulo": "'Still Waters, Rapid Currents': la IA reorganiza el trabajo en Dinamarca sin mover todavía salarios ni horas agregadas — pero la estructura del trabajo sí se mueve",
+      "url": "https://www.nber.org/papers/w33777",
+      "fecha_publicacion": "2026-04-01",
+      "fuente": "NBER Working Paper 33777 / Humlum & Vestergaard",
+      "nodo_id": 2,
+      "nodos_secundarios": [1, 12],
+      "autores_del_mapa": ["Anders Humlum"],
+      "en_mapa": true,
+      "ranking_relevancia": 6
+    },
+    {
+      "titulo": "La ola de despidos periodísticos de 2026 ya supera el ritmo de 2025: Google AI Overviews, caída de tráfico y pérdida de empleos en redacciones",
+      "url": "https://pressgazette.co.uk/news/journalism-job-cuts-in-2026-updates/",
+      "fecha_publicacion": "2026-06-01",
+      "fuente": "Press Gazette",
+      "nodo_id": 13,
+      "nodos_secundarios": [7, 1],
+      "autores_del_mapa": ["Karen Hao", "Charlie Warzel", "Casey Newton"],
+      "en_mapa": true,
+      "ranking_relevancia": 7
+    },
+    {
+      "titulo": "El EU AI Act entra en plena vigencia el 2 de agosto de 2026: sistemas de contratación, evaluación y gestión laboral quedan bajo obligaciones de transparencia y auditoría obligatoria",
+      "url": "https://iuslaboris.com/insights/global-employment-law-in-2026-three-trends-set-to-define-the-year-ahead/",
+      "fecha_publicacion": "2026-08-02",
+      "fuente": "IusLaboris / Baker McKenzie",
+      "nodo_id": 10,
+      "nodos_secundarios": [5, 4],
+      "autores_del_mapa": ["Marietje Schaake", "Valerio De Stefano", "Sandra Wachter"],
+      "en_mapa": true,
+      "ranking_relevancia": 8
+    }
+  ]
+}
