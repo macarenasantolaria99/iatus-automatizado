@@ -1,0 +1,164 @@
+# Digesto IA y Trabajo — Semana del 20 al 26 de julio de 2026 (por nodo)
+
+**Ventana temporal cubierta:** 20 de julio (lunes) al 26 de julio (domingo) de 2026.
+**Fecha de entrega:** 27 de julio de 2026.
+
+---
+
+## Nodo 1. Sustitución vs. complementariedad
+
+### El jefe de economía de Anthropic publica un ensayo que contradice las advertencias de Dario Amodei sobre desempleo masivo por IA
+
+**Fuente:** Fortune (sobre ensayo de Peter McCrory, jefe de economía de Anthropic, publicado en X) · **Fecha:** 2026-07-24 · **URL:** https://fortune.com/2026/07/24/anthropic-peter-mccrory-dario-amodei-why-hasnt-it-killed-jobs/
+
+Peter McCrory, jefe de economía de Anthropic, publicó esta semana un ensayo extenso en X que sintetiza dieciocho meses de investigación interna de la empresa sobre el mercado laboral estadounidense. Su conclusión central, con datos actualizados de la Oficina de Estadísticas Laborales, es que el desempleo entre trabajadores cuyas tareas Claude puede automatizar en mayor medida no se deteriora en relación con quienes ocupan puestos menos expuestos. "No espero que el desempleo sea notablemente mayor dentro de un año, al menos no por causa de la IA", escribió.
+
+El hallazgo entra en tensión directa con las propias advertencias de Amodei, que en mayo de 2025 pronosticó que la IA podría eliminar la mitad de los empleos junior de cuello blanco y elevar el desempleo al 10-20%, y que en junio volvió a plantear que la pérdida de empleo podría ser "una propiedad intrínseca" de la tecnología. El episodio, dentro del Nodo 1, expone cuánto pesan los intereses corporativos al calibrar los pronósticos sobre desempleo tecnológico, incluso puertas adentro de una misma empresa. Conecta con el Nodo 2 porque McCrory apela a un marco más cercano al optimismo de Brynjolfsson que al pesimismo de sustitución de Acemoglu.
+
+### Monday.com despide al 20% de su plantilla para reorientarse hacia una plataforma de trabajo con agentes de IA
+
+**Fuente:** TechCrunch · **Fecha:** 2026-07-22 · **URL:** https://techcrunch.com/2026/07/22/monday-com-lays-off-hundreds-to-focuses-on-ai/
+
+La firma israelí de software de gestión de trabajo Monday.com anunció el 22 de julio el despido de unos 630 empleados, el 20% de su plantilla, para reorientar la compañía hacia lo que llama su "AI Work Platform", pensada para que empleados y agentes de IA trabajen juntos. La empresa espera afrontar entre 45 y 55 millones de dólares en costos de reestructuración. Su cofundador Eran Zinman aclaró en un memo interno que la medida "no se hizo para reducir costos ni para reemplazar personas con IA".
+
+El caso se suma, dentro del Nodo 1, a una serie ya larga de despidos de 2026 justificados con el argumento de la reorientación hacia IA, más de 122.000 puestos tecnológicos recortados en lo que va del año según Layoffs.fyi. Conecta con el Nodo 7 porque la decisión de Monday.com de invertir en su propia infraestructura de agentes repite el patrón de compañías que financian el giro hacia IA con achiques de personal, el mismo patrón que Acemoglu atribuye más a decisiones corporativas de asignación de capital que a sustitución tecnológica ya probada.
+
+*Voz que aún no está en el mapa: vale considerar sumar.*
+
+*(Secundario también en: "La IA reduce los equipos de desarrollo de videojuegos a una sola persona en Turquía, mientras juniors, guionistas y artistas quedan afuera".)*
+
+---
+
+## Nodo 2. Productividad y desempeño de trabajadores con IA
+
+### Un estudio de OpenAI y Harvard presentado en el NBER muestra que el uso no laboral de ChatGPT ya supera el 70% de los mensajes
+
+**Fuente:** NBER Summer Institute, Digital Economics and Artificial Intelligence · **Fecha:** 2026-07-24 · **URL:** https://www.nber.org/papers/w34255
+
+David Deming presentó el 24 de julio, en la conferencia de Economía Digital e Inteligencia Artificial del NBER Summer Institute en Cambridge, una actualización del estudio "How People Use ChatGPT", elaborado junto a investigadores de OpenAI. El hallazgo central es que los mensajes no vinculados al trabajo crecieron del 53% a más del 70% del total de conversaciones, mientras las categorías "orientación práctica", "búsqueda de información" y "escritura" concentran casi el 80% de todo el uso registrado.
+
+El dato es relevante para el Nodo 2 porque complica la lectura directa entre adopción masiva de estas herramientas y ganancias de productividad laboral, si siete de cada diez usos ya no tienen fines de trabajo, buena parte de la conversación pública sobre sustitución de tareas debería ajustar su escala. Conecta con el Nodo 6 porque vuelve a plantear la brecha entre lo que un modelo puede hacer y lo que la gente efectivamente le pide, la misma pregunta que atraviesa el debate sobre qué miden los benchmarks de capacidades.
+
+*(Secundario también en: "El jefe de economía de Anthropic publica un ensayo que contradice las advertencias de Dario Amodei sobre desempleo masivo por IA".)*
+
+---
+
+## Nodo 3. Trabajo invisible / fantasma / data labor
+
+### Karen Hao advierte que la fuerza de trabajo oculta detrás de los modelos de lenguaje sigue sin recibir atención pese al escrutinio sobre seguridad
+
+**Fuente:** Bloomberg (entrevista de Mishal Husain a Karen Hao) · **Fecha:** 2026-07-24 · **URL:** https://www.bloomberg.com/features/2026-karen-hao-weekend-interview/
+
+En una entrevista publicada el 24 de julio, la periodista Karen Hao, autora de "Empire of AI", sostuvo que la creciente atención sobre incidentes de seguridad de los grandes modelos de lenguaje, como el reciente ataque a Hugging Face atribuido a un sistema autónomo de OpenAI, desvía la mirada de una pregunta más urgente. Según sus palabras, esa pregunta es "la fuerza de trabajo oculta detrás de estos modelos y las decisiones sobre escala, poder y ganancias", un asunto que rara vez se discute con el mismo nivel de detalle que la seguridad técnica.
+
+La intervención se inscribe en el Nodo 3 porque insiste en la genealogía de trabajo invisible que Hao viene documentando desde el caso Sama-Kenia, y conecta con el Nodo 7 porque enmarca la seguridad de la IA como una cortina que distrae de decisiones de concentración de poder corporativo. También roza el Nodo 11 al situar ese trabajo oculto en cadenas globales que exceden largamente a Silicon Valley, aunque la entrevista, resumida por fuentes secundarias por estar detrás de paywall, no detalla casos geográficos puntuales de esta semana.
+
+---
+
+## Nodo 4. Plataformas, gig economy y derecho laboral
+
+Sin novedades destacadas esta semana.
+
+---
+
+## Nodo 5. Vigilancia laboral y management algorítmico (bossware)
+
+Sin novedades destacadas esta semana.
+
+---
+
+## Nodo 6. Avances en capacidades de modelos / frontera técnica
+
+Sin novedades destacadas esta semana como nodo principal. Aparece como secundario en "Jensen Huang y otras 25 empresas piden a Washington no restringir los modelos abiertos de IA, en medio de la disputa por Kimi K3" (Nodo 7); "Un estudio de OpenAI y Harvard presentado en el NBER muestra que el uso no laboral de ChatGPT ya supera el 70% de los mensajes" (Nodo 2).
+
+---
+
+## Nodo 7. Concentración de poder, monopolios e infraestructura de IA
+
+### Jensen Huang y otras 25 empresas piden a Washington no restringir los modelos abiertos de IA, en medio de la disputa por Kimi K3
+
+**Fuente:** Fortune / X (@JensenHuang) · **Fecha:** 2026-07-24 · **URL:** https://fortune.com/2026/07/24/jensen-huang-open-source-letter-nvidia-kimi/
+
+El CEO de Nvidia, Jensen Huang, publicó el 24 de julio su primer posteo en X para difundir una carta abierta firmada por unas 25 empresas, entre ellas Microsoft, Meta, Hugging Face e IBM, que pide a Washington no restringir los modelos de peso abierto. La carta sostiene que "los modelos abiertos fortalecen la seguridad y la ciberseguridad, aceleran la innovación y la difusión, y habilitan la soberanía", y llega días después de que el modelo chino Kimi K3, de Moonshot AI, generara acusaciones de haber copiado a un modelo estadounidense mediante destilación.
+
+El episodio importa para el Nodo 7 porque pone en primer plano la tensión entre modelos abiertos y cerrados como vector de concentración o de democratización del cómputo, la pregunta que atraviesa ese nodo. Conecta con el Nodo 10 porque la carta busca incidir directamente en la política regulatoria estadounidense, y con el Nodo 6 porque la disputa por Kimi K3 vuelve a poner en duda qué mide realmente que un modelo "compita" en los benchmarks. Llama la atención que ni OpenAI ni Anthropic firmaron la carta, mientras semanas antes Xi Jinping había ocupado el mismo lugar retórico "pro-apertura" desde Beijing.
+
+*Voz que aún no está en el mapa: vale considerar sumar.*
+
+*(Secundario también en: "Karen Hao advierte que la fuerza de trabajo oculta detrás de los modelos de lenguaje sigue sin recibir atención pese al escrutinio sobre seguridad"; "Monday.com despide al 20% de su plantilla para reorientarse hacia una plataforma de trabajo con agentes de IA".)*
+
+---
+
+## Nodo 8. Negociación colectiva, huelgas y acción colectiva
+
+### Veinte comunidades informáticas argentinas firman un documento de consenso sobre soberanía tecnológica y gestión algorítmica del trabajo
+
+**Fuente:** Asociación Gremial de Computación (AGC), Foro del Conocimiento · **Fecha:** 2026-07-21 · **URL:** https://informaticos.ar/documento-de-consenso-de-las-comunidades/
+
+El Foro del Conocimiento de la Asociación Gremial de Computación (AGC) publicó el 21 de julio el documento de consenso surgido del primer Encuentro de Comunidades Informáticas, firmado por veinte organizaciones argentinas, desde FACTTIC hasta centros de estudiantes universitarios. El texto fija cinco ejes, entre ellos el rechazo a la "no neutralidad" de la IA y a los planteos de desregulación, y reclama diálogo social permanente frente a lo que describe como la extensión de la gestión algorítmica "más allá de las plataformas de reparto, hacia todos los sectores productivos".
+
+El documento interesa al Nodo 8 porque es un caso poco frecuente de construcción de posición colectiva por fuera del convenio formal, veinte comunidades diversas acordando una agenda común sobre IA y trabajo antes de que exista una mesa de negociación institucional. Conecta con el Nodo 10 al reclamar una "nube nacional" soberana como la de ARSAT frente al extractivismo digital, y con el Nodo 11 por situar ese reclamo en clave regional. Ningún autor del mapa participó directamente, pero la agenda dialoga con los planteos de Ramiro Albrieu o Beatriz Busaniche sobre regulación argentina de la IA.
+
+---
+
+## Nodo 9. Teoría / filosofía / futuro del trabajo
+
+### Bibliotecarios en Estados Unidos agotan cupos en talleres para enseñar a desactivar la IA en los dispositivos
+
+**Fuente:** TechCrunch · **Fecha:** 2026-07-25 · **URL:** https://techcrunch.com/2026/07/25/librarians-are-hosting-viral-avoiding-ai-workshops-for-people-who-are-fed-up-with-big-tech/
+
+TechCrunch reportó el 25 de julio que talleres llamados "Avoiding AI", nacidos en la biblioteca pública de Bangor, Maine, y replicados ya en Filadelfia y otras ciudades, agotan cupos con una demanda que sus organizadores describen como inédita frente a otros cursos de alfabetización digital. La bibliotecaria Hannah Cyrus, que inspiró el formato, resumió el reclamo que escucha a diario, por qué la IA "está tratando de escribir mis correos por mí" o de "resumir un correo de una sola oración que puedo leer fácilmente".
+
+El fenómeno aporta al Nodo 9 un dato cualitativo sobre el rechazo social a la adopción forzada de IA en dispositivos de consumo, un malestar que hasta ahora la literatura del nodo discutía sobre todo en términos de automatización del empleo y no de autonomía cotidiana frente al diseño de los productos. Roza también el Nodo 12 porque los propios bibliotecarios lo enmarcan como alfabetización digital, y sugiere que la resistencia a la IA puede crecer por motivos ajenos al mercado laboral, la fatiga con un diseño que impone su uso, algo que vale la pena diferenciar del rechazo por temor al desempleo.
+
+*Voz que aún no está en el mapa: vale considerar sumar.*
+
+---
+
+## Nodo 10. Política pública y regulación
+
+Sin novedades destacadas esta semana como nodo principal. Aparece como secundario en "Jensen Huang y otras 25 empresas piden a Washington no restringir los modelos abiertos de IA, en medio de la disputa por Kimi K3" (Nodo 7); "Veinte comunidades informáticas argentinas firman un documento de consenso sobre soberanía tecnológica y gestión algorítmica del trabajo" (Nodo 8).
+
+---
+
+## Nodo 11. Sur Global y desigualdades geográficas del trabajo IA
+
+Sin novedades destacadas esta semana como nodo principal. Aparece como secundario en "Karen Hao advierte que la fuerza de trabajo oculta detrás de los modelos de lenguaje sigue sin recibir atención pese al escrutinio sobre seguridad" (Nodo 3); "La IA reduce los equipos de desarrollo de videojuegos a una sola persona en Turquía, mientras juniors, guionistas y artistas quedan afuera" (Nodo 13); "Veinte comunidades informáticas argentinas firman un documento de consenso sobre soberanía tecnológica y gestión algorítmica del trabajo" (Nodo 8); "Tencent y ByteDance reclutan adolescentes para campamentos de IA ante un déficit proyectado de cinco millones de ingenieros en China" (Nodo 12).
+
+---
+
+## Nodo 12. Habilidades, formación y transiciones laborales
+
+### Tencent y ByteDance reclutan adolescentes para campamentos de IA ante un déficit proyectado de cinco millones de ingenieros en China
+
+**Fuente:** Rest of World · **Fecha:** 2026-07-21 · **URL:** https://restofworld.org/2026/china-tech-recruiting-teenagers-ai-shortage/
+
+Rest of World reportó el 21 de julio que empresas chinas como Tencent y ByteDance extendieron sus programas de captación de talento en IA hacia estudiantes de secundaria, con campamentos de entrenamiento y centros de investigación para menores de entre 13 y 18 años. McKinsey proyecta que China podría enfrentar un déficit de cinco millones de trabajadores de IA hacia 2030, y entre enero y mayo las empresas publicaron 3,08 vacantes de IA por cada candidato calificado, según la plataforma de reclutamiento Zhaopin.
+
+El caso aporta al Nodo 12 un ángulo poco explorado en el debate sobre formación y transiciones laborales, la competencia por talento se resuelve corriendo la edad de selección hacia la adolescencia en lugar de reconvertir a la fuerza de trabajo adulta ya disponible. Conecta con el Nodo 11 porque muestra una dinámica de escasez de capacidades que en buena parte del Sur Global suele leerse en sentido inverso, como exceso de oferta de trabajo barato y no como cuello de botella de talento de punta, una asimetría que vale la pena tener presente al comparar ambos contextos.
+
+*Voz que aún no está en el mapa: vale considerar sumar.*
+
+*(Secundario también en: "Bibliotecarios en Estados Unidos agotan cupos en talleres para enseñar a desactivar la IA en los dispositivos".)*
+
+---
+
+## Nodo 13. Estudios sectoriales / profesiones específicas
+
+### La IA reduce los equipos de desarrollo de videojuegos a una sola persona en Turquía, mientras juniors, guionistas y artistas quedan afuera
+
+**Fuente:** Rest of World · **Fecha:** 2026-07-20 · **URL:** https://restofworld.org/2026/ai-video-games-developer-jobs/
+
+Rest of World reportó el 20 de julio que en Turquía, uno de los mayores polos de desarrollo de videojuegos móviles de Europa, desarrolladores que antes lideraban equipos de una decena de personas ahora lanzan estudios propios con apenas dos empleados, apoyados en herramientas como Claude Code y Copilot. Según una encuesta reciente de GDC citada en la nota, más de una cuarta parte de los trabajadores de la industria del videojuego fue despedida en el mundo en los últimos dos años, mientras Microsoft anunciaba este mes el recorte de 3.200 puestos en Xbox.
+
+El reportaje aporta al Nodo 13 evidencia sectorial concreta, con nombres y testimonios, sobre cómo la IA generativa reconfigura una cadena de producción creativa completa. Conecta con el Nodo 1 porque documenta en el terreno el mismo fenómeno que otros estudios miden solo en agregado, la sustitución de plantillas junior por herramientas que un desarrollador experimentado puede operar solo. El caso turco, poco presente en la cobertura anglosajona habitual, también dialoga con el Nodo 11 al mostrar un polo de desarrollo fuera del eje EE.UU.-China que absorbe el impacto sin la protección institucional de esas economías.
+
+*Voz que aún no está en el mapa: vale considerar sumar.*
+
+---
+
+## Nodo 14. Trabajo de cuidado y reproducción social bajo IA (provisional)
+
+Sin novedades destacadas esta semana.
+
+---

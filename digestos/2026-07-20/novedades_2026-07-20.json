@@ -1,0 +1,113 @@
+{
+  "fecha_digesto": "2026-07-20",
+  "rango": {
+    "desde": "2026-07-13",
+    "hasta": "2026-07-19"
+  },
+  "items": [
+    {
+      "titulo": "Más de doscientos economistas, entre ellos dieciséis premios Nobel, firmaron un llamado a prepararse para una transformación económica impulsada por la IA",
+      "url": "https://www.wemustactnow.ai/",
+      "fecha_publicacion": "2026-07-13",
+      "fuente": "Stanford Digital Economy Lab",
+      "nodo_id": 1,
+      "nodos_secundarios": [9, 10, 12],
+      "autores_del_mapa": ["Daron Acemoglu", "David Autor", "Pascual Restrepo", "Erik Brynjolfsson", "Lawrence Katz", "Christopher Pissarides", "Daniel Susskind", "Jack Clark", "Sam Manning", "Anna Salomons", "David Deming", "Arvind Narayanan", "Anders Humlum", "Martin Beraja", "Ajay Agrawal", "Joshua Gans"],
+      "en_mapa": true,
+      "ranking_relevancia": 1,
+      "p1": "El 13 de julio el Stanford Digital Economy Lab publicó \"We Must Act Now\", una declaración breve firmada por más de doscientos economistas e investigadores, entre ellos dieciséis premios Nobel. El texto sostiene que la IA \"podría volverse radicalmente más poderosa en la próxima década\" y que eso podría producir una transformación económica \"mayor que la Revolución Industrial, pero desplegándose en un marco de tiempo mucho más corto\", con riesgos que incluyen desplazamiento laboral a gran escala.",
+      "p2": "Lo relevante no es tanto el contenido, bastante genérico, sino la lista de firmantes, que junta en un mismo documento a Daron Acemoglu y David Autor, del Nodo 1, con ejecutivos de OpenAI y Anthropic. Varios medios señalaron que Acemoglu, que hasta hace poco cuestionaba los pronósticos más alarmistas sobre desempleo tecnológico, ahora suscribe un texto que habla de riesgos de desplazamiento laboral a gran escala, un giro que probablemente se discuta en los próximos meses."
+    },
+    {
+      "titulo": "Un working paper con datos de Upwork encuentra que la IA generativa empieza a \"comoditizar\" ciertas credenciales de capital humano",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6968139",
+      "fecha_publicacion": "2026-07-15",
+      "fuente": "SSRN (Auyon Siddiq y Niuniu Zhang)",
+      "nodo_id": 2,
+      "nodos_secundarios": [4],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 2,
+      "p1": "Un working paper subido a SSRN el 15 de julio por Auyon Siddiq y Niuniu Zhang usa datos de contratos de Upwork, con perfiles de freelancers representados mediante embeddings de texto, para preguntar si la IA generativa cambió cómo el mercado valora el capital humano. El paper plantea si credenciales que antes diferenciaban a un trabajador empiezan a perder valor, aunque el acceso público se limita por ahora al resumen.",
+      "p2": "Es un aporte al Nodo 2 porque ataca la pregunta de quién captura las ganancias de productividad no ya a nivel de empresas sino de trabajadores individuales dentro de un mercado de plataformas, lo que lo conecta con el Nodo 4. Ni Siddiq ni Zhang figuran en el mapa, son voces nuevas para el fenómeno de comoditización del capital humano vía IA, un ángulo que los autores del mapa venían discutiendo sobre todo con datos de call centers o programadores asalariados, no de freelancers."
+    },
+    {
+      "titulo": "Fundadores de startups tecnológicas en EE.UU. dicen necesitar bastante menos personal gracias a la IA generativa, según una encuesta de Harvard Business School",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6962978",
+      "fecha_publicacion": "2026-07-14",
+      "fuente": "SSRN (Innessa Colaiacovo y Rembrand Koning)",
+      "nodo_id": 2,
+      "nodos_secundarios": [1],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 3,
+      "p1": "Innessa Colaiacovo y Rembrand Koning, de Harvard Business School, subieron a SSRN el 14 de julio un paper que encuesta a fundadores de startups tecnológicas norteamericanas sobre su experiencia con IA generativa. Encuentran heterogeneidad sustancial en cuánto personal adicional estiman que necesitarían si no tuvieran acceso a estas herramientas, con varios fundadores reportando que podrían haber construido su empresa actual con una fracción del equipo que hubiera hecho falta hace pocos años.",
+      "p2": "Interesa al Nodo 2 porque son los propios empleadores, no encuestas a trabajadores ni experimentos de laboratorio, quienes reportan cuánta plantilla están dejando de contratar. Conecta con el Nodo 1 porque ese personal no contratado no aparece en ninguna estadística de despidos, es empleo que simplemente no se creó. Rembrand Koning también firmó la declaración de Stanford de esta misma semana, un cruce entre ambos ítems que vale la pena seguir."
+    },
+    {
+      "titulo": "Sarah O'Connor publicó \"We Are Not Machines\", un libro que traza la continuidad entre el taylorismo y la vigilancia algorítmica actual",
+      "url": "https://www.infobae.com/cultura/2026/07/13/la-inteligencia-artificial-bajo-la-lupa-y-el-debate-sobre-el-trabajo/",
+      "fecha_publicacion": "2026-07-13",
+      "fuente": "Financial Times / Infobae (reseña)",
+      "nodo_id": 5,
+      "nodos_secundarios": [1],
+      "autores_del_mapa": ["Sarah O'Connor"],
+      "en_mapa": true,
+      "ranking_relevancia": 4,
+      "p1": "Infobae reseñó el 13 de julio \"We Are Not Machines\", el libro de Sarah O'Connor, columnista de Financial Times hace casi dos décadas. O'Connor documenta, entre otros casos, el almacén EMA4 de Amazon en Sutton Coldfield, donde trabajadores remotos en Costa Rica e India revisan hasta 8.000 videos por semana para auditar cámaras con IA. Su argumento central es que la automatización no elimina el trabajo humano, produce una nueva línea de producción dedicada a supervisar y corregir a la máquina.",
+      "p2": "El libro aporta al Nodo 5 porque O'Connor sitúa la vigilancia algorítmica actual en una genealogía que empieza con Taylor, no como una ruptura sino como una intensificación de una lógica previa, \"ideas poderosas\" que entran \"por la puerta de atrás\" con cada herramienta que se presenta como neutral. Conecta con el Nodo 1 porque O'Connor no describe a los trabajadores como actores pasivos, cita el caso de los guionistas de WGA como ejemplo de disputa exitosa sobre las reglas de uso de la IA."
+    },
+    {
+      "titulo": "Moonshot AI lanzó Kimi K3, el modelo abierto más grande hasta ahora, y desafía la idea de que solo los laboratorios cerrados de EE.UU. definen la frontera de capacidades",
+      "url": "https://fortune.com/2026/07/16/moonshots-kimi-k3-pushes-chinese-ai-into-fable-level-territory/",
+      "fecha_publicacion": "2026-07-16",
+      "fuente": "Fortune / TechCrunch / MarkTechPost",
+      "nodo_id": 6,
+      "nodos_secundarios": [7],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 5,
+      "p1": "El 16 de julio la firma china Moonshot AI presentó Kimi K3, un modelo de 2,8 billones de parámetros con ventana de contexto de un millón de tokens, que según sus propias pruebas compite con Claude Fable 5 y supera a modelos como GPT-5.6 Sol en varios benchmarks. Cuesta 15 dólares por millón de tokens de salida, frente a los 50 dólares de Fable, aunque sus pesos abiertos recién se liberarán el 27 de julio.",
+      "p2": "Al Nodo 6 le aporta un caso concreto para la pregunta sobre qué miden realmente los benchmarks, si Kimi K3 \"compite\" con los modelos de punta en pruebas estandarizadas pero eso se traduce o no en capacidad real para tareas de trabajo sigue siendo una pregunta abierta que Gary Marcus o Arvind Narayanan probablemente van a plantear. También conecta con el Nodo 7, porque un modelo abierto y más barato que se acerca a la frontera complica el argumento de que la concentración de capacidades es inevitable."
+    },
+    {
+      "titulo": "Una encuesta a profesionales TIC españoles encuentra que el uso de IA ya es casi universal, y que el miedo al despido crece más rápido que el año pasado",
+      "url": "https://www.itreseller.es/al-dia/2026/07/la-inteligencia-artificial-ya-es-universal-entre-los-profesionales-tic",
+      "fecha_publicacion": "2026-07-14",
+      "fuente": "InfoJobs (España)",
+      "nodo_id": 12,
+      "nodos_secundarios": [1],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 6,
+      "p1": "La tercera encuesta de InfoJobs a profesionales del sector TIC en España, difundida esta semana, encontró que el 94% conoce herramientas de IA y el 91% las usa en su trabajo, muy por encima del 63% de uso registrado entre la población laboral general. El 52% considera que la implementación de IA podría provocar despidos, diez puntos porcentuales más que el año anterior.",
+      "p2": "No es evidencia sobre América Latina ni sobre el eje anglosajón que domina la mayoría de los ítems de este digesto, España no encaja del todo en el mapa de fuentes prioritarias, pero sirve como comparación para el Nodo 12 porque muestra que el temor al desplazamiento crece más rápido que la propia curva de adopción, incluso en un mercado laboral con protecciones más fuertes que el estadounidense."
+    },
+    {
+      "titulo": "Un ejecutivo de Accenture describe cómo el límite de tokens de los modelos de lenguaje empieza a organizar la jornada laboral en Silicon Valley",
+      "url": "https://www.lanacion.com.ar/tecnologia/la-nueva-jornada-laboral-que-impuso-la-ia-en-silicon-valley-y-que-pronto-llegara-a-la-argentina-nid17072026/",
+      "fecha_publicacion": "2026-07-17",
+      "fuente": "La Nación (entrevista a Eric Gorescu, Accenture)",
+      "nodo_id": 9,
+      "nodos_secundarios": [13],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 7,
+      "p1": "En una entrevista publicada el 17 de julio, Eric Gorescu, digital core lead de Accenture para Latinoamérica, describió un fenómeno que dice estar viendo en startups de Silicon Valley, personas que organizan su día según el reloj de renovación de tokens de sus planes de IA, trabajando mientras dura la cuota disponible y ocupándose de otros asuntos cuando se agota. Gorescu anticipa que esa dinámica \"pronto llegará\" a la Argentina.",
+      "p2": "Es un ítem débil en términos de evidencia, un solo testimonio de un ejecutivo de consultora sin datos que lo respalden, pero describe algo que todavía no aparece en la literatura del Nodo 9 sobre teoría del trabajo, una jornada organizada no por el reloj ni por la tarea sino por el límite de consumo de un servicio. Conecta con el Nodo 13 en tanto sería un patrón que emergería primero en empresas de software antes de extenderse a otros sectores."
+    },
+    {
+      "titulo": "Una columna de opinión en CGTN contrasta un modelo estadounidense concentrado con una propuesta china de \"cooperación Sur-Sur\" para pensar la soberanía digital de América Latina",
+      "url": "https://news.cgtn.com/news/2026-07-17/AI-as-an-instrument-of-sovereignty-Considerations-for-Latin-America-1OQZsMSqtqM/share_amp.html",
+      "fecha_publicacion": "2026-07-17",
+      "fuente": "CGTN (columna de opinión, Lidia Fagale)",
+      "nodo_id": 11,
+      "nodos_secundarios": [7],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 8,
+      "p1": "CGTN, el medio internacional financiado por el Estado chino, publicó el 17 de julio una columna de opinión de la periodista Lidia Fagale que sostiene que el 80% de la capacidad de cómputo global usada para entrenar modelos de IA está controlada por cinco empresas estadounidenses, y contrasta ese modelo con lo que describe como una propuesta china de cooperación Sur-Sur centrada en las personas. La cifra del 80% no pudimos verificarla de forma independiente.",
+      "p2": "Vale incluirlo con una salvedad importante, es una columna de opinión en un medio alineado con el Estado chino, no un análisis académico, y su contraste entre \"modelo del Norte\" y \"modelo chino\" simplifica bastante las cosas. Aun así toca el Nodo 11 de un modo que rara vez aparece en medios anglosajones, y su argumento sobre la fragmentación regional como principal obstáculo para la soberanía digital coincide, sin citarlas, con líneas de trabajo de Cecilia Rikap y Paola Ricaurte."
+    }
+  ]
+}
