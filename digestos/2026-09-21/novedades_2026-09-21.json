@@ -1,0 +1,75 @@
+{
+  "fecha_digesto": "2026-09-21",
+  "rango": {
+    "desde": "2026-09-14",
+    "hasta": "2026-09-20"
+  },
+  "items": [
+    {
+      "titulo": "The Economist calcula que la IA ya creó más empleo del que destruyó en Estados Unidos",
+      "url": "https://www.infobae.com/economist/2026/09/20/el-apocalipsis-laboral-se-ha-pospuesto-llego-el-auge-del-empleo-impulsado-por-la-ia/",
+      "fecha_publicacion": "2026-09-20",
+      "fuente": "The Economist (vía Infobae)",
+      "nodo_id": 1,
+      "nodos_secundarios": [12],
+      "autores_del_mapa": [],
+      "en_mapa": true,
+      "ranking_relevancia": 1
+    },
+    {
+      "titulo": "Guardias que custodian a OpenAI y Anthropic se declaran en huelga en San Francisco",
+      "url": "https://sfstandard.com/2026/09/18/california-security-guard-workers-strike/",
+      "fecha_publicacion": "2026-09-18",
+      "fuente": "The San Francisco Standard",
+      "nodo_id": 8,
+      "nodos_secundarios": [5, 1, 3],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 2
+    },
+    {
+      "titulo": "Gary Marcus plantea que la cumbre Trump-Xi del 24 de septiembre puede abrir una ventana regulatoria",
+      "url": "https://garymarcus.substack.com/p/president-trumps-date-with-destiny",
+      "fecha_publicacion": "2026-09-14",
+      "fuente": "Gary Marcus, Marcus on AI (Substack)",
+      "nodo_id": 10,
+      "nodos_secundarios": [6],
+      "autores_del_mapa": ["Gary Marcus"],
+      "en_mapa": true,
+      "ranking_relevancia": 3
+    },
+    {
+      "titulo": "Mariana Mazzucato presenta The Common Good Economy y cuestiona quién capitaliza las ganancias de la IA",
+      "url": "https://www.democracynow.org/2026/9/15/mariana_mazzucato_capitalism",
+      "fecha_publicacion": "2026-09-15",
+      "fuente": "Democracy Now!",
+      "nodo_id": 7,
+      "nodos_secundarios": [9],
+      "autores_del_mapa": ["Mariana Mazzucato"],
+      "en_mapa": true,
+      "ranking_relevancia": 4
+    },
+    {
+      "titulo": "Ethan Mollick describe el \"overhang\" de capacidades y los rasgos humanos que la IA todavía no reemplaza",
+      "url": "https://www.oneusefulthing.org/p/the-overhang",
+      "fecha_publicacion": "2026-09-18",
+      "fuente": "One Useful Thing (Ethan Mollick)",
+      "nodo_id": 2,
+      "nodos_secundarios": [13, 12],
+      "autores_del_mapa": ["Mollick"],
+      "en_mapa": true,
+      "ranking_relevancia": 5
+    },
+    {
+      "titulo": "Ms. Magazine cuestiona la \"inteligencia artificial feminista\" como sustituto del trabajo de cuidado",
+      "url": "https://msmagazine.com/2026/09/16/artificial-feminist-intelligence-ai-care-work/",
+      "fecha_publicacion": "2026-09-16",
+      "fuente": "Ms. Magazine",
+      "nodo_id": 14,
+      "nodos_secundarios": [],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 6
+    }
+  ]
+}
