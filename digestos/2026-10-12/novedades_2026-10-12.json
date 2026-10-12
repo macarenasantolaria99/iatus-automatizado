@@ -1,0 +1,91 @@
+{
+  "fecha_digesto": "2026-10-12",
+  "rango": {
+    "desde": "2026-10-05",
+    "hasta": "2026-10-11"
+  },
+  "items": [
+    {
+      "titulo": "Autor y Rodchenko (Google Research y NBER) encuentran que la IA mejora el trabajo de abogados de patentes, pero solo los seniors conservan la pericia sin ella",
+      "url": "https://research.google/blog/does-better-work-always-mean-better-workers",
+      "fecha_publicacion": "2026-10-07",
+      "fuente": "Google Research (David Autor y Tanya Rodchenko), paper NBER w35720",
+      "nodo_id": 13,
+      "nodos_secundarios": [
+        2,
+        12
+      ],
+      "autores_del_mapa": [
+        "David Autor"
+      ],
+      "en_mapa": true,
+      "ranking_relevancia": 1,
+      "parrafo_1": "Autor y Tanya Rodchenko, con cinco coautores, reportan un ensayo aleatorizado y preregistrado de tres meses con 133 abogados de patentes en once firmas de propiedad intelectual. Con el asistente de redacción la calidad subió 0,34 desvíos estándar a los diez días y 0,38 a los noventa. Ya sin IA, en la revisión de una patente con errores, el grupo tratado superó al control por 0,32 DE, pero ese efecto se explica por los seniors (0,45). Los juniors no mostraron mejora media y sus puntajes se polarizaron.",
+      "parrafo_2": "Pone a prueba una pregunta del nodo 2 y del 12, si trabajar con IA mejora o erosiona la pericia de quien está aprendiendo, y la respuesta depende de la antigüedad. Se conecta con la discusión sobre el empleo de entrada que viene documentando Brynjolfsson. Los autores marcan límites claros, una muestra chica, tres meses de observación y modelos que ya cambiaron. La fecha es la del post de Google Research. El NBER consigna septiembre y una revisión en octubre, y no leí el paper completo."
+    },
+    {
+      "titulo": "OpenAI publica 722 manuscritos matemáticos generados por IA y la profesión reacciona entre el entusiasmo y el rechazo",
+      "url": "https://www.nature.com/articles/d41586-026-03196-8",
+      "fecha_publicacion": "2026-10-06",
+      "fuente": "Nature, Daily Nous, con comentarios de Marcus on AI y Exponential View",
+      "nodo_id": 13,
+      "nodos_secundarios": [
+        6,
+        9
+      ],
+      "autores_del_mapa": [
+        "Gary Marcus",
+        "Azeem Azhar"
+      ],
+      "en_mapa": true,
+      "ranking_relevancia": 2,
+      "parrafo_1": "El 6 de octubre OpenAI subió a GitHub 722 manuscritos con 337 resultados producidos por un modelo no publicado, según Daily Nous. Nature recoge la reacción de Ursula Martin, de Oxford, para quien es \"tossing the community a messy first draft and expecting us to clean it up for them\", y la de Michael Harris, que dijo que no puede dedicarse a estudiarlos. Levent Alpöge, de Anthropic, admitió que habrá \"sad stories\" para quienes queden anticipados. Ninguna de las fuentes describe una verificación independiente.",
+      "parrafo_2": "Es un caso sectorial del nodo 13 sobre qué le pasa a una profesión cuando la producción de resultados se desacopla de la capacidad de verificarlos, porque el costo de revisar recae sobre la comunidad. Toca el nodo 6, ya que no hay evaluación externa de las capacidades, y el 9, por la pregunta de qué queda para el trabajo humano. Marcus criticó el 7 de octubre que falten detalles del procedimiento y Azhar escribió ese día sobre cómo no perder comprensión. Los comentarios sobre formalización en Lean son de lectores, sin confirmar."
+    },
+    {
+      "titulo": "Amazon recortaría menos de mil puestos de oficina, sin que el reporte los atribuya a la IA",
+      "url": "https://www.foxbusiness.com/economy/amazon-cut-nearly-1000-white-collar-jobs-across-stores-division-other-units-report",
+      "fecha_publicacion": "2026-10-08",
+      "fuente": "Reuters, vía Fox Business",
+      "nodo_id": 1,
+      "nodos_secundarios": [],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 3,
+      "parrafo_1": "Reuters informó el 8 de octubre, citando a una persona familiarizada con el asunto, que Amazon eliminaría menos de mil puestos de oficina en la división de tiendas, atención al cliente y servicios a vendedores, con personas afectadas en Estados Unidos, India y Reino Unido. Se suman a unos 30.000 recortes desde fines del año pasado. Un vocero dijo \"we've made the difficult decision to eliminate a small number of roles\" y habló de revisar las estructuras de los equipos para moverse con rapidez.",
+      "parrafo_2": "La nota no vincula los recortes con la IA y no corresponde hacerlo sin evidencia. Interesa al nodo 1 justamente por eso, porque la atribución causal de los despidos anunciados es la parte en disputa del debate, y es el tipo de caso en el que Acemoglu o Autor pedirían distinguir reestructuración de sustitución por tecnología. Lo incluyo como dato del sector, de bajo peso, y The Information tuvo un breve sobre el mismo hecho al que no pude acceder."
+    },
+    {
+      "titulo": "El Concejo de Nueva York debate un paquete de seguridad de IA con validación por terceros y protección a denunciantes, con el trabajo casi ausente",
+      "url": "https://thenextweb.com/news/nyc-council-ai-hearing-coxon-kokotajlo-turner",
+      "fecha_publicacion": "2026-10-05",
+      "fuente": "The Next Web y Let's Data Science, con aviso previo de Gary Marcus",
+      "nodo_id": 10,
+      "nodos_secundarios": [
+        7
+      ],
+      "autores_del_mapa": [
+        "Gary Marcus"
+      ],
+      "en_mapa": false,
+      "ranking_relevancia": 4,
+      "parrafo_1": "El 5 de octubre el Comité del Pleno del Concejo de Nueva York realizó una audiencia sobre riesgos de la IA con ex investigadores de OpenAI, Anthropic y DeepMind, y con representantes de Anthropic, OpenAI, Google y Meta. El paquete incluye la Introducción 2602, que exigiría validación por terceros y una capacidad de apagado humano antes de desplegar un sistema, además de incentivos y protecciones para denunciantes. Son propuestas, no leyes promulgadas, y no encontré votaciones.",
+      "parrafo_2": "La cobertura consultada no trata empleo ni condiciones de trabajo, salvo de costado. Jacob Coxon dijo que la IA ya escribe la mayor parte del código en esos laboratorios con menos revisión humana, y la figura del denunciante es una cuestión laboral. Sirve para el nodo 10, que pregunta si la regulación contempla al trabajo como dimensión protegida, y la respuesta aquí parece ser que no. Marcus anticipó que apoyaría el modelo de validación tipo FDA. La fuente principal no figura en el mapa."
+    },
+    {
+      "titulo": "Finlandia ordena frenar obras de centros de datos de Google en Muhos y Kajaani por falta de evaluación ambiental",
+      "url": "https://www.aljazeera.com/news/2026/10/7/finland-orders-halt-to-work-on-google-data-sites-over-environment-concerns",
+      "fecha_publicacion": "2026-10-07",
+      "fuente": "Al Jazeera",
+      "nodo_id": 7,
+      "nodos_secundarios": [
+        10
+      ],
+      "autores_del_mapa": [],
+      "en_mapa": false,
+      "ranking_relevancia": 5,
+      "parrafo_1": "Según Al Jazeera, la agencia finlandesa LVV exigió a Tuike Finland suspender las obras a más tardar el 23 de octubre y presentar explicaciones antes del 14, ante la sospecha de que se talaron más de 300 hectáreas de bosque sin la evaluación de impacto ambiental obligatoria. Google reconoció deficiencias y dijo que seguirá la guía de la agencia. En septiembre había anunciado una inversión de 13.000 millones de euros en Finlandia para los próximos dos años.",
+      "parrafo_2": "Es un hecho de infraestructura y su vínculo con el trabajo es indirecto, de ahí el peso bajo. Importa al nodo 7 porque muestra a un regulador local poniendo un límite físico y procedimental a la expansión de capacidad de cómputo, y al 10 por el uso de la evaluación ambiental como instrumento. La nota no da cifras de empleo asociado, así que no puedo decir nada sobre el trabajo que esa inversión generaría."
+    }
+  ]
+}
